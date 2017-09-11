@@ -72,9 +72,9 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
                 .build(getActivity());
         // 绑定流光特效回调
         mFocusBorder.boundGlobalFocusListener(this);
-        BorderView border = new BorderView(getActivity());
+        BorderView border = new BorderView(getContext());
         border.setBackgroundResource(R.drawable.border_drawable);
-//        border.attachTo(tvRelativelayoutList);
+        border.attachTo(tvRelativelayoutList);
         rf1.setOnFocusChangeListener(this);
         // 确保首页首项获取焦点
         rf1.post(new Runnable()

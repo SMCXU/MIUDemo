@@ -1,5 +1,6 @@
 package com.example.zlq_pc.miudemo.weight_flash;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
@@ -181,6 +182,7 @@ public class BorderView<X extends View>
         detachFrom(mViewGroup);
     }
     
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void detachFrom(ViewGroup viewGroup)
     {
         try

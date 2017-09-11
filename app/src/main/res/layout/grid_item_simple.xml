@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_margin="@dimen/x20"
+    android:padding="@dimen/x20"
+    android:clipToPadding="false"
+    android:orientation="vertical" >
+
+    <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+        android:background="@drawable/bg_textview_red"
+        android:id="@+id/iv_app"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x200"
+        android:layout_weight="4"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:text="123木头人"
+        android:singleLine="true"
+        android:textSize="@dimen/x20"
+        android:textColor="@android:color/white"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal" />
+
+</com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout>
+

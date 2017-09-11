@@ -3,12 +3,14 @@ package com.example.zlq_pc.miudemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.zlq_pc.miudemo.adapter.GridAdapter;
+import com.example.zlq_pc.miudemo.weight_flash.FocusBorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class AppFragment extends Fragment {
     Unbinder unbinder;
     private List<String> mList;
     private GridAdapter adapter;
+    private FocusBorder mFocusBorder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,8 +64,13 @@ public class AppFragment extends Fragment {
 
     //初始化view
     private void initView() {
+        // 实例话流光特效控件
+        mFocusBorder = new FocusBorder.Builder().asColor()
+                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f)
+                .borderColor(getResources().getColor(R.color.white))
+                .build(getActivity());
         mList = new ArrayList<>();
-        adapter = new GridAdapter(getContext(), mList);
+        adapter = new GridAdapter(getContext(), mList,mFocusBorder);
         gvApp.setAdapter(adapter);
     }
 
@@ -71,4 +79,6 @@ public class AppFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }
