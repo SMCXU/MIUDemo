@@ -18,11 +18,11 @@
             android:focusable="false">
 
             <com.example.zlq_pc.miudemo.weight_flash.TvZorderRelativeLayout
-                android:layout_marginTop="@dimen/x80"
                 android:id="@+id/tv_relativelayout_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="left|center"
+                android:layout_marginTop="@dimen/x80"
                 android:clipToPadding="false"
                 android:focusable="false"
                 android:gravity="center"
@@ -51,6 +51,7 @@
                         android:textSize="15sp" />
 
                 </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+
                 <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
                     android:id="@+id/rf_2"
                     android:layout_width="@dimen/x420"
@@ -73,6 +74,7 @@
                         android:textSize="15sp" />
 
                 </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+
                 <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
                     android:id="@+id/rf_3"
                     android:layout_width="@dimen/x480"
@@ -100,11 +102,11 @@
                     android:id="@+id/rf_4"
                     android:layout_width="@dimen/x370"
                     android:layout_height="@dimen/x160"
-                    android:layout_margin="@dimen/x10"
                     android:layout_below="@id/rf_1"
+                    android:layout_margin="@dimen/x10"
                     android:background="@color/cadetblue"
-                    android:nextFocusUp="@id/rf_1"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:nextFocusUp="@id/rf_1">
 
                     <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
                         android:id="@+id/mt_4"
@@ -119,17 +121,18 @@
                         android:textSize="15sp" />
 
                 </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+
                 <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
                     android:id="@+id/rf_5"
                     android:layout_width="@dimen/x170"
                     android:layout_height="@dimen/x160"
-                    android:layout_margin="@dimen/x10"
-                    android:layout_toRightOf="@id/rf_4"
-                    android:layout_toEndOf="@id/rf_4"
                     android:layout_below="@id/rf_1"
+                    android:layout_margin="@dimen/x10"
+                    android:layout_toEndOf="@id/rf_4"
+                    android:layout_toRightOf="@id/rf_4"
                     android:background="@color/cadetblue"
-                    android:nextFocusUp="@id/rf_1"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:nextFocusUp="@id/rf_1">
 
                     <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
                         android:id="@+id/mt_5"
@@ -144,17 +147,18 @@
                         android:textSize="15sp" />
 
                 </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+
                 <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
                     android:id="@+id/rf_6"
                     android:layout_width="@dimen/x420"
                     android:layout_height="@dimen/x160"
-                    android:layout_margin="@dimen/x10"
-                    android:layout_toRightOf="@id/rf_5"
-                    android:layout_toEndOf="@id/rf_5"
                     android:layout_below="@id/rf_2"
+                    android:layout_margin="@dimen/x10"
+                    android:layout_toEndOf="@id/rf_5"
+                    android:layout_toRightOf="@id/rf_5"
                     android:background="@color/cadetblue"
-                    android:nextFocusUp="@id/rf_2"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:nextFocusUp="@id/rf_2">
 
                     <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
                         android:id="@+id/mt_6"
@@ -169,17 +173,18 @@
                         android:textSize="15sp" />
 
                 </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+
                 <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
                     android:id="@+id/rf_7"
                     android:layout_width="@dimen/x480"
                     android:layout_height="@dimen/x160"
-                    android:layout_margin="@dimen/x10"
-                    android:layout_toRightOf="@id/rf_6"
-                    android:layout_toEndOf="@id/rf_6"
                     android:layout_below="@id/rf_3"
+                    android:layout_margin="@dimen/x10"
+                    android:layout_toEndOf="@id/rf_6"
+                    android:layout_toRightOf="@id/rf_6"
                     android:background="@color/cadetblue"
-                    android:nextFocusUp="@id/rf_3"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:nextFocusUp="@id/rf_3">
 
                     <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
                         android:id="@+id/mt_7"
