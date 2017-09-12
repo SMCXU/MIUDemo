@@ -1,6 +1,7 @@
 package com.example.zlq_pc.miudemo.weight_flash;
 
 import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -95,6 +96,7 @@ public class DrawableFocusBorder extends AbsFocusBorder
             return build(parent);
         }
         
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public FocusBorder build(ViewGroup parent)
         {

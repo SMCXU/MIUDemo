@@ -34,12 +34,13 @@ public class TvZorderRelativeLayout extends RelativeLayout
         if (pos >= 0 && pos < getChildCount())
         {
             setCurrentPosition(pos);
+//            使用postInvalidate可以直接在线程中更新界面
             postInvalidate();
         }
         
         return super.dispatchKeyEvent(event);
     }
-    
+//    改变子view绘制顺序
     @Override
     protected int getChildDrawingOrder(int childCount, int i)
     {

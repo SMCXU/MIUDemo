@@ -315,7 +315,7 @@ public class BorderEffect implements BorderView.Effect
                 oldHeight = newHeight;
                 oldWidth = newWidth;
             }
-            
+//          PropertyValuesHolder这个类可以先将动画属性和值暂时的存储起来，后一起执行，在有些时候可以使用替换掉AnimatorSet，减少代码量
             PropertyValuesHolder valuesWithdHolder = PropertyValuesHolder.ofInt("width", oldWidth, newWidth);
             PropertyValuesHolder valuesHeightHolder = PropertyValuesHolder.ofInt("height", oldHeight, newHeight);
             PropertyValuesHolder valuesXHolder = PropertyValuesHolder.ofFloat("translationX", oldXY[0], newXY[0]);
@@ -528,9 +528,9 @@ public class BorderEffect implements BorderView.Effect
             ViewGroup viewGroup = (ViewGroup)attachView.getRootView();
             if (target.getParent() != null && target.getParent() != viewGroup)
             {
-                target.setVisibility(View.GONE);
-                if (mFirstFocus)
-                    viewGroup.requestFocus();
+//                target.setVisibility(View.GONE);
+//                if (mFirstFocus)
+//                    viewGroup.requestFocus();
             }
         }
         catch (Exception ex)

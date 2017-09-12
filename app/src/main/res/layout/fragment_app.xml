@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:padding="@dimen/x50"
+
     android:focusable="false"
     tools:context="com.example.zlq_pc.miudemo.AppFragment">
 
     <GridView
         android:focusable="false"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/x50"
-        android:layout_marginRight="@dimen/x50"
-        android:layout_margin="@dimen/x10"
+        android:layout_margin="@dimen/x100"
         android:id="@+id/gv_app"
         android:horizontalSpacing="@dimen/x10"
         android:verticalSpacing="@dimen/x10"

@@ -25,7 +25,8 @@ public class TvZorderLinearLayout extends LinearLayout
     {
         this.position = pos;
     }
-    
+
+//    重写该方法,改变item绘制顺序
     @Override
     protected int getChildDrawingOrder(int childCount, int i)
     {

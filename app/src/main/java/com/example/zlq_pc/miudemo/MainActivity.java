@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -35,13 +36,15 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         initView();
         initFragment();
     }
-//初始化并设置view
+
+    //初始化并设置view
     private void initView() {
         rbSearch.setOnFocusChangeListener(this);
         rbRecommend.setOnFocusChangeListener(this);
         rbApp.setOnFocusChangeListener(this);
     }
-//初始化Fragment
+
+    //初始化Fragment
     private void initFragment() {
         fragments = new ArrayList<>();
         fragments.add(new SearchFragment());
@@ -57,15 +60,21 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         setTitleTextColor(rbSearch);
+                        rbSearch.setFocusable(true);
+                        rbSearch.requestFocus();
                         break;
                     case 1:
                         setTitleTextColor(rbRecommend);
+                        rbRecommend.setFocusable(true);
+                        rbRecommend.requestFocus();
                         break;
                     case 2:
                         setTitleTextColor(rbApp);
+                        rbApp.setFocusable(true);
+                        rbApp.requestFocus();
                         break;
 
                 }
@@ -77,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
             }
         });
         vpContener.setAdapter(adapter);
-        //精品页为默认页
+//        //精品页为默认页
         rbRecommend.setFocusable(true);
         rbRecommend.requestFocus();
 
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
 
     //设置选中时title的颜色
     private void setTitleTextColor(RadioButton rb) {
-       List<RadioButton> mList = new ArrayList<>();
+        List<RadioButton> mList = new ArrayList<>();
         mList.add(rbSearch);
         mList.add(rbRecommend);
         mList.add(rbApp);
@@ -94,21 +103,25 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         mList.get(0).setTextColor(getResources().getColor(R.color.white));
         mList.get(1).setTextColor(getResources().getColor(R.color.white));
     }
-//焦点变化,切换页面
+
+    //焦点变化,切换页面
     @Override
     public void onFocusChange(View view, boolean b) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rb_search:
+                Log.d("Mr.U", "onFocusChange: rb_search");
                 setTitleTextColor(rbSearch);
-                vpContener.setCurrentItem(0,false);
+                vpContener.setCurrentItem(0, false);
                 break;
             case R.id.rb_recommend:
+                Log.d("Mr.U", "onFocusChange: rb_recommend");
                 setTitleTextColor(rbRecommend);
-                vpContener.setCurrentItem(1,false);
+                vpContener.setCurrentItem(1, false);
                 break;
             case R.id.rb_app:
+                Log.d("Mr.U", "onFocusChange: rb_app");
                 setTitleTextColor(rbApp);
-                vpContener.setCurrentItem(2,false);
+                vpContener.setCurrentItem(2, false);
                 break;
         }
     }

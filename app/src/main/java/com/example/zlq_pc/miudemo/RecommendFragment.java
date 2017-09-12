@@ -2,6 +2,7 @@ package com.example.zlq_pc.miudemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,18 +107,25 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
             switch (newFocus.getId())
             {
                 case R.id.rf_1:
+                    Log.d("Mr.U", "onFocus: rf1");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_2:
+                    Log.d("Mr.U", "onFocus: rf2");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_3:
+                    Log.d("Mr.U", "onFocus: rf3");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_4:
+                    Log.d("Mr.U", "onFocus: rf4");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_5:
+                    Log.d("Mr.U", "onFocus: rf5");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_6:
+                    Log.d("Mr.U", "onFocus: rf6");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_7:
+                    Log.d("Mr.U", "onFocus: rf7");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 default:
                     break;
