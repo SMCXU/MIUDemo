@@ -11,6 +11,8 @@ import android.widget.GridView;
 
 import com.example.zlq_pc.miudemo.adapter.GridAdapter;
 import com.example.zlq_pc.miudemo.weight_flash.FocusBorder;
+import com.example.zlq_pc.miudemo.weight_flash.weight_recycle.CustomRecyclerView;
+import com.example.zlq_pc.miudemo.weight_flash.weight_recycle.HomeTvAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,10 @@ import butterknife.Unbinder;
 public class AppFragment extends Fragment {
 
     @BindView(R.id.gv_app)
-    GridView gvApp;
+    CustomRecyclerView gvApp;
     Unbinder unbinder;
     private List<String> mList;
-    private GridAdapter adapter;
+    private HomeTvAdapter adapter;
     private FocusBorder mFocusBorder;
 
     @Override
@@ -70,7 +72,7 @@ public class AppFragment extends Fragment {
                 .borderColor(getResources().getColor(R.color.white))
                 .build(getActivity());
         mList = new ArrayList<>();
-        adapter = new GridAdapter(getContext(), mList,mFocusBorder);
+        adapter = new HomeTvAdapter(getContext(), mList);
         gvApp.setAdapter(adapter);
     }
 

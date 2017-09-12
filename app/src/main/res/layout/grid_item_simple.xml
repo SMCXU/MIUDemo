@@ -5,6 +5,7 @@
     android:gravity="center"
     android:layout_margin="@dimen/x20"
     android:padding="@dimen/x20"
+    android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical" >
 
