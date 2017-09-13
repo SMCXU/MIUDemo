@@ -1,24 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-
     android:focusable="false"
+    android:orientation="vertical"
     tools:context="com.example.zlq_pc.miudemo.AppFragment">
 
-    <com.example.zlq_pc.miudemo.weight_flash.weight_recycle.CustomRecyclerView
+    <com.example.zlq_pc.miudemo.weight_flash.view.GridViewTV
+        android:clipToPadding="false"
+        android:clipChildren="false"
         android:focusable="false"
         android:layout_gravity="center"
         android:layout_margin="@dimen/x100"
         android:id="@+id/gv_app"
-        android:horizontalSpacing="@dimen/x10"
-        android:verticalSpacing="@dimen/x10"
+        android:horizontalSpacing="@dimen/x20"
+        android:verticalSpacing="@dimen/x20"
         android:columnWidth="@dimen/x100"
         android:numColumns="6"
-        android:gravity="center"
+        android:gravity="center|bottom"
         android:stretchMode="columnWidth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-</FrameLayout>
+    <com.example.zlq_pc.miudemo.weight_flash.view.MainUpView
+        android:id="@+id/mMainUpView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

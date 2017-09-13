@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnFocusChangeListener{
 
     @BindView(R.id.rb_search)
     RadioButton rbSearch;
@@ -107,22 +108,33 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
     //焦点变化,切换页面
     @Override
     public void onFocusChange(View view, boolean b) {
-        switch (view.getId()) {
-            case R.id.rb_search:
-                Log.d("Mr.U", "onFocusChange: rb_search");
-                setTitleTextColor(rbSearch);
-                vpContener.setCurrentItem(0, false);
-                break;
-            case R.id.rb_recommend:
-                Log.d("Mr.U", "onFocusChange: rb_recommend");
-                setTitleTextColor(rbRecommend);
-                vpContener.setCurrentItem(1, false);
-                break;
-            case R.id.rb_app:
-                Log.d("Mr.U", "onFocusChange: rb_app");
-                setTitleTextColor(rbApp);
-                vpContener.setCurrentItem(2, false);
-                break;
+        if (b){
+            switch (view.getId()) {
+                case R.id.rb_search:
+                    //当activity和fragment销毁时不执行跳转操作,当设置MainActivity不可退出时可隐藏该操作
+                    if (getSupportFragmentManager().isDestroyed())
+                        break;
+                    Log.d("Mr.U", "onFocusChange: rb_search"+b);
+                    setTitleTextColor(rbSearch);
+                    vpContener.setCurrentItem(0, false);
+                    break;
+                case R.id.rb_recommend:
+                    Log.d("Mr.U", "onFocusChange: rb_recommend"+b);
+                    setTitleTextColor(rbRecommend);
+                    vpContener.setCurrentItem(1, false);
+                    break;
+                case R.id.rb_app:
+                    Log.d("Mr.U", "onFocusChange: rb_app"+b);
+                    setTitleTextColor(rbApp);
+                    vpContener.setCurrentItem(2, false);
+                    break;
+            }
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

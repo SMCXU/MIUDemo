@@ -64,7 +64,8 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
         initView();
         return v;
     }
-//初始化view
+
+    //初始化view
     private void initView() {
         // 实例话流光特效控件
         mFocusBorder = new FocusBorder.Builder().asColor()
@@ -78,11 +79,9 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
         border.attachTo(tvRelativelayoutList);
         rf1.setOnFocusChangeListener(this);
         // 确保首页首项获取焦点
-        rf1.post(new Runnable()
-        {
+        rf1.post(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 rf1.setFocusable(true);
                 rf1.requestFocus();
             }
@@ -102,10 +101,8 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
 
     @Override
     public FocusBorder.Options onFocus(View oldFocus, View newFocus) {
-        if (newFocus != null && oldFocus != null)
-        {
-            switch (newFocus.getId())
-            {
+        if (newFocus != null && oldFocus != null) {
+            switch (newFocus.getId()) {
                 case R.id.rf_1:
                     Log.d("Mr.U", "onFocus: rf1");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
@@ -138,7 +135,7 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rf_1:
                 scrollAnimation(hasFocus, mt1);
                 break;
@@ -164,16 +161,16 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
                 break;
         }
     }
+
     // 滚动动画实例
-    private void scrollAnimation(boolean hasFocus, MarqueeText view)
-    {
-        if (hasFocus)
-        {
-            view.startScroll();
+    private void scrollAnimation(boolean hasFocus, MarqueeText view) {
+        if (view!=null){
+            if (hasFocus) {
+                view.startScroll();
+            } else {
+                view.stopScroll();
+            }
         }
-        else
-        {
-            view.stopScroll();
-        }
+
     }
 }

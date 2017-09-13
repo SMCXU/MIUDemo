@@ -1,18 +1,23 @@
 package com.example.zlq_pc.miudemo;
 
 
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.zlq_pc.miudemo.adapter.GridAdapter;
-import com.example.zlq_pc.miudemo.weight_flash.FocusBorder;
-import com.example.zlq_pc.miudemo.weight_flash.weight_recycle.CustomRecyclerView;
-import com.example.zlq_pc.miudemo.weight_flash.weight_recycle.HomeTvAdapter;
+import com.example.zlq_pc.miudemo.weight_flash.bridge.EffectNoDrawBridge;
+import com.example.zlq_pc.miudemo.weight_flash.view.GridViewTV;
+import com.example.zlq_pc.miudemo.weight_flash.view.MainUpView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +32,20 @@ import butterknife.Unbinder;
  */
 public class AppFragment extends Fragment {
 
-    @BindView(R.id.gv_app)
-    CustomRecyclerView gvApp;
+
     Unbinder unbinder;
+    @BindView(R.id.mMainUpView)
+    MainUpView mMainUpView;
+    @BindView(R.id.gv_app)
+    GridViewTV gvApp;
+
+
     private List<String> mList;
-    private HomeTvAdapter adapter;
-    private FocusBorder mFocusBorder;
+    private GridAdapter adapter;
+
+    private View mOldView;
+    private int mSavePos = -1;
+    private int mCount = 50;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,21 +79,74 @@ public class AppFragment extends Fragment {
 
     //初始化view
     private void initView() {
-        // 实例话流光特效控件
-        mFocusBorder = new FocusBorder.Builder().asColor()
-                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f)
-                .borderColor(getResources().getColor(R.color.white))
-                .build(getActivity());
         mList = new ArrayList<>();
-        adapter = new HomeTvAdapter(getContext(), mList);
+
+        // 建议使用 NoDraw.
+        mMainUpView.setEffectBridge(new EffectNoDrawBridge());
+        EffectNoDrawBridge bridget = (EffectNoDrawBridge) mMainUpView.getEffectBridge();
+        bridget.setTranDurAnimTime(200);
+        // 设置移动边框的图片.
+//        mMainUpView.setUpRectResource(R.drawable.white_light_10);
+        // 移动方框缩小的距离.
+        mMainUpView.setDrawUpRectPadding(new Rect(10, 10, 10, -55));
+        adapter = new GridAdapter(getContext(), mList);
         gvApp.setAdapter(adapter);
+
+        gvApp.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        //
+        gvApp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                /**
+                 * 这里注意要加判断是否为NULL.
+                 * 因为在重新加载数据以后会出问题.
+                 */
+                if (view != null) {
+                    mMainUpView.setFocusView(view, mOldView, 1.17f);
+                }
+                mOldView = view;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        gvApp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mFindhandler.removeCallbacksAndMessages(null);
+                mSavePos = position; // 保存原来的位置(不要按照我的抄，只是DEMO)
+
+                mFindhandler.sendMessageDelayed(mFindhandler.obtainMessage(), 111);
+                Toast.makeText(getContext(), "GridView Item " + position + " pos:" + mSavePos, Toast.LENGTH_LONG).show();
+            }
+        });
+        mFirstHandler.sendMessageDelayed(mFirstHandler.obtainMessage(), 188);
     }
+
+    // 延时请求初始位置的item.
+    Handler mFirstHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            gvApp.setDefualtSelect(2);
+        }
+    };
+
+    // 更新数据后还原焦点框.
+    Handler mFindhandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (mSavePos != -1) {
+                gvApp.requestFocusFromTouch();
+                gvApp.setSelection(mSavePos);
+            }
+        }
+    };
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 
 }

@@ -20,21 +20,17 @@ import butterknife.ButterKnife;
  * @author: ysj
  * @date: 2017-03-21 16:01
  */
-public class GridAdapter extends BaseAdapter implements FocusBorder.OnFocusCallback {
+public class GridAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<String> mList;
     private String selectId;
     private int type;
-    private FocusBorder mFocusBorder;
     ViewHolder holder;
 
-    public GridAdapter(Context mContext, List<String> mList, FocusBorder mFocusBorder) {
+    public GridAdapter(Context mContext, List<String> mList) {
         this.mContext = mContext;
         this.mList = mList;
-        this.mFocusBorder = mFocusBorder;
-        // 绑定流光特效回调
-        mFocusBorder.boundGlobalFocusListener(this);
     }
 
     @Override
@@ -66,18 +62,9 @@ public class GridAdapter extends BaseAdapter implements FocusBorder.OnFocusCallb
         return convertView;
     }
 
-    @Override
-    public FocusBorder.Options onFocus(View oldFocus, View newFocus) {
 
-        if (newFocus != null && oldFocus != null) {
-            if (newFocus.getId() == R.id.iv_app) {
-                mFocusBorder.setVisible(false);
-                return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
-            }
-        }
 
-        return null;
-    }
+
 
     static class ViewHolder {
         @BindView(R.id.iv_app)
