@@ -67,13 +67,13 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
 
     //初始化view
     private void initView() {
-        // 实例话流光特效控件
-        mFocusBorder = new FocusBorder.Builder().asColor()
-                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f)
-                .borderColor(getResources().getColor(R.color.white))
-                .build(getActivity());
-        // 绑定流光特效回调
-        mFocusBorder.boundGlobalFocusListener(this);
+//        // 实例话流光特效控件
+//        mFocusBorder = new FocusBorder.Builder().asColor()
+//                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 18f)
+//                .borderColor(getResources().getColor(R.color.white))
+//                .build(getActivity());
+//        // 绑定流光特效回调
+//        mFocusBorder.boundGlobalFocusListener(this);
         BorderView border = new BorderView(getContext());
         border.setBackgroundResource(R.drawable.border_drawable);
         border.attachTo(tvRelativelayoutList);
@@ -102,7 +102,9 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
     @Override
     public FocusBorder.Options onFocus(View oldFocus, View newFocus) {
         if (newFocus != null && oldFocus != null) {
+
             switch (newFocus.getId()) {
+                //推荐fragment
                 case R.id.rf_1:
                     Log.d("Mr.U", "onFocus: rf1");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
@@ -122,8 +124,22 @@ public class RecommendFragment extends Fragment implements FocusBorder.OnFocusCa
                     Log.d("Mr.U", "onFocus: rf6");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
                 case R.id.rf_7:
+                    Log.d("Mr.U", "onFocus: rf6");
+                    return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
+                //搜索fragment
+                case R.id.rf1_1:
                     Log.d("Mr.U", "onFocus: rf7");
                     return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
+                case R.id.rf2_2:
+                    Log.d("Mr.U", "onFocus: rf7");
+                    return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
+                case R.id.rf3_3:
+                    Log.d("Mr.U", "onFocus: rf7");
+                    return FocusBorder.OptionsFactory.get(1.1f, 1.1f, 0);
+//                //应用fragment
+//                case R.id.rl_relative:
+//                    Log.d("Mr.U", "onFocus: rf7");
+//                    return FocusBorder.OptionsFactory.get(1.1f, 1.1f,0);
                 default:
                     break;
             }

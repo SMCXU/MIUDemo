@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 
@@ -49,6 +50,7 @@ public class ColorFocusBorder extends AbsFocusBorder
         final float padding = mShadowWidth + mBorderWidth;
         mPaddingRectF.set(padding, padding, padding, padding);
         initPaint();
+
     }
     
     private void initPaint()
@@ -56,12 +58,15 @@ public class ColorFocusBorder extends AbsFocusBorder
         mShadowPaint = new Paint();
         mShadowPaint.setColor(mShadowColor);
         mShadowPaint.setDither(true); // 抖动处理，会使绘制出来的图片颜色更加平滑和饱满，图像更加清晰 by xiaoxuan 可以屏蔽
+//        设置边界阴影
         mShadowPaint.setMaskFilter(new BlurMaskFilter(mShadowWidth, BlurMaskFilter.Blur.OUTER));
         mBorderPaint = new Paint();
         mBorderPaint.setColor(mBorderColor);
         mBorderPaint.setStrokeWidth(mBorderWidth);
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setMaskFilter(new BlurMaskFilter(0.5f, BlurMaskFilter.Blur.NORMAL));
+
+        Log.d("Mr.U", "initPaint: "+getRoundRadius());
     }
     
     protected void setRoundRadius(float roundRadius)
@@ -126,10 +131,10 @@ public class ColorFocusBorder extends AbsFocusBorder
             // 裁剪处理(使阴影矩形框内变为透明)
             if (mRoundRadius > 0)
             {
-                canvas.clipRect(0, 0, getWidth(), getHeight());
+                canvas.clipRect(0, 0, getWidth(), getHeight());//裁剪方法
                 mTempRectF.set(mFrameRectF);
                 mTempRectF.inset(mRoundRadius / 2f, mRoundRadius / 2f);
-                canvas.clipRect(mTempRectF, Region.Op.DIFFERENCE);
+                canvas.clipRect(mTempRectF, Region.Op.DIFFERENCE);//第一次不同于第二次的地方显示出来
             }
             // 绘制外发光阴影效果
             canvas.drawRoundRect(mFrameRectF, mRoundRadius, mRoundRadius, mShadowPaint);
@@ -209,6 +214,7 @@ public class ColorFocusBorder extends AbsFocusBorder
         
         public Builder shadowWidth(int unit, float width)
         {
+            //转化为一个标准的尺寸,将各种单位转换成像素
             mShadowWidth = TypedValue.applyDimension(unit, width, Resources.getSystem().getDisplayMetrics());
             return this;
         }

@@ -4,11 +4,41 @@
     android:layout_height="match_parent"
     tools:context="com.example.zlq_pc.miudemo.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout
+        android:id="@+id/tv_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:focusable="false">
+        <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+            android:id="@+id/rf1_1"
+            android:background="@color/cadetblue"
+            android:layout_width="@dimen/x300"
+            android:layout_height="@dimen/x300"
+            android:layout_margin="@dimen/x10"
+            android:nextFocusUp="@id/rf1_1"
+            android:focusable="true"/>
+        <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+            android:id="@+id/rf2_2"
+            android:background="@color/cadetblue"
+            android:layout_width="@dimen/x300"
+            android:layout_height="@dimen/x300"
+            android:layout_margin="@dimen/x10"
+            android:nextFocusUp="@id/rf2_2"
+            android:focusable="true"/>
+        <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+            android:id="@+id/rf3_3"
+            android:background="@color/cadetblue"
+            android:layout_width="@dimen/x300"
+            android:layout_height="@dimen/x300"
+            android:layout_margin="@dimen/x10"
+            android:nextFocusUp="@id/rf3_3"
+            android:focusable="true"/>
+
+    </com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout>
 
 </FrameLayout>

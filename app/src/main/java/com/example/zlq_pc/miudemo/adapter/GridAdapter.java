@@ -1,15 +1,18 @@
 package com.example.zlq_pc.miudemo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zlq_pc.miudemo.R;
+import com.example.zlq_pc.miudemo.weight_flash.BorderView;
 import com.example.zlq_pc.miudemo.weight_flash.FocusBorder;
+import com.example.zlq_pc.miudemo.weight_flash.MarqueeText;
 import com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout;
+import com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout;
 
 import java.util.List;
 
@@ -17,8 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author: ysj
- * @date: 2017-03-21 16:01
+ * @author: U
+ * @date: 2017-09-15 16:40:51
  */
 public class GridAdapter extends BaseAdapter {
 
@@ -31,6 +34,7 @@ public class GridAdapter extends BaseAdapter {
     public GridAdapter(Context mContext, List<String> mList) {
         this.mContext = mContext;
         this.mList = mList;
+
     }
 
     @Override
@@ -58,12 +62,15 @@ public class GridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvName.setText(mList.get(position));
+        convertView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+            }
+        });
+//        holder.tvName.setText(mList.get(position));
         return convertView;
     }
-
-
-
 
 
     static class ViewHolder {

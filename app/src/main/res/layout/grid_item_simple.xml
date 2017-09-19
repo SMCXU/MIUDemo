@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_margin="@dimen/x20"
-    android:padding="@dimen/x20"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/x25"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:orientation="vertical" >
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/x15">
 
-    <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-        android:background="@drawable/bg_textview_red"
-        android:id="@+id/iv_app"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x200"
-        android:layout_weight="4"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop" />
 
-    <TextView
-        android:text="123木头人"
-        android:singleLine="true"
-        android:textSize="@dimen/x20"
-        android:textColor="@android:color/white"
-        android:id="@+id/tv_name"
+    <com.example.zlq_pc.miudemo.weight_flash.TvZorderRelativeLayout
+        android:id="@+id/tv_relativelayout_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:focusable="false"
+        android:gravity="center">
+
+        <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+            android:id="@+id/iv_app"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x200"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_textview_red"
+            android:focusable="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x50"
+            android:layout_below="@id/iv_app"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="123木头人"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/x20" />
+    </com.example.zlq_pc.miudemo.weight_flash.TvZorderRelativeLayout>
+
 
 </com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout>
 

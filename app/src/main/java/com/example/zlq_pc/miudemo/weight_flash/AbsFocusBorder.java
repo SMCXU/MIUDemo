@@ -584,7 +584,7 @@ public abstract class AbsFocusBorder extends View implements FocusBorder, ViewTr
     
     public static abstract class Builder
     {
-        protected int mShimmerColor = 0x8FFFFFFF;
+        protected int mShimmerColor = 0x8F00FFFF;
         
         protected boolean mIsShimmerAnim = true;
         

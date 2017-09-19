@@ -16,9 +16,9 @@
         android:id="@+id/gv_app"
         android:horizontalSpacing="@dimen/x20"
         android:verticalSpacing="@dimen/x20"
-        android:columnWidth="@dimen/x100"
-        android:numColumns="6"
-        android:gravity="center|bottom"
+        android:columnWidth="@dimen/x250"
+        android:numColumns="auto_fit"
+        android:gravity="center"
         android:stretchMode="columnWidth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

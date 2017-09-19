@@ -249,7 +249,7 @@ public class BorderEffect implements BorderView.Effect
             }
         }
     };
-    
+    //缩放动画
     protected List<Animator> getScaleAnimator(View view, boolean isScale)
     {
         
@@ -276,7 +276,7 @@ public class BorderEffect implements BorderView.Effect
         }
         return animatorList;
     }
-    
+    //移动动画
     protected List<Animator> getMoveAnimator(View newFocus, int factorX, int factorY)
     {
         
