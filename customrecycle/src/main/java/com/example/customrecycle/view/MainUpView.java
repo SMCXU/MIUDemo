@@ -307,7 +307,9 @@ public class MainUpView extends FrameLayout {
 	 */
 	public void setFocusView(View newView, View oldView, float scale) {
 		setFocusView(newView, scale);
-		setUnFocusView(oldView);
+		if (oldView!=null){
+			setUnFocusView(oldView);
+		}
 	}
 
 	/**

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal"
+    android:background="@android:color/black"
     tools:context="com.example.customrecycle.TestEffectActivity">
 
     <LinearLayout
@@ -13,19 +14,23 @@
         android:clipToPadding="false"
         android:gravity="center"
         android:clickable="true"
-        android:focusable="true"
+        android:focusable="false"
         android:id="@+id/ll_contioner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <ImageView
+            android:focusedByDefault="true"
+            android:focusable="true"
             android:id="@+id/iv_1"
             android:layout_width="@dimen/x200"
             android:layout_height="@dimen/x326"
             android:src="@mipmap/mainview_cloudlist" />
 
         <ImageView
+            android:nextFocusLeft="@id/iv_1"
+            android:focusable="true"
             android:id="@+id/iv_2"
             android:layout_width="@dimen/x200"
             android:layout_height="@dimen/x326"
@@ -33,12 +38,16 @@
             android:src="@mipmap/mainview_cloudlist" />
 
         <ImageView
+            android:nextFocusLeft="@id/iv_2"
+            android:focusable="true"
             android:id="@+id/iv_3"
             android:layout_width="@dimen/x200"
             android:layout_height="@dimen/x326"
             android:src="@mipmap/mainview_cloudlist" />
 
         <ImageView
+            android:nextFocusLeft="@id/iv_3"
+            android:focusable="true"
             android:id="@+id/iv_4"
             android:layout_width="@dimen/x200"
             android:layout_height="@dimen/x326"
@@ -47,6 +56,8 @@
             android:src="@mipmap/mainview_cloudlist" />
 
         <ImageView
+            android:nextFocusLeft="@id/iv_4"
+            android:focusable="true"
             android:id="@+id/iv_5"
             android:layout_width="@dimen/x200"
             android:layout_height="@dimen/x326"

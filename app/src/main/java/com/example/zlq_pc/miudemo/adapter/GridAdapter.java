@@ -62,13 +62,7 @@ public class GridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        convertView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-            }
-        });
-//        holder.tvName.setText(mList.get(position));
+        holder.tvName.setText(mList.get(position));
         return convertView;
     }
 

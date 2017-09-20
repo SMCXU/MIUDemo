@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.view.MainUpView;
 
-public class TestEffectActivity extends Activity implements ViewTreeObserver.OnGlobalFocusChangeListener{
+public class TestEffectActivity extends Activity {
 
     private ImageView iv1;
     private ImageView iv2;
@@ -37,42 +37,30 @@ public class TestEffectActivity extends Activity implements ViewTreeObserver.OnG
         mMainUpView = findViewById(R.id.mMainUpView);
         llContioner = findViewById(R.id.ll_contioner);
         switchNoDrawBridgeVersion();
-//        llContioner.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
-//            @Override
-//            public void onGlobalFocusChanged(View oldView, View newView) {
-//                if (newView != null)
-//                    newView.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-//                float scale = 1.2f;
-//                mMainUpView.setFocusView(newView, oldView, scale);
-//            }
-//        });
+        llContioner.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+            @Override
+            public void onGlobalFocusChanged(View oldView, View newView) {
+                float scale = 1.2f;
+                mMainUpView.setFocusView(newView, oldView, scale);
+            }
+        });
     }
 
 
-
+//设置边框
     private void switchNoDrawBridgeVersion() {
         float density = getResources().getDisplayMetrics().density;
         RectF rectf = new RectF(getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density,
                 getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density);
         EffectNoDrawBridge effectNoDrawBridge = new EffectNoDrawBridge();
         effectNoDrawBridge.setTranDurAnimTime(200);
-//        effectNoDrawBridge.setDrawUpRectPadding(rectf);
+        effectNoDrawBridge.setDrawUpRectPadding(rectf);
         mMainUpView.setEffectBridge(effectNoDrawBridge); // 4.3以下版本边框移动.
         mMainUpView.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
         mMainUpView.setDrawUpRectPadding(rectf); // 边框图片设置间距.
-        iv1.setFocusable(true);
-        iv1.requestFocus();
     }
     public float getDimension(int id) {
         return getResources().getDimension(id);
     }
 
-
-    @Override
-    public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-        if (newFocus != null)
-            newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-        float scale = 1.2f;
-        mMainUpView.setFocusView(newFocus, oldFocus, scale);
-    }
 }

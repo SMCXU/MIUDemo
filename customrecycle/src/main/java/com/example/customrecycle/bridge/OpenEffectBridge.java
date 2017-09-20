@@ -135,8 +135,8 @@ public class OpenEffectBridge extends BaseEffectBridgeWrapper {
 	@Override
 	public void flyWhiteBorder(final View focusView,  View moveView, float scaleX, float scaleY) {
 		// 用于修复5.0边框错位问题.
-		this.mScaleX = mScaleX;
-		this.mScaleY = mScaleY;
+		this.mScaleX = scaleX;
+		this.mScaleY = scaleY;
 		
 		int newWidth = 0;
 		int newHeight = 0;
