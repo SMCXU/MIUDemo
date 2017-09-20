@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.customrecycle.adapter.GeneralAdapter;
 import com.example.customrecycle.bridge.RecyclerViewBridge;
+import com.example.customrecycle.leanback.GridLayoutManagerTV;
 import com.example.customrecycle.leanback.LinearLayoutManagerTV;
 import com.example.customrecycle.leanback.recycle.RecyclerViewTV;
 import com.example.customrecycle.view.MainUpView;
@@ -54,10 +56,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewTV.On
         mList.add("无线投屏");
         mList.add("通知中心");
         mAdapter.notifyDataSetChanged();
-        mRecyclerView.setDefaultItem(1);
-
+        Log.d("Mr.U", "initData: " + mAdapter.getItemCount());
+        GeneralAdapter.MyViewHolder holder = (GeneralAdapter.MyViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mAdapter.getItemCount() / 2);
+        if (holder != null) {
+            holder.itemView.requestFocus();
+        }
     }
-
 
 
     //初始化布局
@@ -76,17 +80,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewTV.On
                 getDimension(R.dimen.x45) * density, getDimension(R.dimen.x40) * density);
         mRecyclerViewBridge.setDrawUpRectPadding(receF);
 
-        testRecyclerViewLinerLayout(RecyclerView.VERTICAL);
-        //
+//        横竖方向的list
+//        testRecyclerViewLinerLayout(RecyclerView.VERTICAL);
+
+//        横竖方向的grid
+        testRecyclerViewGridLayout(RecyclerView.VERTICAL);
+
         mRecyclerView.setOnItemListener(this);
         // item 单击事件处理.
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                startActivity(new Intent(MainActivity.this,TestEffectActivity.class));
+                startActivity(new Intent(MainActivity.this, TestEffectActivity.class));
             }
         });
     }
+
 
     public float getDimension(int id) {
         return getResources().getDimension(id);
@@ -115,6 +124,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewTV.On
         initData();
     }
 
+    /**
+     * 测试GridLayout.
+     */
+    private void testRecyclerViewGridLayout(int orientation) {
+        GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(this,6); // 解决快速长按焦点丢失问题.
+        gridlayoutManager.setOrientation(orientation);
+        mRecyclerView.setLayoutManager(gridlayoutManager);
+        mRecyclerView.setFocusable(false);
+        mRecyclerView.setSelectedItemAtCentered(true); // 设置item在中间移动.
+        mList = new ArrayList<>();
+        mAdapter = new GeneralAdapter(mList, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setPagingableListener(new RecyclerViewTV.PagingableListener() {
+            @Override
+            public void onLoadMoreItems() {
+
+            }
+        });
+        initData();
+    }
 
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {

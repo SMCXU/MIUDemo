@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@android:color/black"
     tools:context="com.example.customrecycle.TestEffectActivity">
-
     <LinearLayout
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -17,7 +16,7 @@
         android:focusable="false"
         android:id="@+id/ll_contioner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -64,11 +63,66 @@
             android:scaleType="fitXY"
             android:src="@mipmap/mainview_cloudlist" />
     </LinearLayout>
+    <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="false"
+        android:id="@+id/ll_contioner1"
+        android:layout_below="@id/ll_contioner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:focusedByDefault="true"
+            android:focusable="true"
+            android:id="@+id/iv_11"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/x326"
+            android:src="@mipmap/mainview_cloudlist" />
+
+        <ImageView
+
+            android:focusable="true"
+            android:id="@+id/iv_22"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/x326"
+            android:layout_margin="@dimen/x50"
+            android:src="@mipmap/mainview_cloudlist" />
+
+        <ImageView
+
+            android:focusable="true"
+            android:id="@+id/iv_33"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/x326"
+            android:src="@mipmap/mainview_cloudlist" />
+
+        <ImageView
+            android:focusable="true"
+            android:id="@+id/iv_44"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/x326"
+            android:layout_margin="@dimen/x50"
+            android:scaleType="fitXY"
+            android:src="@mipmap/mainview_cloudlist" />
+
+        <ImageView
+
+            android:focusable="true"
+            android:id="@+id/iv_55"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/x326"
+            android:scaleType="fitXY"
+            android:src="@mipmap/mainview_cloudlist" />
+    </LinearLayout>
     <!-- 最顶层边框 -->
 
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mMainUpView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:upImageRes="@drawable/test_rectangle" />
-</LinearLayout>
+</RelativeLayout>

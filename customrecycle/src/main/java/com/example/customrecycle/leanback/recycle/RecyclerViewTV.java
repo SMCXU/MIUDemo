@@ -565,5 +565,6 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
         if (holder != null) {
             holder.itemView.requestFocus();
         }
+
     }
 }
