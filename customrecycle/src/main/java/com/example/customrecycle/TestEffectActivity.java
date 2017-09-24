@@ -1,6 +1,7 @@
 package com.example.customrecycle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +43,12 @@ public class TestEffectActivity extends Activity {
             public void onGlobalFocusChanged(View oldView, View newView) {
                 float scale = 1.2f;
                 mMainUpView.setFocusView(newView, oldView, scale);
+            }
+        });
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TestEffectActivity.this,IjkVideoActivity.class));
             }
         });
     }

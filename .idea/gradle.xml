@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/customrecycle" />
+            <option value="$PROJECT_DIR$/ijkplayer-exo" />
+            <option value="$PROJECT_DIR$/ijkplayer-java" />
           </set>
         </option>
         <option name="myModules">
@@ -17,6 +19,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/customrecycle" />
+            <option value="$PROJECT_DIR$/ijkplayer-exo" />
+            <option value="$PROJECT_DIR$/ijkplayer-java" />
           </set>
         </option>
       </GradleProjectSettings>
