@@ -35,7 +35,6 @@ public class IjkVideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ijk_video_demo);
         initView();
-
     }
 
     private void initVideo() {
@@ -51,7 +50,6 @@ public class IjkVideoActivity extends AppCompatActivity {
 
     private void initView() {
         mVideoView = (IjkVideoView) findViewById(R.id.mVideoView);
-
         // 扫描功能
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //申请CAMERA权限
@@ -70,7 +68,6 @@ public class IjkVideoActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         if (!mVideoView.isBackgroundPlayEnabled()) {
             mVideoView.stopPlayback();
             mVideoView.release(true);

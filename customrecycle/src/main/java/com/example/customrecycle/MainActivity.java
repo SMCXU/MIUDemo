@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewTV.On
         mAdapter = new GeneralAdapter(mList, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.requestFocusFromTouch();
+
 //        mRecyclerView.setSelectedItemOffset(111, 111); // 测试移动间距.
 //        mRecyclerView.setSelectedItemAtCentered(false);
         mRecyclerView.setPagingableListener(new RecyclerViewTV.PagingableListener() {

@@ -48,7 +48,8 @@ public class TestEffectActivity extends Activity {
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TestEffectActivity.this,IjkVideoActivity.class));
+//                startActivity(new Intent(TestEffectActivity.this,IjkVideoActivity.class));
+                startActivity(new Intent(TestEffectActivity.this,RetrofitTestActivity.class));
             }
         });
     }
@@ -56,6 +57,7 @@ public class TestEffectActivity extends Activity {
 
 //设置边框
     private void switchNoDrawBridgeVersion() {
+
         float density = getResources().getDisplayMetrics().density;
         RectF rectf = new RectF(getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density,
                 getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density);
