@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 
-import com.example.customrecycle.frame.application.IAppInitControl;
 import com.example.customrecycle.frame.utils.ConfigUtils;
 import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.FileAccessor;
@@ -14,7 +13,6 @@ import com.example.customrecycle.frame.utils.FileAccessor;
 
 public class BaseApp extends Application {
     public static Context CONTEXT = null;
-    private IAppInitControl mInitController;
 
 
     public static boolean DEBUG = false;
@@ -46,22 +44,6 @@ public class BaseApp extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-
-
-        Class<?> clazz = null;
-        try {
-            clazz = Class
-                    .forName("com.pub.application.AppInitControl");
-            mInitController = (IAppInitControl) clazz.newInstance();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        mInitController.init(this);
-
 
         super.onCreate();
     }

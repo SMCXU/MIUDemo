@@ -1,6 +1,8 @@
 package com.example.customrecycle.frame.utils;
 
 
+import android.util.Log;
+
 import com.example.customrecycle.base.BaseApp;
 
 public class ConfigUtils {
@@ -51,6 +53,7 @@ public class ConfigUtils {
 //		case server:
 //			return AESUtils.decode(BUNDLE.getString(name.toString()));
             default:
+                Log.d("Mr.U", "getConfig: "+key.value);
                 return String.valueOf(key.value);
         }
     }

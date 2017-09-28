@@ -1,9 +1,13 @@
 package com.example.customrecycle.frame.retrofit;
 
 
+import android.util.Base64;
+
 import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.frame.utils.AESUtil;
 import com.example.customrecycle.frame.utils.ConfigUtils;
 import com.example.customrecycle.frame.utils.JsonUtil;
+import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.StringUtils;
 import com.google.gson.JsonObject;
 
@@ -15,10 +19,12 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -57,13 +63,12 @@ public class HttpRequest {
 
                             //返回的数据
                             Response response = null;
-                            if (BaseApp.DEBUG) {//调试模式  不加密
+//                            if (BaseApp.DEBUG) {//调试模式  不加密
                                 Request request = original.newBuilder()
 //                                        .header("TokenId", PreferencesUtils.getString(BaseApp.getContext(), "tokenid", ""))
                                         .method(original.method(), requestBody)
                                         .build();
                                 response = chain.proceed(request);
-                            }
 //                            } else {//发布模式 加密
 //                                Request request;
 //                                if (url.contains("File/")
