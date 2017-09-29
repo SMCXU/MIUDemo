@@ -36,7 +36,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -145,5 +144,5 @@ public abstract class BaseFragment extends Fragment {
         loadData();
     }
     protected abstract void loadData();
-    //🔚   懒加载结束
+    //懒加载结束
 }

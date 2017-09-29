@@ -66,6 +66,7 @@ public class UserEntity {
         this.subjects = subjects;
     }
 
+
     public static class SubjectsBean {
         /**
          * rating : {"max":10,"average":9.2,"stars":"50","min":0}
