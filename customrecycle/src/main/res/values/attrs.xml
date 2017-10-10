@@ -5,4 +5,17 @@
         <attr name="upImageRes" format="reference" />
         <attr name="shadowImageRes" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="TextViewWithTTF">
+        <attr name="ttf_name" format="string" />
+    </declare-styleable>
+
+    <!-- 倒影控件属性 -->
+    <declare-styleable name="reflectItemView">
+        <attr name="isReflect"  format="boolean" />
+        <attr name="isShape"  format="boolean" />
+        <attr name="reflect_height"  format="dimension" />
+        <attr name="radius"  format="dimension" />
+        <attr name="refle_spacing"  format="dimension" />
+    </declare-styleable>
 </resources>

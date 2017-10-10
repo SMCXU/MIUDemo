@@ -1,5 +1,6 @@
 package com.example.customrecycle.frame.utils;
 
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -29,9 +30,9 @@ public class ApkTool {
             for (int i = 0; i < packageInfos.size(); i++) {
                 PackageInfo packageInfo = packageInfos.get(i);
                 //过滤掉系统app
-//            if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0) {
-//                continue;
-//            }
+            if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0) {
+                continue;
+            }
                 MyAppInfo myAppInfo = new MyAppInfo();
                 myAppInfo.setAppName(packageInfo.packageName);
                 if (packageInfo.applicationInfo.loadIcon(packageManager) == null) {

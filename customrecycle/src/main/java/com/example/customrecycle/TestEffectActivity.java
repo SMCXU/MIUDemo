@@ -48,8 +48,8 @@ public class TestEffectActivity extends Activity {
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(TestEffectActivity.this,IjkVideoActivity.class));
-                startActivity(new Intent(TestEffectActivity.this,RetrofitTestActivity.class));
+                startActivity(new Intent(TestEffectActivity.this,IjkVideoActivity.class));
+//                startActivity(new Intent(TestEffectActivity.this,RetrofitTestActivity.class));
             }
         });
     }
