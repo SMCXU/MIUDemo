@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--focusableInTouchMode只是测试鼠标效果-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/key_bg_rectangle"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/iv_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/grid_view_item_test" />
+    <com.example.customrecycle.weight.appweight.MarqueeText
+        android:visibility="gone"
+        android:id="@+id/mt_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border_down_shape"
+        android:gravity="center"
+        android:padding="15px"
+        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+        android:textColor="@color/gold"
+        android:textSize="15sp" />
+</FrameLayout>

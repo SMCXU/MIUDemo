@@ -1,26 +1,42 @@
 package com.example.customrecycle;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.example.customrecycle.adapter.MyFragmentPagerAdapter;
 import com.example.customrecycle.adapter.OpenTabTitleAdapter;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.bridge.OpenEffectBridge;
+import com.example.customrecycle.fragment.CartoonFragment;
+import com.example.customrecycle.fragment.MovieFragment;
+import com.example.customrecycle.fragment.RecommendpFragment;
+import com.example.customrecycle.fragment.TVFragment;
+import com.example.customrecycle.frame.utils.FileUtils;
+import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.view.OpenTabHost;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.view.TextViewWithTTF;
+import com.example.customrecycle.weight.appweight.MarqueeText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +45,13 @@ import java.util.List;
  * ViewPager demo：
  * 注意标题栏和viewpager的焦点控制.(在XML布局中控制了, ids)
  * 移动边框的问题也需要注意.
+ *
  * @author hailongqiu
  */
-public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectListener {
+public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTabSelectListener {
 
     private List<View> viewList;// view数组
+    private List<Fragment> fragmentList;//
     private View view1, view2, view3, view4;
     ViewPager viewpager;
     OpenTabHost mOpenTabHost;
@@ -44,6 +62,9 @@ public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectLi
     View mNewFocus;
     View mOldView;
 
+    //    Video列表
+    private List<VideoEntity> mList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +72,18 @@ public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectLi
 
         // 初始化标题栏.
         initAllTitleBar();
-        // 初始化viewpager.
-        initAllViewPager();
+        mList = new ArrayList<VideoEntity>();
+        // 扫描功能 获取U盘视频列表
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //申请CAMERA权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+        } else {
+            scanMediaFile();
+        }
+
         // 初始化移动边框.
         initMoveBridge();
     }
-
     private void initMoveBridge() {
         float density = getResources().getDisplayMetrics().density;
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
@@ -77,25 +104,31 @@ public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectLi
 
     private void initAllViewPager() {
         viewpager = (ViewPager) findViewById(R.id.viewpager);
-        //
-        LayoutInflater inflater = getLayoutInflater();
-        view1 = inflater.inflate(R.layout.test_page1, null);
-        view2 = inflater.inflate(R.layout.test_page2, null); // gridview demo.
-        view3 = inflater.inflate(R.layout.test_page3, null);
-        view4 = inflater.inflate(R.layout.test_page4, null);
-        viewList = new ArrayList<View>();// 将要分页显示的View装入数组中
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
-        viewList.add(view4);
+        RecommendpFragment fragment1 = new RecommendpFragment();
+        MovieFragment fragment2 = new MovieFragment();
+        TVFragment fragment3 = new TVFragment();
+        CartoonFragment fragment4 = new CartoonFragment();
+        fragmentList = new ArrayList<Fragment>();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("mList",(Serializable)mList);
+        fragment1.setArguments(bundle);
+        fragment2.setArguments(bundle);
+        fragment3.setArguments(bundle);
+        fragment4.setArguments(bundle);
+        fragmentList.add(fragment1);
+        fragmentList.add(fragment2);
+        fragmentList.add(fragment3);
+        fragmentList.add(fragment4);
+
         // 初始化滚动窗口适配. (请注意哈，在不同的dpi下, 滚动相差的间距不一样哈)
-        for (View view : viewList) {
-            float density = getResources().getDisplayMetrics().density;
-            SmoothHorizontalScrollView shsv = (SmoothHorizontalScrollView) view.findViewById(R.id.test_hscroll);
-            shsv.setFadingEdge((int) (getDimension(R.dimen.x200) * density));
-        }
+//        for (View view : viewList) {
+//            float density = getResources().getDisplayMetrics().density;
+//            SmoothHorizontalScrollView shsv = (SmoothHorizontalScrollView) view.findViewById(R.id.test_hscroll);
+//            shsv.setFadingEdge((int) (getDimension(R.dimen.x200) * density));
+//        }
         //
-        viewpager.setAdapter(new DemoPagerAdapter());
+//        viewpager.setAdapter(new DemoPagerAdapter());
+        viewpager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         // 全局焦点监听. (这里只是demo，为了方便这样写，你可以不这样写)
         viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
@@ -115,6 +148,8 @@ public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectLi
                     mainUpView1.setUnFocusView(oldFocus);
                     mEffectNoDrawBridge.setVisibleWidget(true);
                 }
+
+
             }
         });
         viewpager.setOffscreenPageLimit(4);
@@ -201,31 +236,25 @@ public  class HomeActivity extends Activity implements OpenTabHost.OnTabSelectLi
         return getResources().getDimension(id);
     }
 
-    /**
-     * viewpager 的 adpater.
-     */
-    class DemoPagerAdapter extends PagerAdapter {
 
-        @Override
-        public int getCount() {
-            return viewList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(viewList.get(position));
-        }
-
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewList.get(position));
-            return viewList.get(position);
+    // 滚动动画实例
+    private void scrollAnimation(boolean hasFocus, MarqueeText view) {
+        if (view != null) {
+            if (hasFocus) {
+                view.startScroll();
+            } else {
+                view.stopScroll();
+            }
         }
 
     }
 
+    //扫描获取U盘内数据
+    private void scanMediaFile() {
+        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv"};
+        mList.clear();
+        mList = FileUtils.getSpecificTypeOfFile(this, args);
+        // 初始化viewpager.
+        initAllViewPager();
+    }
 }

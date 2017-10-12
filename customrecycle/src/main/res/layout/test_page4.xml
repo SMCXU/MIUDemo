@@ -1,6 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:scrollbars="none" >
-        <com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout
+        android:scrollbars="none">
+
+        <com.example.customrecycle.weight.appweight.TvZorderLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -22,26 +21,25 @@
             android:layout_alignParentTop="true"
             android:focusable="false">
 
-            <com.example.zlq_pc.miudemo.weight_flash.TvZorderRelativeLayout
-                android:layout_marginTop="@dimen/x100"
+            <com.example.customrecycle.weight.appweight.TvZorderRelativeLayout
                 android:id="@+id/tv_relativelayout_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/x100"
                 android:clipToPadding="false"
                 android:focusable="false"
-                android:gravity="center"
-                >
+                android:gravity="center">
 
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+                <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_1"
-                    android:layout_width="@dimen/x560"
-                    android:layout_height="@dimen/x480"
+                    android:layout_width="@dimen/x660"
+                    android:layout_height="@dimen/x420"
                     android:layout_margin="@dimen/x10"
-                    android:background="@color/cadetblue"
+                    android:background="@mipmap/mainview_tuijian"
                     android:focusable="true"
-                    android:nextFocusUp="@id/rf_1">
+                    android:nextFocusUp="@+id/title_bar4">
 
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
+                    <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -49,23 +47,23 @@
                         android:background="@drawable/border_down_shape"
                         android:gravity="center"
                         android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                        android:text="小清新乐队苏打绿"
                         android:textColor="@color/gold"
                         android:textSize="15sp" />
 
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+                </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
+                <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_2"
-                    android:layout_width="@dimen/x420"
-                    android:layout_height="@dimen/x480"
+                    android:layout_width="@dimen/x340"
+                    android:layout_height="@dimen/x420"
                     android:layout_margin="@dimen/x10"
                     android:layout_toRightOf="@+id/rf_1"
-                    android:background="@color/cadetblue"
+                    android:background="@mipmap/mainview_cloudlist"
                     android:focusable="true"
-                    android:nextFocusUp="@id/rf_2">
+                    android:nextFocusUp="@+id/title_bar4">
 
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
+                    <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,140 +71,126 @@
                         android:background="@drawable/border_down_shape"
                         android:gravity="center"
                         android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                        android:text="Prayer"
                         android:textColor="@color/gold"
                         android:textSize="15sp" />
 
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
+                </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-                    android:id="@+id/rf_3"
-                    android:layout_width="@dimen/x480"
-                    android:layout_height="@dimen/x480"
+                <ImageView
+                    android:id="@+id/iv_Sort"
+                    android:layout_width="@dimen/x500"
+                    android:layout_height="@dimen/x200"
                     android:layout_margin="@dimen/x10"
                     android:layout_toRightOf="@+id/rf_2"
-                    android:background="@color/cadetblue"
+                    android:background="@mipmap/mainview_type"
                     android:focusable="true"
-                    android:nextFocusUp="@id/rf_3">
+                    android:nextFocusUp="@+id/title_bar4">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/iv_Searchsong"
+                    android:layout_width="@dimen/x500"
+                    android:layout_height="@dimen/x200"
+                    android:layout_margin="@dimen/x10"
+                    android:layout_toRightOf="@+id/rf_2"
+                    android:layout_below="@id/iv_Sort"
+                    android:background="@mipmap/mainview_searchsong"
+                    android:focusable="true"
+                    android:nextFocusUp="@+id/iv_Sort">
+                </ImageView>
 
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
-                        android:id="@+id/mt_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/border_down_shape"
-                        android:gravity="center"
-                        android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
-                        android:textColor="@color/gold"
-                        android:textSize="15sp" />
-
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
-
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-                    android:id="@+id/rf_4"
-                    android:layout_width="@dimen/x370"
-                    android:layout_height="@dimen/x160"
+                <TextView
+                    android:id="@+id/tv_Ardent"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
                     android:layout_margin="@dimen/x10"
-                    android:background="@color/cadetblue"
+                    android:background="@drawable/bg_cartoon_sorts"
                     android:focusable="true"
+                    android:gravity="center"
+                    android:text="热血"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
                     android:nextFocusUp="@id/rf_1">
-
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
-                        android:id="@+id/mt_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/border_down_shape"
-                        android:gravity="center"
-                        android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
-                        android:textColor="@color/gold"
-                        android:textSize="15sp" />
-
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
-
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-                    android:id="@+id/rf_5"
-                    android:layout_width="@dimen/x170"
-                    android:layout_height="@dimen/x160"
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Combat"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
+                    android:layout_toRightOf="@id/tv_Ardent"
                     android:layout_margin="@dimen/x10"
-                    android:layout_toEndOf="@id/rf_4"
-                    android:layout_toRightOf="@id/rf_4"
-                    android:background="@color/cadetblue"
+                    android:background="@drawable/bg_cartoon_sorts"
                     android:focusable="true"
+                    android:gravity="center"
+                    android:text="机战"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
                     android:nextFocusUp="@id/rf_1">
-
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
-                        android:id="@+id/mt_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/border_down_shape"
-                        android:gravity="center"
-                        android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
-                        android:textColor="@color/gold"
-                        android:textSize="15sp" />
-
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
-
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-                    android:id="@+id/rf_6"
-                    android:layout_width="@dimen/x420"
-                    android:layout_height="@dimen/x160"
-                    android:layout_below="@id/rf_2"
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Exercise"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
+                    android:layout_below="@id/rf_1"
+                    android:layout_toRightOf="@id/tv_Combat"
                     android:layout_margin="@dimen/x10"
-                    android:layout_toEndOf="@id/rf_5"
-                    android:layout_toRightOf="@id/rf_5"
-                    android:background="@color/cadetblue"
+                    android:background="@drawable/bg_cartoon_sorts"
                     android:focusable="true"
+                    android:gravity="center"
+                    android:text="运动"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
                     android:nextFocusUp="@id/rf_2">
-
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
-                        android:id="@+id/mt_6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/border_down_shape"
-                        android:gravity="center"
-                        android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
-                        android:textColor="@color/gold"
-                        android:textSize="15sp" />
-
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
-
-                <com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout
-                    android:id="@+id/rf_7"
-                    android:layout_width="@dimen/x480"
-                    android:layout_height="@dimen/x160"
-                    android:layout_below="@id/rf_3"
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Whodunit"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
+                    android:layout_below="@id/rf_1"
+                    android:layout_toRightOf="@id/tv_Exercise"
                     android:layout_margin="@dimen/x10"
-                    android:layout_toEndOf="@id/rf_6"
-                    android:layout_toRightOf="@id/rf_6"
-                    android:background="@color/cadetblue"
+                    android:background="@drawable/bg_cartoon_sorts"
                     android:focusable="true"
-                    android:nextFocusUp="@id/rf_3">
+                    android:gravity="center"
+                    android:text="推理"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
+                    android:nextFocusUp="@id/rf_2">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Adventure"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
+                    android:layout_below="@id/rf_1"
+                    android:layout_toRightOf="@id/tv_Whodunit"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@drawable/bg_cartoon_sorts"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="冒险"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
+                    android:nextFocusUp="@id/iv_Searchsong">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_Comedy"
+                    android:layout_width="@dimen/x240"
+                    android:layout_height="@dimen/x230"
+                    android:layout_below="@id/rf_1"
+                    android:layout_toRightOf="@id/tv_Adventure"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@drawable/bg_cartoon_sorts"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="搞笑"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x64"
+                    android:nextFocusUp="@id/iv_Searchsong">
+                </TextView>
 
-                    <com.example.zlq_pc.miudemo.weight_flash.MarqueeText
-                        android:id="@+id/mt_7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/border_down_shape"
-                        android:gravity="center"
-                        android:padding="15px"
-                        android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
-                        android:textColor="@color/gold"
-                        android:textSize="15sp" />
-
-                </com.example.zlq_pc.miudemo.weight_flash.RoundedFrameLayout>
-
-            </com.example.zlq_pc.miudemo.weight_flash.TvZorderRelativeLayout>
-        </com.example.zlq_pc.miudemo.weight_flash.TvZorderLinearLayout>
+            </com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>
+        </com.example.customrecycle.weight.appweight.TvZorderLinearLayout>
     </com.example.customrecycle.view.SmoothHorizontalScrollView>
 
 </RelativeLayout>

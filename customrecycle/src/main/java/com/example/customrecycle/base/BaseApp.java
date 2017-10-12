@@ -41,9 +41,9 @@ public class BaseApp extends Application {
          * 如果报错，或没有N 可以把 Build.VERSION_CODES.N 换成 24
          */
         if (Build.VERSION.SDK_INT >= 24) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-        }
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+    }
 
         super.onCreate();
     }

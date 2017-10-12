@@ -20,7 +20,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			titleList.add("推荐");
 			titleList.add("电影");
 			titleList.add("电视剧");
-			titleList.add("设置");
+			titleList.add("动漫");
 	}
 
 	@Override
