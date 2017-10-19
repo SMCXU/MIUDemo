@@ -39,7 +39,7 @@
                     android:layout_margin="@dimen/x10"
                     android:background="@mipmap/mainview_tuijian"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar3">
+                    android:nextFocusUp="@+id/title_bar6">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_1"
@@ -63,7 +63,7 @@
                     android:layout_toRightOf="@+id/rf_1"
                     android:background="@mipmap/mainview_tuijian"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar3">
+                    android:nextFocusUp="@+id/title_bar6">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_2"
@@ -87,7 +87,7 @@
                     android:layout_toRightOf="@+id/rf_2"
                     android:background="@mipmap/mainview_tuijian"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar3">
+                    android:nextFocusUp="@+id/title_bar6">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_3"

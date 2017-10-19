@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.customrecycle.IjkVideoActivity;
-import com.example.customrecycle.MainActivity;
+import com.example.customrecycle.activitys.IjkVideoActivity;
 import com.example.customrecycle.R;
-import com.example.customrecycle.VideoGridViewActivity;
-import com.example.customrecycle.VideoListActivity;
+import com.example.customrecycle.activitys.VideoGridViewActivity;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
@@ -30,7 +28,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class MovieFragment extends Fragment {
+public class MovieFragment extends Fragment implements View.OnFocusChangeListener {
 
     @BindView(R.id.mt_1)
     MarqueeText mt1;
@@ -80,7 +78,14 @@ public class MovieFragment extends Fragment {
         intent = new Intent(getActivity(),IjkVideoActivity.class);
         intent1 = new Intent(getActivity(), VideoGridViewActivity.class);
         mList = (List<VideoEntity>) getArguments().getSerializable("mList");
-
+        if (mList.size()>8){
+            mt1.setText(mList.get(5).getName());
+            mt2.setText(mList.get(6).getName());
+            mt3.setText(mList.get(7).getName());
+        }
+        rf1.setOnFocusChangeListener(this);
+        rf2.setOnFocusChangeListener(this);
+        rf3.setOnFocusChangeListener(this);
     }
 
     // 滚动动画实例
@@ -132,5 +137,20 @@ public class MovieFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        switch (view.getId()){
+            case R.id.rf_1:
+                scrollAnimation(hasFocus,mt1);
+                break;
+            case R.id.rf_2:
+                scrollAnimation(hasFocus,mt2);
+                break;
+            case R.id.rf_3:
+                scrollAnimation(hasFocus,mt3);
+                break;
+        }
     }
 }

@@ -17,17 +17,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package com.example.customrecycle;
+package com.example.customrecycle.activitys;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,17 +33,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.customrecycle.R;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.GridViewTV;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * GridView Demo测试.
@@ -57,8 +55,8 @@ public class VideoGridViewActivity extends Activity {
     private View mOldView;
     private GridViewTV gridView;
     private GridViewAdapter mAdapter;
-    private int mSavePos = -1;
-    private int mCount = 50;
+    private List<VideoEntity> mList;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +80,8 @@ public class VideoGridViewActivity extends Activity {
 //        // 移动方框缩小的距离.
 //        mainUpView1.setDrawUpRectPadding(new Rect(10, 10, 10, -55));
         // 加载数据.
-        getData(200);
+        getData();
+        intent = new Intent(this,IjkVideoActivity.class);
         //
         updateGridViewAdapter();
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -97,6 +96,13 @@ public class VideoGridViewActivity extends Activity {
                 if (view != null) {
                     mainUpView1.setFocusView(view, mOldView, 1.2f);
                 }
+                //跑马灯开始和停止
+                if (mOldView!=null){
+                    GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) mOldView.getTag();
+                    holder.titleTv.stopScroll();
+                }
+                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
+                holder.titleTv.startScroll();
                 mOldView = view;
             }
 
@@ -108,63 +114,20 @@ public class VideoGridViewActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                mFindhandler.removeCallbacksAndMessages(null);
-                mSavePos = position; // 保存原来的位置(不要按照我的抄，只是DEMO)
-                initGridViewData(new Random().nextInt(3));
-//                mFindhandler.sendMessageDelayed(mFindhandler.obtainMessage(), 111);
-                Toast.makeText(getApplicationContext(), "GridView Item " + position + " pos:" + mSavePos, Toast.LENGTH_LONG).show();
+                intent.putExtra("mList",(Serializable)mList);
+                intent.putExtra("index",position);
+                intent.putExtra("type",0);//本地视频传0
+                startActivity(intent);
             }
         });
-        initGridViewData(new Random().nextInt(3));
-//        mFirstHandler.sendMessageDelayed(mFirstHandler.obtainMessage(), 188);
     }
 
-//    // 延时请求初始位置的item.
-//    Handler mFirstHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            gridView.setDefualtSelect(2);
-//        }
-//    };
-//
-//    // 更新数据后还原焦点框.
-//    Handler mFindhandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            if (mSavePos != -1) {
-//                gridView.requestFocusFromTouch();
-//                gridView.setSelection(mSavePos);
-//            }
-//        }
-//    };
 
-    private void initGridViewData(int position) {
-        String text = "position:" + position;
-        // 测试数据更新.
-        if (position == 0) {
-            mCount += 10;
-            getData(mCount);
-            updateGridViewAdapter();
-            text += "-->更新数据3个";
-        } else if (position == 1) {
-            mCount += 20;
-            getData(mCount);
-            updateGridViewAdapter();
-            text += "-->更新数据100个";
-        } else if (position == 2) {
-            mCount += 30;
-            getData(mCount);
-            updateGridViewAdapter();
-            text += "-->更新数据2000个";
-        } else {
-            // ... ...
-        }
-    }
-
-    public List<String> getData(int count) {
+    public List<String> getData() {
         data = new ArrayList<String>();
-        for (int i = 0; i < count; i++) {
-            String text = "text" + "电影" + i;
-            data.add(text);
+        mList = (List<VideoEntity>) getIntent().getSerializableExtra("mList");
+        for (int i = 0; i < mList.size(); i++) {
+            data.add(mList.get(i).getName());
         }
         return data;
     }

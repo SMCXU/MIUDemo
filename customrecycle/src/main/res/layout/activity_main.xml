@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     android:focusable="false"
     android:gravity="center"
-    tools:context="com.example.customrecycle.MainActivity">
+    tools:context=".activitys.MainActivity">
 
     <com.example.customrecycle.leanback.recycle.RecyclerViewTV
         android:layout_gravity="center"

@@ -17,10 +17,12 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 	private List<String> titleList = new ArrayList<String>();
 
 	public OpenTabTitleAdapter() {
-			titleList.add("推荐");
+			titleList.add("搜索");
+			titleList.add("分类");
+			titleList.add("精选");
+			titleList.add("VIP");
 			titleList.add("电影");
 			titleList.add("电视剧");
-			titleList.add("动漫");
 	}
 
 	@Override
@@ -41,6 +43,9 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			add(R.id.title_bar2);
 			add(R.id.title_bar3);
 			add(R.id.title_bar4);
+			add(R.id.title_bar5);
+			add(R.id.title_bar6);
+			add(R.id.title_bar7);
 		}
 	};
 

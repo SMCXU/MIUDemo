@@ -1,4 +1,4 @@
-package com.example.customrecycle;
+package com.example.customrecycle.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.customrecycle.R;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.view.MainUpView;
 

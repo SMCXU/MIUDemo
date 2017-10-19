@@ -1,4 +1,4 @@
-package com.example.customrecycle;
+package com.example.customrecycle.activitys;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -15,11 +15,13 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.example.customrecycle.R;
 import com.example.customrecycle.adapter.MyFragmentPagerAdapter;
 import com.example.customrecycle.adapter.OpenTabTitleAdapter;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
@@ -27,8 +29,12 @@ import com.example.customrecycle.bridge.OpenEffectBridge;
 import com.example.customrecycle.fragment.CartoonFragment;
 import com.example.customrecycle.fragment.MovieFragment;
 import com.example.customrecycle.fragment.RecommendpFragment;
+import com.example.customrecycle.fragment.SearchFragment;
+import com.example.customrecycle.fragment.SortFragment;
 import com.example.customrecycle.fragment.TVFragment;
+import com.example.customrecycle.fragment.VIPFragment;
 import com.example.customrecycle.frame.utils.FileUtils;
+import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.view.OpenTabHost;
@@ -50,9 +56,7 @@ import java.util.List;
  */
 public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTabSelectListener {
 
-    private List<View> viewList;// view数组
     private List<Fragment> fragmentList;//
-    private View view1, view2, view3, view4;
     ViewPager viewpager;
     OpenTabHost mOpenTabHost;
     OpenTabTitleAdapter mOpenTabTitleAdapter;
@@ -61,7 +65,6 @@ public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTab
     EffectNoDrawBridge mEffectNoDrawBridge;
     View mNewFocus;
     View mOldView;
-
     //    Video列表
     private List<VideoEntity> mList;
 
@@ -104,21 +107,29 @@ public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTab
 
     private void initAllViewPager() {
         viewpager = (ViewPager) findViewById(R.id.viewpager);
-        RecommendpFragment fragment1 = new RecommendpFragment();
-        MovieFragment fragment2 = new MovieFragment();
-        TVFragment fragment3 = new TVFragment();
-        CartoonFragment fragment4 = new CartoonFragment();
+        SearchFragment searchFragment = new SearchFragment();
+        SortFragment sortFragment = new SortFragment();
+        MovieFragment movieFragment = new MovieFragment();
+        VIPFragment vipFragment = new VIPFragment();
+        RecommendpFragment recomFragment = new RecommendpFragment();
+        TVFragment tvFragment = new TVFragment();
+        CartoonFragment cartoonFragment = new CartoonFragment();
         fragmentList = new ArrayList<Fragment>();
         Bundle bundle = new Bundle();
         bundle.putSerializable("mList",(Serializable)mList);
-        fragment1.setArguments(bundle);
-        fragment2.setArguments(bundle);
-        fragment3.setArguments(bundle);
-        fragment4.setArguments(bundle);
-        fragmentList.add(fragment1);
-        fragmentList.add(fragment2);
-        fragmentList.add(fragment3);
-        fragmentList.add(fragment4);
+        searchFragment.setArguments(bundle);
+        sortFragment.setArguments(bundle);
+        vipFragment.setArguments(bundle);
+        recomFragment.setArguments(bundle);
+        movieFragment.setArguments(bundle);
+        tvFragment.setArguments(bundle);
+        cartoonFragment.setArguments(bundle);
+        fragmentList.add(searchFragment);
+        fragmentList.add(sortFragment);
+        fragmentList.add(recomFragment);
+        fragmentList.add(vipFragment);
+        fragmentList.add(movieFragment);
+        fragmentList.add(cartoonFragment);
 
         // 初始化滚动窗口适配. (请注意哈，在不同的dpi下, 滚动相差的间距不一样哈)
 //        for (View view : viewList) {
@@ -256,5 +267,14 @@ public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTab
         mList = FileUtils.getSpecificTypeOfFile(this, args);
         // 初始化viewpager.
         initAllViewPager();
+    }
+
+    //获取mainupview
+    public MainUpView getMainUpView(){
+        if (mainUpView1!=null){
+            return  mainUpView1;
+        }else {
+            return null;
+        }
     }
 }

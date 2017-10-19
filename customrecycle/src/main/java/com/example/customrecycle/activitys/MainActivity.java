@@ -1,71 +1,72 @@
-package com.example.customrecycle;
+package com.example.customrecycle.activitys;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.example.customrecycle.R;
 import com.example.customrecycle.adapter.GeneralAdapter;
-import com.example.customrecycle.adapter.VideoListAdapter;
 import com.example.customrecycle.bridge.RecyclerViewBridge;
-import com.example.customrecycle.frame.utils.FileUtils;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.leanback.GridLayoutManagerTV;
+import com.example.customrecycle.leanback.LinearLayoutManagerTV;
 import com.example.customrecycle.leanback.recycle.RecyclerViewTV;
 import com.example.customrecycle.view.MainUpView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+public class MainActivity extends AppCompatActivity implements RecyclerViewTV.OnItemListener {
 
-public class VideoListActivity extends Activity implements RecyclerViewTV.OnItemListener {
-
-    @BindView(R.id.mRecyclerView)
-    RecyclerViewTV mRecyclerView;
-    @BindView(R.id.mMainUpView)
-    MainUpView mMainUpView;
+    //    private ProgressBar mLoadMore_pb;
+    private MainUpView mMainUpView;
+    private RecyclerViewTV mRecyclerView;
     private RecyclerViewBridge mRecyclerViewBridge;
+    private List<String> mList;
     private GeneralAdapter mAdapter;
-    private List<VideoEntity> mList;
-    private List<String> nameList;
-
     private View mOldView;
-    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_list);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_main);
         initView();
+
     }
 
-    //扫描获取U盘内数据
-    private void scanMediaFile() {
-        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv"};
-        mList.clear();
-        nameList.clear();
-        mList = FileUtils.getSpecificTypeOfFile(this, args);
-        for (int i = 0; i < mList.size(); i++) {
-            nameList.add(mList.get(i).getName());
-        }
+    //添加数据
+    private void initData() {
+        mList.add("应用商店");
+        mList.add("游戏中心");
+        mList.add("智能家庭TV");
+        mList.add("高清播放器");
+        mList.add("辰星盒子设置");
+        mList.add("天气");
+        mList.add("晨星商城");
+        mList.add("电视相册");
+        mList.add("电视管家");
+        mList.add("日历");
+        mList.add("时尚画报");
+        mList.add("网络电台");
+        mList.add("无线投屏");
+        mList.add("通知中心");
         mAdapter.notifyDataSetChanged();
+        Log.d("Mr.U", "initData: " + mAdapter.getItemCount());
         GeneralAdapter.MyViewHolder holder = (GeneralAdapter.MyViewHolder) mRecyclerView.findViewHolderForAdapterPosition(mAdapter.getItemCount() / 2);
         if (holder != null) {
             holder.itemView.requestFocus();
         }
     }
+
+
+    //初始化布局
     private void initView() {
-        intent = new Intent(this,IjkVideoActivity.class);
+//        mLoadMore_pb = (ProgressBar) findViewById(R.id.load_pb);
+        mMainUpView = (MainUpView) findViewById(R.id.mMainUpView);
+        mRecyclerView = (RecyclerViewTV) findViewById(R.id.mRecyclerView);
         mMainUpView.setEffectBridge(new RecyclerViewBridge());
         // 注意这里，需要使用 RecyclerViewBridge 的移动边框 Bridge.
         mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
@@ -77,6 +78,9 @@ public class VideoListActivity extends Activity implements RecyclerViewTV.OnItem
                 getDimension(R.dimen.x45) * density, getDimension(R.dimen.x40) * density);
         mRecyclerViewBridge.setDrawUpRectPadding(receF);
 
+//        横竖方向的list
+//        testRecyclerViewLinerLayout(RecyclerView.VERTICAL);
+
 //        横竖方向的grid
         testRecyclerViewGridLayout(RecyclerView.VERTICAL);
 
@@ -85,24 +89,38 @@ public class VideoListActivity extends Activity implements RecyclerViewTV.OnItem
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                intent.putExtra("mList",(Serializable)mList);
-                intent.putExtra("index",position);
-                intent.putExtra("type",0);//本地视频传0
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, TestEffectActivity.class));
             }
         });
     }
-    private void initData() {
-        // 扫描功能 获取U盘视频列表
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //申请CAMERA权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
-        } else {
-            scanMediaFile();
-        }
-    }
+
+
     public float getDimension(int id) {
         return getResources().getDimension(id);
+    }
+
+    /**
+     * 测试LinerLayout.
+     */
+    private void testRecyclerViewLinerLayout(int orientation) {
+        LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(this);
+        layoutManager.setOrientation(orientation);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setFocusable(false);
+        mList = new ArrayList<>();
+        mAdapter = new GeneralAdapter(mList, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.requestFocusFromTouch();
+
+//        mRecyclerView.setSelectedItemOffset(111, 111); // 测试移动间距.
+//        mRecyclerView.setSelectedItemAtCentered(false);
+        mRecyclerView.setPagingableListener(new RecyclerViewTV.PagingableListener() {
+            @Override
+            public void onLoadMoreItems() {
+
+            }
+        });
+        initData();
     }
 
     /**
@@ -115,8 +133,7 @@ public class VideoListActivity extends Activity implements RecyclerViewTV.OnItem
         mRecyclerView.setFocusable(false);
         mRecyclerView.setSelectedItemAtCentered(true); // 设置item在中间移动.
         mList = new ArrayList<>();
-        nameList = new ArrayList<>();
-        mAdapter = new GeneralAdapter(nameList, this);
+        mAdapter = new GeneralAdapter(mList, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setPagingableListener(new RecyclerViewTV.PagingableListener() {
             @Override

@@ -1,5 +1,9 @@
 package com.example.customrecycle.weight;
 
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -29,12 +33,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-
 import com.example.customrecycle.R;
-
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.Locale;
 
 /**
  * A view containing controls for a MediaPlayer. Typically contains the buttons like "Play/Pause", "Rewind", "Fast
@@ -166,7 +165,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         mWindow.setBackgroundDrawableResource(android.R.color.transparent);
 
         // While the media controller is up, the volume control keys should
-        // affect the media stream type
+        // affect the media stream type音乐回放即媒体音量/
         mWindow.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         setFocusable(true);
@@ -203,6 +202,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         // within its space
         mDecor.measure(MeasureSpec.makeMeasureSpec(mAnchor.getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(mAnchor.getHeight(), MeasureSpec.AT_MOST));
+
         WindowManager.LayoutParams p = mDecorLayoutParams;
         p.width = mAnchor.getWidth();
         p.x = anchorPos[0] + (mAnchor.getWidth() - p.width) / 2;
@@ -275,10 +275,6 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
      *
      * @return The controller view.
      * @hide This doesn't work as advertised
-     */
-    /**
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * 设置mediaController布局
      */
     protected View makeControllerView() {
         LayoutInflater inflate = LayoutInflater.from(getContext());
@@ -385,7 +381,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             if (mPauseButton != null) {
                 mPauseButton.requestFocus();
             }
-            disableUnsupportedButtons();
+//            disableUnsupportedButtons();
             updateFloatingWindowLayout();
             mWindowManager.addView(mDecor, mDecorLayoutParams);
             mShowing = true;
@@ -402,6 +398,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             mHandler.removeMessages(FADE_OUT);
             mHandler.sendMessageDelayed(msg, timeout);
         }
+        Log.d("Mr.U", "show: "+mPlayer.isPlaying());
     }
 
     public boolean isShowing() {
@@ -429,6 +426,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         for (View view : mShowOnceArray)
             view.setVisibility(View.GONE);
         mShowOnceArray.clear();
+        Log.d("Mr.U", "hide: "+mPlayer.isPlaying());
     }
 
     @SuppressLint("HandlerLeak")
@@ -517,9 +515,10 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int keyCode = event.getKeyCode();
-        final boolean uniqueDown = event.getRepeatCount() == 0 && event.getAction() == KeyEvent.ACTION_DOWN;
+//        final boolean uniqueDown = event.getRepeatCount() == 0 && event.getAction() == KeyEvent.ACTION_DOWN;
+        final boolean uniqueDown = event.getAction() == KeyEvent.ACTION_DOWN;
         if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
-                || keyCode == KeyEvent.KEYCODE_SPACE) {
+                || keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
             if (uniqueDown) {
                 doPauseResume();
                 show(sDefaultTimeout);
@@ -531,14 +530,12 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
             if (uniqueDown && !mPlayer.isPlaying()) {
                 mPlayer.start();
-                updatePausePlay();
                 show(sDefaultTimeout);
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
             if (uniqueDown && mPlayer.isPlaying()) {
                 mPlayer.pause();
-                updatePausePlay();
                 show(sDefaultTimeout);
             }
             return true;
@@ -552,10 +549,48 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             }
             return true;
         }
+        else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_UP) {
+            if (event.getRepeatCount() == 0) {
+                if (mPlayer.getCurrentPosition() - 8000 > 0) {
+                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
+                } else {
+                    mPlayer.seekTo(0);
+                }
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_UP) {
+            if (event.getRepeatCount() == 0) {
+                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
+                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
+                } else {
+                    mPlayer.seekTo(mPlayer.getDuration());
+                }
+            }
+        }
 
         show(sDefaultTimeout);
         return super.dispatchKeyEvent(event);
     }
+
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        Log.d("Mr.U", "onKeyUp: ----------");
+//        if (event.getRepeatCount() == 0) {
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+//                if (mPlayer.getCurrentPosition() - 8000 > 0) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
+//                } else {
+//                    mPlayer.seekTo(0);
+//                }
+//            } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+//                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
+//                } else {
+//                    mPlayer.seekTo(mPlayer.getDuration());
+//                }
+//            }
+//        }
+//        return super.onKeyUp(keyCode, event);
+//    }
 
     private OnClickListener mPauseListener = new OnClickListener() {
         public void onClick(View v) {
@@ -609,6 +644,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             // we will post one of these messages to the queue again and
             // this ensures that there will be exactly one message queued up.
             mHandler.removeMessages(SHOW_PROGRESS);
+
         }
 
         public void onProgressChanged(SeekBar bar, int progress, boolean fromuser) {
@@ -621,6 +657,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
             mPlayer.seekTo((int) newposition);
+            Log.d("Mr.U", "onProgressChanged: seekto");
             if (mCurrentTime != null)
                 mCurrentTime.setText(stringForTime((int) newposition));
         }
@@ -681,6 +718,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             int pos = mPlayer.getCurrentPosition();
             pos -= 5000; // milliseconds
             mPlayer.seekTo(pos);
+            Log.d("Mr.U", "onClick: seekto");
             setProgress();
 
             show(sDefaultTimeout);
@@ -690,8 +728,9 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
     private OnClickListener mFfwdListener = new OnClickListener() {
         public void onClick(View v) {
             int pos = mPlayer.getCurrentPosition();
-            pos += 15000; // milliseconds
+            pos += 10000; // milliseconds
             mPlayer.seekTo(pos);
+            Log.d("Mr.U", "onClick: seekto");
             setProgress();
 
             show(sDefaultTimeout);

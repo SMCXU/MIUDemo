@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context="com.example.customrecycle.RetrofitTestActivity">
+    tools:context=".activitys.RetrofitTestActivity">
     <!--<ImageView-->
         <!--android:id="@+id/iv_1"-->
         <!--android:layout_width="wrap_content"-->

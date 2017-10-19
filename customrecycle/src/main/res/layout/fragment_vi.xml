@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content11"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    android:clipChildren="false"
-    android:clipToPadding="false">
-
+    android:focusable="false"
+    tools:context="com.example.customrecycle.fragment.VIPFragment">
 
     <com.example.customrecycle.weight.appweight.TvZorderLinearLayout
         android:layout_width="match_parent"
@@ -26,12 +25,12 @@
 
             <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                 android:id="@+id/rf_1"
-                android:layout_width="@dimen/x460"
-                android:layout_height="@dimen/x640"
-                android:layout_margin="@dimen/x10"
-                android:background="@mipmap/mainview_cloudlist"
+                android:layout_width="@dimen/x480"
+                android:layout_height="@dimen/x310"
+                android:layout_margin="@dimen/x15"
+                android:background="@mipmap/mainview_tuijian"
                 android:focusable="true"
-                android:nextFocusUp="@+id/title_bar3">
+                android:nextFocusUp="@+id/title_bar4">
 
                 <com.example.customrecycle.weight.appweight.MarqueeText
                     android:id="@+id/mt_1"
@@ -49,13 +48,13 @@
 
             <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                 android:id="@+id/rf_2"
-                android:layout_width="@dimen/x500"
+                android:layout_width="@dimen/x480"
                 android:layout_height="@dimen/x310"
-                android:layout_margin="@dimen/x10"
+                android:layout_margin="@dimen/x15"
                 android:layout_toRightOf="@+id/rf_1"
                 android:background="@mipmap/mainview_tuijian"
                 android:focusable="true"
-                android:nextFocusUp="@+id/title_bar3">
+                android:nextFocusUp="@+id/title_bar4">
 
                 <com.example.customrecycle.weight.appweight.MarqueeText
                     android:id="@+id/mt_2"
@@ -73,14 +72,13 @@
 
             <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                 android:id="@+id/rf_3"
-                android:layout_width="@dimen/x500"
+                android:layout_width="@dimen/x480"
                 android:layout_height="@dimen/x310"
-                android:layout_margin="@dimen/x10"
-                android:layout_toRightOf="@+id/rf_1"
-                android:layout_below="@id/rf_2"
+                android:layout_margin="@dimen/x15"
+                android:layout_toRightOf="@+id/rf_2"
                 android:background="@mipmap/mainview_tuijian"
                 android:focusable="true"
-                >
+                android:nextFocusUp="@id/title_bar4">
 
                 <com.example.customrecycle.weight.appweight.MarqueeText
                     android:id="@+id/mt_3"
@@ -96,15 +94,76 @@
 
             </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="@dimen/x353"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/rf_1"
+                android:layout_margin="@dimen/x15"
+                android:background="@drawable/bg_holo_blue_light"
+                android:focusable="true"
+                android:gravity="center"
+                android:nextFocusUp="@id/rf_1"
+                android:text="最新上线"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x64" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="@dimen/x353"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/rf_1"
+                android:layout_margin="@dimen/x15"
+                android:layout_toEndOf="@id/tv_1"
+                android:layout_toRightOf="@id/tv_1"
+                android:background="@drawable/bg_holo_blue_light"
+                android:focusable="true"
+                android:gravity="center"
+                android:nextFocusUp="@id/rf_1"
+                android:text="院线首播"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x64" />
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="@dimen/x353"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/rf_2"
+                android:layout_margin="@dimen/x15"
+                android:layout_toEndOf="@id/tv_2"
+                android:layout_toRightOf="@id/tv_2"
+                android:background="@drawable/bg_holo_blue_light"
+                android:focusable="true"
+                android:gravity="center"
+                android:nextFocusUp="@id/rf_2"
+                android:text="独播电视剧"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x64" />
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="@dimen/x351"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/rf_3"
+                android:layout_margin="@dimen/x15"
+                android:layout_toEndOf="@id/tv_3"
+                android:layout_toRightOf="@id/tv_3"
+                android:background="@drawable/bg_holo_blue_light"
+                android:focusable="true"
+                android:gravity="center"
+                android:nextFocusUp="@id/rf_3"
+                android:text="精彩好莱坞"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x64" />
+
             <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                 android:id="@+id/rf_4"
-                android:layout_width="@dimen/x500"
+                android:layout_width="@dimen/x734"
                 android:layout_height="@dimen/x310"
-                android:layout_margin="@dimen/x10"
-                android:layout_toRightOf="@id/rf_2"
+                android:layout_margin="@dimen/x15"
+                android:layout_below="@id/tv_1"
                 android:background="@mipmap/mainview_tuijian"
-                android:focusable="true"
-                android:nextFocusUp="@id/title_bar3">
+                android:focusable="true">
 
                 <com.example.customrecycle.weight.appweight.MarqueeText
                     android:id="@+id/mt_4"
@@ -119,18 +178,15 @@
                     android:textSize="15sp" />
 
             </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
-
             <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                 android:id="@+id/rf_5"
-                android:layout_width="@dimen/x500"
+                android:layout_width="@dimen/x734"
                 android:layout_height="@dimen/x310"
-                android:layout_below="@id/rf_4"
-                android:layout_margin="@dimen/x10"
-                android:layout_toEndOf="@id/rf_3"
-                android:layout_toRightOf="@id/rf_3"
+                android:layout_margin="@dimen/x15"
+                android:layout_below="@id/tv_1"
+                android:layout_toRightOf="@id/rf_4"
                 android:background="@mipmap/mainview_tuijian"
-                android:focusable="true"
-                android:nextFocusUp="@id/rf_4">
+                android:focusable="true">
 
                 <com.example.customrecycle.weight.appweight.MarqueeText
                     android:id="@+id/mt_5"
@@ -146,68 +202,6 @@
 
             </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
-            <TextView
-                android:id="@+id/tv_1"
-                android:layout_width="@dimen/x360"
-                android:layout_height="@dimen/x160"
-                android:layout_below="@id/rf_1"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginTop="@dimen/margin_ver"
-                android:layout_marginBottom="@dimen/x10"
-                android:background="@drawable/bg_holo_origan_light"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="经典二战电影"
-                android:textColor="@color/white"
-                android:textSize="@dimen/x50"/>
-            <TextView
-                android:id="@+id/tv_2"
-                android:layout_width="@dimen/x360"
-                android:layout_height="@dimen/x160"
-                android:layout_below="@id/rf_1"
-                android:layout_toRightOf="@id/tv_1"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_marginTop="@dimen/margin_ver"
-                android:layout_marginBottom="@dimen/x10"
-                android:background="@drawable/bg_holo_origan_light"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="经典谍战剧"
-                android:textColor="@color/white"
-                android:textSize="@dimen/x50"/>
-            <TextView
-                android:id="@+id/tv_3"
-                android:layout_width="@dimen/x360"
-                android:layout_height="@dimen/x160"
-                android:layout_below="@id/rf_1"
-                android:layout_toRightOf="@id/tv_2"
-                android:layout_marginRight="@dimen/x20"
-                android:layout_marginTop="@dimen/margin_ver"
-                android:layout_marginBottom="@dimen/x10"
-                android:background="@drawable/bg_holo_origan_light"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="香港恐怖喜剧"
-                android:textColor="@color/white"
-                android:textSize="@dimen/x50"/>
-            <TextView
-                android:id="@+id/tv_4"
-                android:layout_width="@dimen/x360"
-                android:layout_height="@dimen/x160"
-                android:layout_below="@id/rf_1"
-                android:layout_toRightOf="@id/tv_3"
-                android:layout_marginRight="@dimen/margin_horizontal_std"
-                android:layout_marginTop="@dimen/margin_ver"
-                android:layout_marginBottom="@dimen/x10"
-                android:background="@drawable/bg_holo_origan_light"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="更多精选分类"
-                android:textColor="@color/white"
-                android:textSize="@dimen/x50"/>
         </com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>
     </com.example.customrecycle.weight.appweight.TvZorderLinearLayout>
-
-
 </RelativeLayout>

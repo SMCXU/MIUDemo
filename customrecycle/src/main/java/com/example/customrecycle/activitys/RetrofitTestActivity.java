@@ -1,4 +1,4 @@
-package com.example.customrecycle;
+package com.example.customrecycle.activitys;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.frame.retrofit.HttpCallBack;
 import com.example.customrecycle.frame.retrofit.HttpRequest;

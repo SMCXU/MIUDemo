@@ -1,0 +1,379 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:focusable="false"
+    android:orientation="vertical"
+    tools:context="com.example.customrecycle.fragment.SearchFragment">
+
+    <com.example.customrecycle.view.SmoothVorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        >
+
+        <RelativeLayout
+            android:paddingBottom="@dimen/x200"
+            android:focusable="false"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="@dimen/x800"
+                android:layout_height="@dimen/x140"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/x140"
+                android:background="@drawable/bg_tv_search"
+                android:focusable="true"
+                android:gravity="center"
+                android:nextFocusUp="@id/title_bar1"
+                android:text="搜索电影丶电视剧丶演员"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x40" />
+
+            <TextView
+                android:id="@+id/tv_hotSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_search"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/x100"
+                android:background="@color/transparent"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="热搜榜"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x62" />
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_1"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_2"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_1"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_3"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_2"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_4"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_3"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_5"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_4"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_6"
+                android:onClick="onClicks"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSearch"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_5"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <TextView
+                android:id="@+id/tv_hotSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rf_1"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/x200"
+                android:background="@color/transparent"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="精选榜"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x62" />
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_11"
+                android:nextFocusDown="@id/rf_11"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_12"
+                android:nextFocusDown="@id/rf_12"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_1"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_13"
+                android:nextFocusDown="@id/rf_13"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_12"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_14"
+                android:nextFocusDown="@id/rf_14"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_13"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_15"
+                android:nextFocusDown="@id/rf_15"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_14"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+            <com.example.customrecycle.weight.appweight.RoundedFrameLayout
+                android:id="@+id/rf_16"
+                android:nextFocusDown="@id/rf_16"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/x300"
+                android:layout_below="@id/tv_hotSelect"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/rf_15"
+                android:background="@mipmap/mainview_cloudlist"
+                android:focusable="true">
+
+                <com.example.customrecycle.weight.appweight.MarqueeText
+                    android:id="@+id/mt_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/border_down_shape"
+                    android:gravity="center"
+                    android:padding="15px"
+                    android:text="就想测试一下如果文字多的话会怎么样1111111111111111111111111111111111111111"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp" />
+
+            </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
+
+
+        </RelativeLayout>
+    </com.example.customrecycle.view.SmoothVorizontalScrollView>
+
+
+</RelativeLayout>

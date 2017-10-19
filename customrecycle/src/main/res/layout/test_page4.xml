@@ -37,7 +37,7 @@
                     android:layout_margin="@dimen/x10"
                     android:background="@mipmap/mainview_tuijian"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar4">
+                    android:nextFocusUp="@+id/title_bar7">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_1"
@@ -61,7 +61,7 @@
                     android:layout_toRightOf="@+id/rf_1"
                     android:background="@mipmap/mainview_cloudlist"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar4">
+                    android:nextFocusUp="@+id/title_bar7">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_2"
@@ -78,34 +78,34 @@
                 </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
                 <ImageView
-                    android:id="@+id/iv_Sort"
+                    android:id="@+id/iv_sort"
                     android:layout_width="@dimen/x500"
                     android:layout_height="@dimen/x200"
                     android:layout_margin="@dimen/x10"
                     android:layout_toRightOf="@+id/rf_2"
                     android:background="@mipmap/mainview_type"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/title_bar4">
+                    android:nextFocusUp="@+id/title_bar7">
                 </ImageView>
                 <ImageView
-                    android:id="@+id/iv_Searchsong"
+                    android:id="@+id/iv_searchsong"
                     android:layout_width="@dimen/x500"
                     android:layout_height="@dimen/x200"
                     android:layout_margin="@dimen/x10"
                     android:layout_toRightOf="@+id/rf_2"
-                    android:layout_below="@id/iv_Sort"
+                    android:layout_below="@id/iv_sort"
                     android:background="@mipmap/mainview_searchsong"
                     android:focusable="true"
-                    android:nextFocusUp="@+id/iv_Sort">
+                    android:nextFocusUp="@+id/iv_sort">
                 </ImageView>
 
                 <TextView
-                    android:id="@+id/tv_Ardent"
+                    android:id="@+id/tv_ardent"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="热血"
@@ -114,13 +114,13 @@
                     android:nextFocusUp="@id/rf_1">
                 </TextView>
                 <TextView
-                    android:id="@+id/tv_Combat"
+                    android:id="@+id/tv_combat"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
-                    android:layout_toRightOf="@id/tv_Ardent"
+                    android:layout_toRightOf="@id/tv_ardent"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="机战"
@@ -129,13 +129,13 @@
                     android:nextFocusUp="@id/rf_1">
                 </TextView>
                 <TextView
-                    android:id="@+id/tv_Exercise"
+                    android:id="@+id/tv_exercise"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
-                    android:layout_toRightOf="@id/tv_Combat"
+                    android:layout_toRightOf="@id/tv_combat"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="运动"
@@ -144,13 +144,13 @@
                     android:nextFocusUp="@id/rf_2">
                 </TextView>
                 <TextView
-                    android:id="@+id/tv_Whodunit"
+                    android:id="@+id/tv_whodunit"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
-                    android:layout_toRightOf="@id/tv_Exercise"
+                    android:layout_toRightOf="@id/tv_exercise"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="推理"
@@ -159,34 +159,34 @@
                     android:nextFocusUp="@id/rf_2">
                 </TextView>
                 <TextView
-                    android:id="@+id/tv_Adventure"
+                    android:id="@+id/tv_adventure"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
-                    android:layout_toRightOf="@id/tv_Whodunit"
+                    android:layout_toRightOf="@id/tv_whodunit"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="冒险"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x64"
-                    android:nextFocusUp="@id/iv_Searchsong">
+                    android:nextFocusUp="@id/iv_searchsong">
                 </TextView>
                 <TextView
-                    android:id="@+id/tv_Comedy"
+                    android:id="@+id/tv_comedy"
                     android:layout_width="@dimen/x240"
                     android:layout_height="@dimen/x230"
                     android:layout_below="@id/rf_1"
-                    android:layout_toRightOf="@id/tv_Adventure"
+                    android:layout_toRightOf="@id/tv_adventure"
                     android:layout_margin="@dimen/x10"
-                    android:background="@drawable/bg_cartoon_sorts"
+                    android:background="@drawable/bg_holo_blue_bright"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="搞笑"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x64"
-                    android:nextFocusUp="@id/iv_Searchsong">
+                    android:nextFocusUp="@id/iv_searchsong">
                 </TextView>
 
             </com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>
