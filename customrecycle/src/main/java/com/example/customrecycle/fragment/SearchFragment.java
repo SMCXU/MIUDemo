@@ -1,6 +1,7 @@
 package com.example.customrecycle.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.MovieDetailActivity;
+import com.example.customrecycle.activitys.SearchActivity;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.weight.appweight.MarqueeText;
@@ -97,6 +100,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         if (mList.size() > 5) {
             mList = mList.subList(0, 5);
         }
+        tvSearch.setOnClickListener(this);
         rf1.setOnClickListener(this);
         rf2.setOnClickListener(this);
         rf3.setOnClickListener(this);
@@ -120,6 +124,24 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        MyToast.showToast("点击跳转到详情界面");
+        switch (view.getId()){
+            case R.id.tv_search:
+                startActivity(new Intent(getContext(), SearchActivity.class));
+                break;
+            case R.id.rf_1:
+            case R.id.rf_2:
+            case R.id.rf_3:
+            case R.id.rf_4:
+            case R.id.rf_5:
+            case R.id.rf_6:
+            case R.id.rf_11:
+            case R.id.rf_12:
+            case R.id.rf_13:
+            case R.id.rf_14:
+            case R.id.rf_15:
+            case R.id.rf_16:
+                startActivity(new Intent(getContext(), MovieDetailActivity.class));
+                break;
+        }
     }
 }

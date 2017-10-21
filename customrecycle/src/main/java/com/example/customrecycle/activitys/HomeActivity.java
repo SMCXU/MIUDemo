@@ -144,6 +144,8 @@ public class HomeActivity extends AppCompatActivity implements OpenTabHost.OnTab
         viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
             public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+                if (newFocus != null)
+                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
                 // 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
                 // 你也可以让标题栏放大，有移动边框.
                 if (newFocus != null && !(newFocus instanceof TextViewWithTTF)) {

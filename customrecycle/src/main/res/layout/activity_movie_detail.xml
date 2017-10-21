@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/img_background"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="false"
+    android:id="@+id/rl_container"
+    tools:context="com.example.customrecycle.activitys.MovieDetailActivity">
+
+    <com.example.customrecycle.weight.appweight.TvZorderLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:focusable="false">
+
+        <com.example.customrecycle.weight.appweight.TvZorderRelativeLayout
+            android:id="@+id/tv_relativelayout_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/x60"
+            android:clipToPadding="false"
+            android:focusable="false"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_name"
+                android:layout_width="@dimen/x500"
+                android:layout_height="@dimen/x700"
+                android:focusable="false"
+                android:scaleType="fitXY"
+                android:src="@mipmap/mainview_huodong" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_toRightOf="@id/iv_name"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="战狼"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x62" />
+
+            <LinearLayout
+                android:id="@+id/ll_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/iv_name"
+                android:focusable="false"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center|left"
+                    android:text="热播指数 8.0"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/x32" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="16dp"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@color/gray"
+                    android:focusable="false" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center|left"
+                    android:text="2015"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x32" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="16dp"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@color/gray"
+                    android:focusable="false" />
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center|left"
+                    android:text="中国大陆"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x32" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="16dp"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@color/gray"
+                    android:focusable="false" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center|left"
+                    android:text="战争 动作"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x32" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="16dp"
+                    android:layout_margin="@dimen/x10"
+                    android:background="@color/gray"
+                    android:focusable="false" />
+
+                <TextView
+                    android:id="@+id/tv_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center|left"
+                    android:text="90分钟"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x32" />
+            </LinearLayout>
+
+            <TextView
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:id="@+id/tv_dec"
+                android:layout_width="@dimen/x1000"
+                android:layout_height="@dimen/x290"
+                android:layout_below="@id/ll_detail"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/iv_name"
+                android:background="@drawable/selector_movie_detail"
+                android:focusable="true"
+                android:gravity="left|center"
+                android:padding="@dimen/x20"
+                android:text="@string/movie_dec"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x40" />
+
+            <TextView
+                android:id="@+id/tv_play"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/tv_dec"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/iv_name"
+                android:background="@drawable/selector_movie_play"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:gravity="center"
+                android:text="播放"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x50" />
+
+            <TextView
+                android:id="@+id/tv_pilot"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/tv_dec"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/tv_play"
+                android:background="@drawable/selector_movie_play"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="试播"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x50" />
+
+            <TextView
+                android:id="@+id/tv_fee"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/tv_dec"
+                android:layout_marginLeft="@dimen/margin_horizontal_std"
+                android:layout_marginTop="@dimen/margin_ver"
+                android:layout_toRightOf="@id/tv_pilot"
+                android:background="@drawable/selector_movie_play"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="付费"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x50" />
+        </com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>
+    </com.example.customrecycle.weight.appweight.TvZorderLinearLayout>
+
+    !-- 最顶层边框 -->
+
+    <com.example.customrecycle.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/test_rectangle" />
+</RelativeLayout>
