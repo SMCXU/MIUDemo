@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:focusable="true"
+    android:background="@color/transparent"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal">
+
+    <TextView
+        android:maxLength="8"
+        android:ellipsize="end"
+        android:id="@+id/tv_name"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/iv_app_icon"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:text="王牌特工" />
+    <TextView
+        android:maxLength="8"
+        android:ellipsize="end"
+        android:id="@+id/tv_type"
+        android:gravity="center|right"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/iv_app_icon"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:text="王牌特工" />
+
+</LinearLayout>
