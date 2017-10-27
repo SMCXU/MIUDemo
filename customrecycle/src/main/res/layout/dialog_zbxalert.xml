@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:gravity="center"
+    android:focusable="false"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:focusable="false"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_dialog_bg"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:focusable="false"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="提示"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <TextView
+            android:focusable="false"
+            android:id="@+id/tv_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="外部存储设备已连接"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+        <TextView
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dialog_update_blue"
+            android:orientation="horizontal">
+
+            <TextView
+                android:focusable="true"
+                android:id="@+id/dialog_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_cancel"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+
+
+            <TextView
+                android:focusable="true"
+                android:id="@+id/dialog_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_ok"
+                android:selectAllOnFocus="true"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="打开"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

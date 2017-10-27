@@ -35,6 +35,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.GridViewTV;
@@ -48,7 +49,7 @@ import java.util.List;
 /**
  * GridView Demo测试.
  */
-public class VideoGridViewActivity extends Activity {
+public class VideoGridViewActivity extends BaseActivity {
 
     private List<String> data;
     private MainUpView mainUpView1;

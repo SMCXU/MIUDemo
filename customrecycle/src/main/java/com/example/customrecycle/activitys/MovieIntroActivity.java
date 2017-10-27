@@ -6,11 +6,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieIntroActivity extends Activity {
+public class MovieIntroActivity extends BaseActivity {
 
     @BindView(R.id.tv_name)
     TextView tvName;

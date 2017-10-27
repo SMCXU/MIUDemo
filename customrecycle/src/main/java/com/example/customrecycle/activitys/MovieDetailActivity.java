@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
@@ -19,7 +20,7 @@ import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailActivity extends Activity implements View.OnClickListener {
+public class MovieDetailActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.iv_name)
     ImageView ivName;

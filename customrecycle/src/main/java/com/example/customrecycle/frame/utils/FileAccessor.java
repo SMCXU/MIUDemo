@@ -25,8 +25,8 @@ import java.io.FileOutputStream;
  * Created by Jorstin on 2015/3/17.
  */
 public class FileAccessor {
-    public static final String APPS_ROOT_DIR = getExternalStorePath() + "/zbx";
-    public static final String IMESSAGE_IMAGE = getExternalStorePath() + "/zbx/img";
+    public static final String APPS_ROOT_DIR = getExternalStorePath() + "/smcx";
+    public static final String IMESSAGE_IMAGE = getExternalStorePath() + "/smcx/img";
 
     /**
      * 初始化应用文件夹目录

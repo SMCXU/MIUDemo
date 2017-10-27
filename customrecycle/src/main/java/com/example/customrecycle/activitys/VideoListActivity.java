@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.adapter.GeneralAdapter;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.RecyclerViewBridge;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
@@ -27,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoListActivity extends Activity implements RecyclerViewTV.OnItemListener {
+public class VideoListActivity extends BaseActivity implements RecyclerViewTV.OnItemListener {
 
     @BindView(R.id.mRecyclerView)
     RecyclerViewTV mRecyclerView;

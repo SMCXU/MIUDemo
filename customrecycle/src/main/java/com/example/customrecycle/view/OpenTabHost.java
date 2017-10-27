@@ -85,7 +85,7 @@ public class OpenTabHost extends TabHost {
 		public DummyTabFactory(Context context) {
 			this.mContext = context;
 		}
-		
+
 		/**
 		 * 创建一个空的Content.
 		 */
@@ -115,23 +115,23 @@ public class OpenTabHost extends TabHost {
 			}
 		}
 	}
-	
+
 	public List<View> getAllTitleView() {
 		return this.mCacheView;
 	}
-	
+
 	public View getTitleViewIndexAt(int index) {
 		return this.mCacheView.get(index);
 	}
-	
+
 	public View getTitleViewIdAt(int index) {
 		return this.mCacheView.get(index).findViewById(this.mAdapter.getTitleWidgetID(index));
 	}
-	
+
 	public interface OnTabSelectListener {
 		public void onTabSelect(OpenTabHost openTabHost, View titleWidget, int postion);
 	}
-	
+
 	/**
 	 * 修复鼠标点击，按数字键会丢失焦点的问题
 	 * 倾听者(344176791) 修复.
@@ -139,5 +139,5 @@ public class OpenTabHost extends TabHost {
 	@Override
 	public void onTouchModeChanged(boolean isInTouchMode) {
 	}
-	
+
 }

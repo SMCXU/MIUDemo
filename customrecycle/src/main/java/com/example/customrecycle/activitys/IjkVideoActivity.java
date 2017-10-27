@@ -3,6 +3,7 @@ package com.example.customrecycle.activitys;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.database.DatabaseUtils;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.frame.utils.DateUtils;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
@@ -30,7 +33,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
-public class IjkVideoActivity extends AppCompatActivity {
+public class IjkVideoActivity extends BaseActivity {
 
     private String url1 = "http://2449.vod.myqcloud.com/2449_bfbbfa3cea8f11e5aac3db03cda99974.f20.mp4";
     private String url2 = "/storage/601A-A257/伴我们一路同行~我不愿让你一个人[超清版].mp4";
@@ -46,7 +49,8 @@ public class IjkVideoActivity extends AppCompatActivity {
     private int index;
     private List<VideoEntity> mList;
     private String uri;
-
+    //播放完成视频个数 用于测试
+    int sum=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +79,16 @@ public class IjkVideoActivity extends AppCompatActivity {
         //跳转至上次播放的进度,如果未播放,进度默认为0
         currentPosition = PreferencesUtils.getInt(getApplicationContext(),uri);
         mVideoView.seekTo(currentPosition);
-        Log.d("Mr.U", "initVideo: seekto");
         mVideoView.start();
+//        mVideoView.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
+//            @Override
+//            public boolean onError(IMediaPlayer mp, int what, int extra) {
+//
+//            }
+//        });
         //注册一个回调函数，视频播放完继续播放下一个,或者播放第一个。
+
+
         mVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(IMediaPlayer mp) {
@@ -87,6 +98,9 @@ public class IjkVideoActivity extends AppCompatActivity {
                     index++;
                 }
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
+                Log.d("Mr.U", uri+"-----"+ DateUtils.getFullDate());
+                Log.d("Mr.U", "--------"+(++sum)+"------------");
+                Log.d("Mr.U", "-------分分分-------");
                 initVideo();
             }
         });

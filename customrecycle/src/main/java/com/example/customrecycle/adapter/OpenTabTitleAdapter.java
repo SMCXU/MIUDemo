@@ -23,6 +23,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			titleList.add("VIP");
 			titleList.add("电影");
 			titleList.add("电视剧");
+//			titleList.add("动漫");
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			add(R.id.title_bar4);
 			add(R.id.title_bar5);
 			add(R.id.title_bar6);
-			add(R.id.title_bar7);
+//			add(R.id.title_bar7);
 		}
 	};
 
@@ -69,7 +70,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 
 	/**
 	 * 这里只是demo，你可以设置自己的标题栏.
-     */
+	 */
 	private View newTabIndicator(Context context, String tabName, boolean focused) {
 		final String name = tabName;
 		View viewC = View.inflate(context, R.layout.tab_view_indicator_item, null);

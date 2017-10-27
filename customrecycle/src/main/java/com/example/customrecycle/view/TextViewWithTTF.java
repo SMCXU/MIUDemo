@@ -2,12 +2,17 @@ package com.example.customrecycle.view;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.MovieDetailActivity;
+import com.example.customrecycle.activitys.SettingsActivity;
+import com.example.customrecycle.activitys.TabTestActivity;
 
 import java.util.HashMap;
 
@@ -33,7 +38,17 @@ public class TextViewWithTTF extends TextView {
         array.recycle();
     }
 
-    
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        final boolean uniqueDown = event.getAction() == KeyEvent.ACTION_DOWN;
+        int keyCode = event.getKeyCode();
+        //点击tabHost的上建，跳转到设置界面
+        if (uniqueDown&&keyCode==KeyEvent.KEYCODE_DPAD_UP){
+            getContext().startActivity(new Intent(getContext(), SettingsActivity.class));
+        }
+
+        return super.dispatchKeyEvent(event);
+    }
 
     public TextViewWithTTF(Context context, String aTTFName)
     {

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.adapter.GeneralAdapter;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.RecyclerViewBridge;
 import com.example.customrecycle.leanback.GridLayoutManagerTV;
 import com.example.customrecycle.leanback.LinearLayoutManagerTV;
@@ -19,7 +20,7 @@ import com.example.customrecycle.view.MainUpView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewTV.OnItemListener {
+public class MainActivity extends BaseActivity implements RecyclerViewTV.OnItemListener {
 
     //    private ProgressBar mLoadMore_pb;
     private MainUpView mMainUpView;

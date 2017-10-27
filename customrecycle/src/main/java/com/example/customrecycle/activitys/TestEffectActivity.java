@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.view.MainUpView;
 
-public class TestEffectActivity extends Activity {
+public class TestEffectActivity extends BaseActivity {
 
     private ImageView iv1;
     private ImageView iv2;
@@ -36,8 +37,8 @@ public class TestEffectActivity extends Activity {
         iv3 = (ImageView) findViewById(R.id.iv_3);
         iv4 = (ImageView) findViewById(R.id.iv_4);
         iv5 = (ImageView) findViewById(R.id.iv_5);
-        mMainUpView = findViewById(R.id.mMainUpView);
-        llContioner = findViewById(R.id.ll_contioner);
+        mMainUpView = (MainUpView) findViewById(R.id.mMainUpView);
+        llContioner = (LinearLayout) findViewById(R.id.ll_contioner);
         switchNoDrawBridgeVersion();
         llContioner.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override

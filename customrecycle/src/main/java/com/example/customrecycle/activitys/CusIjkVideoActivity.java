@@ -10,12 +10,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.weight.CustomMediaController;
 import com.example.customrecycle.weight.IjkVideoView;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class CusIjkVideoActivity extends Activity {
+public class CusIjkVideoActivity extends BaseActivity {
 
     private String url1 = "http://2449.vod.myqcloud.com/2449_bfbbfa3cea8f11e5aac3db03cda99974.f20.mp4";
     private String url2 = "/storage/601A-A257/伴我们一路同行~我不愿让你一个人[超清版].mp4";

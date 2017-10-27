@@ -6,9 +6,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 
+import com.example.customrecycle.broadcast.SdcardReceiver;
 import com.example.customrecycle.frame.utils.ConfigUtils;
 import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.FileAccessor;
+import com.tencent.bugly.crashreport.CrashReport;
 
 
 public class BaseApp extends Application {
@@ -35,7 +37,8 @@ public class BaseApp extends Application {
         }
         //文件工具类
         FileAccessor.initFileAccess();
-
+        //buggly的初始化
+        CrashReport.initCrashReport(getApplicationContext(), "b2064ae541", false);
         /**
          * 防止7.0及以上 FileUriExposedException
          * 如果报错，或没有N 可以把 Build.VERSION_CODES.N 换成 24
