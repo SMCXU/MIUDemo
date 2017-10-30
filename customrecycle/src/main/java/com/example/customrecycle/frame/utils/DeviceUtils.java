@@ -1,5 +1,7 @@
 package com.example.customrecycle.frame.utils;
 
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -9,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Debug;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -511,5 +514,44 @@ public class DeviceUtils {
 			return true;
 		}
 		return true;
+	}
+	/**
+	 * 获取当前设备总的内存
+	 * */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public String getTotalMemory(){
+		ActivityManager activityManager = (ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+		activityManager.getMemoryInfo(memoryInfo);
+		return memoryInfo.totalMem+"";
+	}
+	/**
+	 * 获取当前设备可用内存
+	 * */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public String getAvailMemory(){
+		ActivityManager activityManager = (ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+		activityManager.getMemoryInfo(memoryInfo);
+		return memoryInfo.availMem+"";
+	}
+	/**
+	 * 获取当前设备是否低内存状态下运行
+	 * */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public  boolean isLowMemory(){
+		ActivityManager activityManager = (ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+		activityManager.getMemoryInfo(memoryInfo);
+		return memoryInfo.lowMemory;
+	}
+	/**
+	 * 获取当前进程内存
+	 * */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public String getTotalPss(){
+		Debug.MemoryInfo memoryInfo1 = new Debug.MemoryInfo();
+		Debug.getMemoryInfo(memoryInfo1);
+		return memoryInfo1.getTotalPss()+"";
 	}
 }

@@ -398,7 +398,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             mHandler.removeMessages(FADE_OUT);
             mHandler.sendMessageDelayed(msg, timeout);
         }
-        Log.d("Mr.U", "show: "+mPlayer.isPlaying());
+
     }
 
     public boolean isShowing() {
@@ -426,7 +426,6 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         for (View view : mShowOnceArray)
             view.setVisibility(View.GONE);
         mShowOnceArray.clear();
-        Log.d("Mr.U", "hide: "+mPlayer.isPlaying());
     }
 
     @SuppressLint("HandlerLeak")
@@ -657,7 +656,6 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
             mPlayer.seekTo((int) newposition);
-            Log.d("Mr.U", "onProgressChanged: seekto");
             if (mCurrentTime != null)
                 mCurrentTime.setText(stringForTime((int) newposition));
         }
@@ -718,7 +716,6 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             int pos = mPlayer.getCurrentPosition();
             pos -= 5000; // milliseconds
             mPlayer.seekTo(pos);
-            Log.d("Mr.U", "onClick: seekto");
             setProgress();
 
             show(sDefaultTimeout);
@@ -730,7 +727,6 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             int pos = mPlayer.getCurrentPosition();
             pos += 10000; // milliseconds
             mPlayer.seekTo(pos);
-            Log.d("Mr.U", "onClick: seekto");
             setProgress();
 
             show(sDefaultTimeout);

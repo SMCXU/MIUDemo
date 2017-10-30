@@ -389,7 +389,6 @@ public class IjkVideoView extends FrameLayout implements CustomMediaController.M
             int seekToPosition = mSeekWhenPrepared; // mSeekWhenPrepared may be changed after seekTo() call
             if (seekToPosition != 0) {
                 seekTo(seekToPosition);
-                Log.d("Mr.U", "onPrepared: seekto");
             }
             if (mVideoWidth != 0 && mVideoHeight != 0) {
                 // REMOVED: getHolder().setFixedSize(mVideoWidth, mVideoHeight);

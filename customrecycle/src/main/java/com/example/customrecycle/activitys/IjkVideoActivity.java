@@ -1,37 +1,31 @@
 package com.example.customrecycle.activitys;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.database.DatabaseUtils;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TableLayout;
-import android.widget.Toast;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
-import com.example.customrecycle.frame.utils.DateUtils;
+import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.weight.CustomMediaController;
 import com.example.customrecycle.weight.IjkVideoView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
 public class IjkVideoActivity extends BaseActivity {
 
@@ -97,8 +91,11 @@ public class IjkVideoActivity extends BaseActivity {
                 } else {
                     index++;
                 }
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time = simple.format(calendar.getTime());
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
-                Log.d("Mr.U", uri+"-----"+ DateUtils.getFullDate());
+                Log.d("Mr.U", uri+"-----"+ time);
                 Log.d("Mr.U", "--------"+(++sum)+"------------");
                 Log.d("Mr.U", "-------分分分-------");
                 initVideo();
@@ -118,6 +115,21 @@ public class IjkVideoActivity extends BaseActivity {
         } else {
             initVideo();
         }
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
+                    Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
+                    Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+
+                }
+            }
+        });
+        thread.start();
+
     }
 
     @Override
