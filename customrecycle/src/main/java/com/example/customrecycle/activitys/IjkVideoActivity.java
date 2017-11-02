@@ -44,7 +44,8 @@ public class IjkVideoActivity extends BaseActivity {
     private List<VideoEntity> mList;
     private String uri;
     //播放完成视频个数 用于测试
-    int sum=0;
+    int sum = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,23 +71,16 @@ public class IjkVideoActivity extends BaseActivity {
         mVideoView.setMediaController(mController);
         mVideoView.setVideoURI(Uri.parse(uri));
 
+
         //跳转至上次播放的进度,如果未播放,进度默认为0
-        currentPosition = PreferencesUtils.getInt(getApplicationContext(),uri);
+        currentPosition = PreferencesUtils.getInt(getApplicationContext(), uri);
         mVideoView.seekTo(currentPosition);
         mVideoView.start();
-//        mVideoView.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
-//            @Override
-//            public boolean onError(IMediaPlayer mp, int what, int extra) {
-//
-//            }
-//        });
         //注册一个回调函数，视频播放完继续播放下一个,或者播放第一个。
-
-
         mVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(IMediaPlayer mp) {
-                if (mList.size() <= index+1) {
+                if (mList.size() <= index + 1) {
                     index = 0;
                 } else {
                     index++;
@@ -95,8 +89,8 @@ public class IjkVideoActivity extends BaseActivity {
                 SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simple.format(calendar.getTime());
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
-                Log.d("Mr.U", uri+"-----"+ time);
-                Log.d("Mr.U", "--------"+(++sum)+"------------");
+                Log.d("Mr.U", uri + "-----" + time);
+                Log.d("Mr.U", "--------" + (++sum) + "------------");
                 Log.d("Mr.U", "-------分分分-------");
                 initVideo();
             }
@@ -104,6 +98,7 @@ public class IjkVideoActivity extends BaseActivity {
     }
 
     private void initView() {
+
         mVideoView = (IjkVideoView) findViewById(R.id.mVideoView);
         type = getIntent().getIntExtra("type", 0);
         index = getIntent().getIntExtra("index", 0);
@@ -115,21 +110,9 @@ public class IjkVideoActivity extends BaseActivity {
         } else {
             initVideo();
         }
-        final Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
-                    Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
-                    Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-
-                }
-            }
-        });
-        thread.start();
-
+        Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
+        Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
+        Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
     }
 
     @Override
@@ -156,7 +139,7 @@ public class IjkVideoActivity extends BaseActivity {
     public void finish() {
         super.finish();
         //销毁当前activity时,保存进度.
-        PreferencesUtils.putInt(getApplicationContext(), uri,  mVideoView.getCurrentPosition());
+        PreferencesUtils.putInt(getApplicationContext(), uri, mVideoView.getCurrentPosition());
         overridePendingTransition(R.anim.activity_up_in, R.anim.activity_up_out);
     }
 

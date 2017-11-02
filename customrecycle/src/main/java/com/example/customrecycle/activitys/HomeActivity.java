@@ -263,7 +263,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     //扫描获取U盘内数据
     private void scanMediaFile() {
-        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv"};
+        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv","3gp","mov","mpg","webm","wob"};
         mList.clear();
         mList = FileUtils.getSpecificTypeOfFile(this, args);
         videoList = mList;

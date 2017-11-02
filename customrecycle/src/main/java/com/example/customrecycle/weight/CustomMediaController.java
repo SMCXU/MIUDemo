@@ -35,6 +35,8 @@ import android.widget.TextView;
 
 import com.example.customrecycle.R;
 
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 /**
  * A view containing controls for a MediaPlayer. Typically contains the buttons like "Play/Pause", "Rewind", "Fast
  * Forward" and a progress slider. It takes care of synchronizing the controls with the state of the MediaPlayer.
