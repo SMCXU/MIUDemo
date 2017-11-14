@@ -1,31 +1,46 @@
 package com.example.customrecycle.frame.utils;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.storage.StorageManager;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 
+import com.example.customrecycle.activitys.HomeActivity;
+import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.base.DaoTools;
+import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by U
- * <p>
+ * <p/>
  * on 2017/8/28
- * <p>
+ * <p/>
  * QQ:1347414707
- * <p>
+ * <p/>
  * For:
  */
 public class FileUtils {
 
+    //查询本地
+    @Nullable
     public static List<VideoEntity> getSpecificTypeOfFile(Context context, String[] extension) {
         //从外存中获取
         Uri fileUri = MediaStore.Files.getContentUri("external");
@@ -51,21 +66,26 @@ public class FileUtils {
             return null;
         //游标从最后开始往前递减，以此实现时间递减顺序（最近访问的文件，优先显示）
         List<VideoEntity> mList = new ArrayList<>();
+        DaoTools.deleteAll();
         if (cursor.moveToLast()) {
             do {
                 //输出文件的完整路径
                 String data = cursor.getString(0);
-                mList.add(new VideoEntity(data,getFileName(data),(long)0));
+                VideoEntity entity = new VideoEntity(data, getFileName(data), (long) 0);
+                mList.add(entity);
+                //存到本地数据库中
+                DaoTools.insertLove(entity);
                 Log.d("Mr.U", data);
             } while (cursor.moveToPrevious());
         }
         cursor.close();
+        Log.d("Mr.U", "getSpecificTypeOfFile: " + mList.size());
         return mList;
     }
 
     //通过文件路径获取文件的名字
     public static String getFileName(String path) {
-        return path.substring(path.lastIndexOf('/') + 1, path.length()-4);
+        return DemoUtils.getFilename(path);
     }
 
     /**
@@ -88,5 +108,27 @@ public class FileUtils {
             retriever.release();
         }
         return bitmap;
+    }
+
+    //扫描移动存储设备
+    //String[] args = {".mp4", ".wmv", ".rmvb", ".mkv", ".avi", ".flv", ".3gp", ".mov", ".mpg", ".webm", ".wob"};
+    public static void getAllFiles(File path) {
+        File files[] = path.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    getAllFiles(f);
+                } else {
+                    String s = f.toString().toLowerCase();
+                    if (s.endsWith(".mp4")||s.endsWith(".wmv")||s.endsWith(".rmvb")||s.endsWith(".mkv")||s.endsWith(".avi")
+                            ||s.endsWith(".flv")||s.endsWith(".flv")||s.endsWith(".3gp")||s.endsWith(".mov")||s.endsWith(".mpg")
+                            ||s.endsWith(".webm")||s.endsWith(".wob")){
+                        DaoTools.insertLove(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
+                        HomeActivity.videoList.add(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
+                        Log.d("Mr.U", "getAllFiles: "+s);
+                    }
+                }
+            }
+        }
     }
 }

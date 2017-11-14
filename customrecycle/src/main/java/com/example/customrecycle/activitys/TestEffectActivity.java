@@ -1,6 +1,5 @@
 package com.example.customrecycle.activitys;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.view.MainUpView;

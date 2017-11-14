@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".activitys.IjkVideoActivity">
+    tools:context=".activitys.movie.IjkVideoActivity">
     <com.example.customrecycle.weight.IjkVideoView
         android:id="@+id/mVideoView"
         android:layout_width="match_parent"

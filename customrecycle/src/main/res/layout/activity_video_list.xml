@@ -9,7 +9,7 @@
     android:focusable="false"
     android:gravity="center"
     android:background="@drawable/img_background"
-    tools:context=".activitys.VideoListActivity">
+    tools:context=".activitys.movie.VideoListActivity">
     <com.example.customrecycle.leanback.recycle.RecyclerViewTV
         android:layout_gravity="center"
         android:id="@+id/mRecyclerView"

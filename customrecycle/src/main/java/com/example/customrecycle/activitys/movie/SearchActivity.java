@@ -1,10 +1,13 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.telecom.VideoProfile;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +18,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.GridViewTV;
 import com.example.customrecycle.view.ListViewTV;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +60,7 @@ public class SearchActivity extends BaseActivity {
     private List<VideoEntity> videoEntities;
     private LayoutInflater mInflater;
     private View mOldView,mOldView2;
+    private ZBXAlertDialog dialog;
 
 
     @Override
@@ -216,6 +229,28 @@ public class SearchActivity extends BaseActivity {
     }
     //======================listadapter end====================================
 
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        Log.d("Mr.U", "onEventThread: searchhhhhhhhhhhhhhhhh");
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            if (ActivityUtils.isForeground(SearchActivity.this, "com.example.customrecycle.activitys.movie.SearchActivity")) {
+                dialog.show();
+            }
+        }
+    }
 
     ///// Adapter 类 start start //////////
 

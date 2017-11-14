@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.customrecycle.activitys.IjkVideoActivity;
+import com.example.customrecycle.activitys.HomeActivity;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
@@ -88,9 +89,9 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
 
     //初始化view
     private void initView() {
-        intent = new Intent(getActivity(),IjkVideoActivity.class);
-        mList = (List<VideoEntity>) getArguments().getSerializable("mList");
-        if (mList.size()>17){
+        intent = new Intent(getActivity(), IjkVideoActivity.class);
+        mList = HomeActivity.videoList;
+        if (mList != null && mList.size() > 17) {
             mt1.setText(mList.get(9).getName());
             mt2.setText(mList.get(10).getName());
             mt3.setText(mList.get(11).getName());
@@ -100,6 +101,18 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
             mt7.setText(mList.get(15).getName());
             mt8.setText(mList.get(16).getName());
             mt9.setText(mList.get(17).getName());
+            setClickEnable(true);
+        } else if (mList.size() == 0) {
+            mt1.setText("暂无数据");
+            mt2.setText("暂无数据");
+            mt3.setText("暂无数据");
+            mt4.setText("暂无数据");
+            mt5.setText("暂无数据");
+            mt6.setText("暂无数据");
+            mt7.setText("暂无数据");
+            mt8.setText("暂无数据");
+            mt9.setText("暂无数据");
+            setClickEnable(false);
         }
         rf1.setOnFocusChangeListener(this);
         rf2.setOnFocusChangeListener(this);
@@ -111,6 +124,18 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
         rf8.setOnFocusChangeListener(this);
         rf9.setOnFocusChangeListener(this);
 
+    }
+
+    private void setClickEnable(boolean isTrue) {
+        rf1.setClickable(isTrue);
+        rf2.setClickable(isTrue);
+        rf3.setClickable(isTrue);
+        rf4.setClickable(isTrue);
+        rf5.setClickable(isTrue);
+        rf6.setClickable(isTrue);
+        rf7.setClickable(isTrue);
+        rf8.setClickable(isTrue);
+        rf9.setClickable(isTrue);
     }
 
     // 滚动动画实例
@@ -125,9 +150,9 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
     }
 
     @OnClick({R.id.rf_1, R.id.rf_2, R.id.rf_3, R.id.rf_4, R.id.rf_5,
-            R.id.rf_6, R.id.rf_7,R.id.rf_8,R.id.rf_9})
+            R.id.rf_6, R.id.rf_7, R.id.rf_8, R.id.rf_9})
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rf_1:
                 playVideo(9);
                 break;
@@ -160,15 +185,15 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
     }
 
     private void playVideo(int index) {
-        if (mList.size()>17){
-            intent.putExtra("mList",(Serializable)mList);
-            intent.putExtra("index",index);
-            intent.putExtra("type",0);//本地视频传0
+        if (mList != null && mList.size() > 17) {
+            intent.putExtra("index", index);
+            intent.putExtra("type", 0);//本地视频传0
             startActivity(intent);
-        }else {
+        } else {
             MyToast.showToast("请检查U盘设备是否插入");
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -177,33 +202,33 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rf_1:
-                scrollAnimation(hasFocus,mt1);
+                scrollAnimation(hasFocus, mt1);
                 break;
             case R.id.rf_2:
-                scrollAnimation(hasFocus,mt2);
+                scrollAnimation(hasFocus, mt2);
                 break;
             case R.id.rf_3:
-                scrollAnimation(hasFocus,mt3);
+                scrollAnimation(hasFocus, mt3);
                 break;
             case R.id.rf_4:
-                scrollAnimation(hasFocus,mt4);
+                scrollAnimation(hasFocus, mt4);
                 break;
             case R.id.rf_5:
-                scrollAnimation(hasFocus,mt5);
+                scrollAnimation(hasFocus, mt5);
                 break;
             case R.id.rf_6:
-                scrollAnimation(hasFocus,mt6);
+                scrollAnimation(hasFocus, mt6);
                 break;
             case R.id.rf_7:
-                scrollAnimation(hasFocus,mt7);
+                scrollAnimation(hasFocus, mt7);
                 break;
             case R.id.rf_8:
-                scrollAnimation(hasFocus,mt8);
+                scrollAnimation(hasFocus, mt8);
                 break;
             case R.id.rf_9:
-                scrollAnimation(hasFocus,mt9);
+                scrollAnimation(hasFocus, mt9);
                 break;
 
         }

@@ -1,4 +1,4 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,11 +18,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class CusIjkVideoActivity extends BaseActivity {
 
-    private String url1 = "http://2449.vod.myqcloud.com/2449_bfbbfa3cea8f11e5aac3db03cda99974.f20.mp4";
-    private String url2 = "/storage/601A-A257/伴我们一路同行~我不愿让你一个人[超清版].mp4";
     private String url3 = "/storage/601A-A257/广告视频/雷克萨斯-宽20161207.mp4";
-    private String url5 = "/storage/601A-A257/曳步舞T1m/中国龙队 11月成员大合集_标清.avi";
-    private String url4 = "/storage/601A-A257/曳步舞T1m/沧州鬼步舞教学第二期。沧州Czs丶c1(大帝)个人花式教学_标清.avi";
     private IjkVideoView mVideoView;
     private CustomMediaController mController;
 

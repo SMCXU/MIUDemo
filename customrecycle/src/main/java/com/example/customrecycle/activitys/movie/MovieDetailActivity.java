@@ -1,6 +1,6 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -13,9 +13,17 @@ import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
+import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +62,7 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
     private Intent intent;
+    private ZBXAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +122,27 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.tv_dec:
                 startActivity(intent);
                 break;
+        }
+    }
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            if (ActivityUtils.isForeground(MovieDetailActivity.this, "com.example.customrecycle.activitys.movie.MovieDetailActivity")) {
+                dialog.show();
+            }
         }
     }
 }

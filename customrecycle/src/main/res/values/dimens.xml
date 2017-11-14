@@ -7,9 +7,9 @@
     <dimen name="nav_tab_text_size">20dp</dimen>
 
     <dimen name="key_height">50.0dp</dimen>
-    <dimen name="margin_horizontal">100px</dimen>
-    <dimen name="margin_horizontal_std">50px</dimen>
-    <dimen name="margin_ver">30px</dimen>
+    <dimen name="margin_horizontal">50dp</dimen>
+    <dimen name="margin_horizontal_std">25dp</dimen>
+    <dimen name="margin_ver">15dp</dimen>
 
     <dimen name="x1">1.0px</dimen>
     <dimen name="x2">2.0px</dimen>

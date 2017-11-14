@@ -3,11 +3,15 @@ package com.example.customrecycle.activitys;
 import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -22,9 +26,12 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.adapter.MyFragmentPagerAdapter;
 import com.example.customrecycle.adapter.OpenTabTitleAdapter;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.base.DaoTools;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.bridge.OpenEffectBridge;
 import com.example.customrecycle.fragment.CartoonFragment;
@@ -34,16 +41,28 @@ import com.example.customrecycle.fragment.SearchFragment;
 import com.example.customrecycle.fragment.SortFragment;
 import com.example.customrecycle.fragment.TVFragment;
 import com.example.customrecycle.fragment.VIPFragment;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.FileUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
+import com.example.customrecycle.interfac.UsbInterface;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.view.OpenTabHost;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.view.TextViewWithTTF;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,27 +86,56 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     EffectNoDrawBridge mEffectNoDrawBridge;
     View mNewFocus;
     View mOldView;
-    //    Video列表
-    private List<VideoEntity> mList;
+    private ZBXAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         // 初始化标题栏.
         initAllTitleBar();
-        mList = new ArrayList<VideoEntity>();
-        // 扫描功能 获取U盘视频列表
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //申请CAMERA权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
-        } else {
-            scanMediaFile();
-        }
-
+        videoList = new ArrayList<VideoEntity>();
+        //从usb获取数据
+//        initUSB();
+        initAllViewPager();
         // 初始化移动边框.
         initMoveBridge();
+    }
+
+    private void initUSB() {
+        // 扫描功能 获取U盘视频列表
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //申请内存读取权限
+            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS}, 3);
+        } else {
+            ScanFile(this);
+        }
+    }
+
+//扫描文件
+    private void ScanFile(Context context) {
+        String[] result = null;
+        StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        try {
+            Method method = StorageManager.class.getMethod("getVolumePaths");
+            method.setAccessible(true);
+            try {
+                result = (String[]) method.invoke(storageManager);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            DaoTools.deleteAll();
+            for (int i = 0; i < result.length; i++) {
+                FileUtils.getAllFiles(new File(result[i]));
+            }
+//            HomeActivity.videoList = DaoTools.queryAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initMoveBridge() {
@@ -118,21 +166,21 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             public void onGlobalFocusChanged(View oldFocus, View newFocus) {
                 if (newFocus != null)
 //                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout),如果使用的话tab会错乱
-                // 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
-                // 你也可以让标题栏放大，有移动边框.
-                if (newFocus != null && !(newFocus instanceof TextViewWithTTF)) {
-                    mEffectNoDrawBridge.setVisibleWidget(false);
-                    mNewFocus = newFocus;
-                    mOldView = oldFocus;
-                    mainUpView1.setFocusView(newFocus, oldFocus, 1.2f);
-                    // 让被挡住的焦点控件在前面.
-                    newFocus.bringToFront();
-                } else { // 标题栏处理.
-                    mNewFocus = null;
-                    mOldView = null;
-                    mainUpView1.setUnFocusView(oldFocus);
-                    mEffectNoDrawBridge.setVisibleWidget(true);
-                }
+                    // 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
+                    // 你也可以让标题栏放大，有移动边框.
+                    if (newFocus != null && !(newFocus instanceof TextViewWithTTF)) {
+                        mEffectNoDrawBridge.setVisibleWidget(false);
+                        mNewFocus = newFocus;
+                        mOldView = oldFocus;
+                        mainUpView1.setFocusView(newFocus, oldFocus, 1.2f);
+                        // 让被挡住的焦点控件在前面.
+                        newFocus.bringToFront();
+                    } else { // 标题栏处理.
+                        mNewFocus = null;
+                        mOldView = null;
+                        mainUpView1.setUnFocusView(oldFocus);
+                        mEffectNoDrawBridge.setVisibleWidget(true);
+                    }
 
 
             }
@@ -193,15 +241,6 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         TVFragment tvFragment = new TVFragment();
         CartoonFragment cartoonFragment = new CartoonFragment();
         fragmentList = new ArrayList<Fragment>();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("mList", (Serializable) mList);
-        searchFragment.setArguments(bundle);
-        sortFragment.setArguments(bundle);
-        vipFragment.setArguments(bundle);
-        recomFragment.setArguments(bundle);
-        movieFragment.setArguments(bundle);
-        tvFragment.setArguments(bundle);
-        cartoonFragment.setArguments(bundle);
         fragmentList.add(searchFragment);
         fragmentList.add(sortFragment);
         fragmentList.add(recomFragment);
@@ -261,14 +300,27 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     }
 
-    //扫描获取U盘内数据
-    private void scanMediaFile() {
-        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv","3gp","mov","mpg","webm","wob"};
-        mList.clear();
-        mList = FileUtils.getSpecificTypeOfFile(this, args);
-        videoList = mList;
-        // 初始化viewpager.
-        initAllViewPager();
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            if (ActivityUtils.isForeground(HomeActivity.this, "com.example.customrecycle.activitys.HomeActivity")) {
+                dialog.show();
+            }
+        }else if (KEY.FLAG_USB_SCAN.equals(eventCustom.getTag())){
+            initUSB();
+        }
     }
 
 }

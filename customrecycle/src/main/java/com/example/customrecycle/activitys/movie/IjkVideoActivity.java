@@ -1,8 +1,8 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.Context;
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,13 +12,22 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.DeviceUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.weight.CustomMediaController;
 import com.example.customrecycle.weight.IjkVideoView;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,11 +38,6 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IjkVideoActivity extends BaseActivity {
 
-    private String url1 = "http://2449.vod.myqcloud.com/2449_bfbbfa3cea8f11e5aac3db03cda99974.f20.mp4";
-    private String url2 = "/storage/601A-A257/伴我们一路同行~我不愿让你一个人[超清版].mp4";
-    private String url3 = "/storage/601A-A257/Tiger JK、Jinsil - Reset.mkv";
-    private String url5 = "/storage/601A-A257/曳步舞T1m/中国龙队 11月成员大合集_标清.avi";
-    private String url4 = "/storage/601A-A257/曳步舞T1m/沧州鬼步舞教学第二期。沧州Czs丶c1(大帝)个人花式教学_标清.avi";
     private IjkVideoView mVideoView;
     private CustomMediaController mController;
 
@@ -45,6 +49,7 @@ public class IjkVideoActivity extends BaseActivity {
     private String uri;
     //播放完成视频个数 用于测试
     int sum = 0;
+    private ZBXAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class IjkVideoActivity extends BaseActivity {
     }
 
     private void initVideo() {
-        if (type == 0) {
+        if (type == 0 && mList != null) {
             uri = mList.get(index).getUri();
         } else {
             //网络获取uri
@@ -62,7 +67,6 @@ public class IjkVideoActivity extends BaseActivity {
         if ("".equals(uri.trim())) {
             return;
         }
-
         // init player
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
@@ -89,9 +93,9 @@ public class IjkVideoActivity extends BaseActivity {
                 SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simple.format(calendar.getTime());
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
-                Log.d("Mr.U", uri + "-----" + time);
-                Log.d("Mr.U", "--------" + (++sum) + "------------");
-                Log.d("Mr.U", "-------分分分-------");
+//                Log.d("Mr.U", uri + "-----" + time);
+//                Log.d("Mr.U", "--------" + (++sum) + "------------");
+//                Log.d("Mr.U", "-------分分分-------");
                 initVideo();
             }
         });
@@ -102,7 +106,7 @@ public class IjkVideoActivity extends BaseActivity {
         mVideoView = (IjkVideoView) findViewById(R.id.mVideoView);
         type = getIntent().getIntExtra("type", 0);
         index = getIntent().getIntExtra("index", 0);
-        mList = (List<VideoEntity>) getIntent().getSerializableExtra("mList");
+        mList = HomeActivity.videoList;
         // 扫描功能
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //申请CAMERA权限
@@ -110,9 +114,9 @@ public class IjkVideoActivity extends BaseActivity {
         } else {
             initVideo();
         }
-        Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
-        Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
-        Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
+//        Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
+//        Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
+//        Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
     }
 
     @Override
@@ -159,6 +163,28 @@ public class IjkVideoActivity extends BaseActivity {
                 // 未授权
                 MyToast.showToast("请打开权限");
             }
+        }
+    }
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())){
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            Log.d("Mr.U", "HomeActivity_______onEventThread: "+ ActivityUtils.isForeground(IjkVideoActivity.this, ActivityUtils.getCurrentActivityName(IjkVideoActivity.this))+ActivityUtils.getCurrentActivityName(this));
+            if (ActivityUtils.isForeground(IjkVideoActivity.this, "com.example.customrecycle.activitys.movie.IjkVideoActivity")) {
+                dialog.show();
+            }
+
         }
     }
 }

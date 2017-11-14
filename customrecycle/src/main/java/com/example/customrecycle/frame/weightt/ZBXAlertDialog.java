@@ -2,13 +2,21 @@ package com.example.customrecycle.frame.weightt;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.utils.StringUtils;
+import com.example.customrecycle.view.MainUpView;
+
+import butterknife.BindView;
 
 
 /**
@@ -26,6 +34,10 @@ public class ZBXAlertDialog extends Dialog {
     private String title = "";
     private String info = "";
     private TextView m_tvLine;
+    private EffectNoDrawBridge mEffectNoDrawBridge;
+    private View mOldFocus;
+    private MainUpView mainUpView1;
+    private RelativeLayout rlContioner;
 
     public ZBXAlertDialog(Context context, ZBXAlertListener listener, String title, String info) {
         super(context, R.style.dialog_alert_bg);
@@ -55,6 +67,7 @@ public class ZBXAlertDialog extends Dialog {
             m_textInfo.setText(info);
         }
 
+        initMoveBridge();
 
         m_dialogOk = (TextView) findViewById(R.id.dialog_ok);
         m_dialogCancel = (TextView) findViewById(R.id.dialog_cancel);
@@ -94,4 +107,42 @@ public class ZBXAlertDialog extends Dialog {
         return super.onKeyDown(keyCode, event);
     }
 
+    //移动边框
+    private void initMoveBridge() {
+        float density = m_Context.getResources().getDisplayMetrics().density;
+        mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
+        rlContioner = (RelativeLayout) findViewById(R.id.rl_contioner);
+        mEffectNoDrawBridge = new EffectNoDrawBridge();
+        mainUpView1.setEffectBridge(mEffectNoDrawBridge);
+//        mEffectNoDrawBridge.setUpRectResource(R.drawable.white_light_10); // 设置移动边框图片.
+        RectF rectF = new RectF(getDimension(R.dimen.x14) * density, getDimension(R.dimen.x14) * density,
+                getDimension(R.dimen.x14) * density, getDimension(R.dimen.x14) * density);
+        mEffectNoDrawBridge.setDrawUpRectPadding(rectF);
+        rlContioner.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+            @Override
+            public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
+                float scale = 1.5f;
+                mainUpView1.setFocusView(newFocus, mOldFocus, scale);
+                mOldFocus = newFocus; // 4.3以下需要自己保存.
+            }
+        });
+
+        for (int i = 0; i < rlContioner.getChildCount(); i++) {
+            rlContioner.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+//						v.performClick();
+                        v.requestFocus();
+                    }
+                    return false;
+                }
+            });
+        }
+
+    }
+
+    private float getDimension(int id) {
+        return m_Context.getResources().getDimension(id);
+    }
 }

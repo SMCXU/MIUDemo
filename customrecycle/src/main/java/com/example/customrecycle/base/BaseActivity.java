@@ -1,12 +1,17 @@
 package com.example.customrecycle.base;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.retrofit.HttpCallBack;
+import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
@@ -29,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private List<Call> m_listRequest;
     private ZBXAlertDialog dialog;
 
+
     private List<Call> getListRequest() {
         if (m_listRequest == null) {
             m_listRequest = new ArrayList<>();
@@ -48,6 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * 添加到请求队列，以便销毁
      *
@@ -62,25 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-    }
-    @Subscribe
-    public void onEventThread(EventCustom eventCustom) {
-
-        if (KEY.FLAG_USB.equals(eventCustom.getTag())){
-            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
-                @Override
-                public void onDialogOk(Dialog dlg) {
-                    MyToast.showToast("跳转到文件列表");
-                    dialog.dismiss();
-                }
-                @Override
-                public void onDialogCancel(Dialog dlg) {
-
-                    dialog.dismiss();
-                }
-            }, "提示", "外部存储设备已连接");
-            dialog.show();
-        }
     }
 
     @Override

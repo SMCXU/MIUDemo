@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.customrecycle.weight.appweight.TvZorderRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#2D4A5B"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/rl_container"
+    tools:context=".activitys.setting.AboutActivity">
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:text="关于"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+    <TextView
+        android:focusedByDefault="true"
+        android:layout_marginBottom="@dimen/margin_horizontal_std"
+        android:background="@drawable/bg_holo_blue_bright"
+        android:layout_below="@+id/tv_time"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_service"
+        android:layout_marginTop="20dp"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="联系客服"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+    <TextView
+        android:layout_marginBottom="@dimen/margin_horizontal_std"
+        android:background="@drawable/bg_holo_blue_bright"
+        android:layout_below="@+id/tv_service"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_name"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="设备名称：辰星影吧放映端"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+    <TextView
+        android:background="@drawable/bg_holo_blue_bright"
+        android:layout_below="@+id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_type"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="产品型号:辰星盒子_CXTV"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+    <com.example.customrecycle.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/test_rectangle" />
+</com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>

@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     android:focusable="false"
     android:id="@+id/rl_container"
-    tools:context="com.example.customrecycle.activitys.MovieDetailActivity">
+    tools:context=".activitys.movie.MovieDetailActivity">
 
     <com.example.customrecycle.weight.appweight.TvZorderLinearLayout
         android:layout_width="match_parent"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:focusable="false"
+    android:id="@+id/ll_contioner"
+    android:gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_marginBottom="@dimen/margin_ver"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:text="声音"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+    <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_holo_blue_bright"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+        <TextView
+            android:nextFocusDown="@+id/tv_second"
+            android:id="@+id/tv_first"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ellipsize="middle"
+            android:focusable="true"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:singleLine="true"
+            android:text="Auto"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+        <TextView
+            android:nextFocusDown="@+id/tv_third"
+            android:nextFocusUp="@+id/tv_first"
+            android:id="@+id/tv_second"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ellipsize="middle"
+            android:focusable="true"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:singleLine="true"
+            android:text="PCM"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+        <TextView
+            android:nextFocusUp="@+id/tv_second"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/tv_third"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ellipsize="middle"
+            android:focusable="true"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:singleLine="true"
+            android:text="Auto"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+
+    </LinearLayout>
+
+    <com.example.customrecycle.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/test_rectangle" />
+</LinearLayout>

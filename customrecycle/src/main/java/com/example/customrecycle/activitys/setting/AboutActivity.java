@@ -1,41 +1,53 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.setting;
 
-import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
+import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.MainUpView;
+import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SettingsActivity extends BaseActivity {
+public class AboutActivity extends BaseActivity {
 
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_storage)
-    TextView tvStorage;
-    @BindView(R.id.tv_settings)
-    TextView tvSettings;
+    @BindView(R.id.tv_service)
+    TextView tvService;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_type)
+    TextView tvType;
     @BindView(R.id.mainUpView1)
     MainUpView mainUpView1;
-    @BindView(R.id.rl_contioner)
-    RelativeLayout rlContioner;
-    private EffectNoDrawBridge mEffectNoDrawBridge;
+    @BindView(R.id.rl_container)
+    TvZorderRelativeLayout rlContainer;
     private View mOldFocus;
+    private ZBXAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         initView();
         initMoveBridge();
@@ -45,16 +57,18 @@ public class SettingsActivity extends BaseActivity {
 
     }
 
+    //移动边框
     private void initMoveBridge() {
         float density = getResources().getDisplayMetrics().density;
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
-        mEffectNoDrawBridge = new EffectNoDrawBridge();
+        EffectNoDrawBridge mEffectNoDrawBridge = new EffectNoDrawBridge();
         mainUpView1.setEffectBridge(mEffectNoDrawBridge);
         mEffectNoDrawBridge.setUpRectResource(R.drawable.white_light_10); // 设置移动边框图片.
         RectF rectF = new RectF(getDimension(R.dimen.x14) * density, getDimension(R.dimen.x14) * density,
                 getDimension(R.dimen.x14) * density, getDimension(R.dimen.x14) * density);
         mEffectNoDrawBridge.setDrawUpRectPadding(rectF);
-        rlContioner.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+
+        rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
             public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
                 if (newFocus != null)
@@ -65,8 +79,8 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        for (int i = 0; i < rlContioner.getChildCount(); i++) {
-            rlContioner.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+        for (int i = 0; i < rlContainer.getChildCount(); i++) {
+            rlContainer.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -82,5 +96,27 @@ public class SettingsActivity extends BaseActivity {
 
     private float getDimension(int id) {
         return getResources().getDimension(id);
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())){
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            if (ActivityUtils.isForeground(AboutActivity.this, "com.example.customrecycle.activitys.setting.AboutActivity")) {
+                dialog.show();
+            }
+
+        }
     }
 }

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/transparent"
     android:gravity="center"
     android:focusable="false"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:id="@+id/rl_contioner"
     android:orientation="vertical">
 
 
@@ -42,22 +46,10 @@
             android:text="外部存储设备已连接"
             android:textColor="@color/white"
             android:textSize="16dp" />
-        <TextView
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:gravity="center"
-            android:lineSpacingExtra="3dp"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
 
         <LinearLayout
             android:focusable="false"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:background="@color/dialog_update_blue"
             android:orientation="horizontal">
@@ -94,5 +86,9 @@
                 android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+    <com.example.customrecycle.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/test_rectangle" />
+</RelativeLayout>

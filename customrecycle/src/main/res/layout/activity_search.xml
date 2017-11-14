@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/rl_container"
     android:background="@drawable/img_background"
-    tools:context="com.example.customrecycle.activitys.SearchActivity">
+    tools:context=".activitys.movie.SearchActivity">
 
     <com.example.customrecycle.view.SmoothHorizontalScrollView
         android:id="@+id/test_hscroll"

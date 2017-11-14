@@ -17,9 +17,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,12 +35,21 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.GridViewTV;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,14 +67,24 @@ public class VideoGridViewActivity extends BaseActivity {
     private GridViewAdapter mAdapter;
     private List<VideoEntity> mList;
     private Intent intent;
+    private ZBXAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_grid_view);
 
+        initView();
+        initBridge();
+
+    }
+
+    private void initView() {
         gridView = (GridViewTV) findViewById(R.id.gridView);
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
+    }
+//    载入边框
+    private void initBridge() {
         // 建议使用 NoDraw.
         mainUpView1.setEffectBridge(new EffectNoDrawBridge());
         EffectNoDrawBridge bridget = (EffectNoDrawBridge) mainUpView1.getEffectBridge();
@@ -115,7 +134,6 @@ public class VideoGridViewActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                mFindhandler.removeCallbacksAndMessages(null);
-                intent.putExtra("mList",(Serializable)mList);
                 intent.putExtra("index",position);
                 intent.putExtra("type",0);//本地视频传0
                 startActivity(intent);
@@ -126,7 +144,7 @@ public class VideoGridViewActivity extends BaseActivity {
 
     public List<String> getData() {
         data = new ArrayList<String>();
-        mList = (List<VideoEntity>) getIntent().getSerializableExtra("mList");
+        mList = HomeActivity.videoList;
         for (int i = 0; i < mList.size(); i++) {
             data.add(mList.get(i).getName());
         }
@@ -143,6 +161,28 @@ public class VideoGridViewActivity extends BaseActivity {
     }
 
 
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
+                @Override
+                public void onDialogOk(Dialog dlg) {
+                    startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onDialogCancel(Dialog dlg) {
+
+                    dialog.dismiss();
+                }
+            }, "提示", "外部存储设备已连接");
+            if (ActivityUtils.isForeground(VideoGridViewActivity.this, "com.example.customrecycle.activitys.movie.VideoGridViewActivity")) {
+                dialog.show();
+            }
+        }
+    }
     ///// Adapter 类 start start //////////
 
     class GridViewAdapter extends BaseAdapter {
@@ -199,5 +239,6 @@ public class VideoGridViewActivity extends BaseActivity {
     }
 
     ///// Adapter 类 end end //////////
+
 
 }

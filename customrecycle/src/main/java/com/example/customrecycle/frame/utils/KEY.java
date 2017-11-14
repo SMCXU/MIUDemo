@@ -12,8 +12,14 @@ public class KEY {
     public static final String FLAG_IV = "Iv";
 
 
-    //AES加密Iv
-    public static final String FLAG_USB = "Usb";
+
+    public static final String FLAG_USB_IN = "UsbIN";
+    public static final String FLAG_USB_OUT = "UsbOUT";
+    public static final String FLAG_USB_SCAN = "UsbSCAN";
+
+    public static final String FLAG_Sound = "Sound";
+
+
 
 
 }

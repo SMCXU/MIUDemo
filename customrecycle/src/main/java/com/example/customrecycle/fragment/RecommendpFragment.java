@@ -17,14 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.customrecycle.activitys.IjkVideoActivity;
+import com.example.customrecycle.activitys.HomeActivity;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
+import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -90,29 +95,37 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
         rf3.setOnClickListener(this);
         rf4.setOnClickListener(this);
         rf5.setOnClickListener(this);
-
-        mList = new ArrayList<VideoEntity>();
-        // 扫描功能
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //申请CAMERA权限
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
-        } else {
-            scanMediaFile();
-        }
         intent = new Intent(getActivity(), IjkVideoActivity.class);
         setData();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void setData() {
-        if (mList.size() > 5) {
+        mList = HomeActivity.videoList;
+        if (mList != null && mList.size() > 5) {
+            setClickEnable(true);
             mt1.setText(mList.get(0).getName());
             mt2.setText(mList.get(1).getName());
             mt3.setText(mList.get(2).getName());
             mt4.setText(mList.get(3).getName());
             mt5.setText(mList.get(4).getName());
+        } else if (mList.size() == 0) {
+            mt1.setText("暂无数据");
+            mt2.setText("暂无数据");
+            mt3.setText("暂无数据");
+            mt4.setText("暂无数据");
+            mt5.setText("暂无数据");
+            setClickEnable(false);
         }
 
+    }
+
+    private void setClickEnable(boolean istrue) {
+        rf1.setClickable(istrue);
+        rf2.setClickable(istrue);
+        rf3.setClickable(istrue);
+        rf4.setClickable(istrue);
+        rf5.setClickable(istrue);
     }
 
     //  获取封面Drawable
@@ -156,12 +169,6 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
         }
     }
 
-    //扫描获取U盘内数据
-    private void scanMediaFile() {
-        String[] args = {"mp4", "wmv", "rmvb", "mkv", "avi", "flv"};
-        mList.clear();
-        mList = FileUtils.getSpecificTypeOfFile(getContext(), args);
-    }
 
     @Override
     public void onClick(View view) {
@@ -183,8 +190,6 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
                 index = 4;
                 break;
         }
-
-        intent.putExtra("mList", (Serializable) mList);
         intent.putExtra("index", index);
         intent.putExtra("type", 0);//本地视频传0
         if (mList.size() > 5) {
@@ -194,6 +199,17 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
         }
 
 
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        //拔出移动存储设备
+        if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
+            setData();
+            //插入移动存储设备
+        } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            setData();
+        }
     }
 
     @Override

@@ -1,7 +1,8 @@
-package com.example.customrecycle.activitys;
+package com.example.customrecycle.activitys.movie;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.RectF;
@@ -9,17 +10,23 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.adapter.GeneralAdapter;
 import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.bridge.RecyclerViewBridge;
+import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.leanback.GridLayoutManagerTV;
 import com.example.customrecycle.leanback.recycle.RecyclerViewTV;
 import com.example.customrecycle.view.MainUpView;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,8 +72,9 @@ public class VideoListActivity extends BaseActivity implements RecyclerViewTV.On
             holder.itemView.requestFocus();
         }
     }
+
     private void initView() {
-        intent = new Intent(this,IjkVideoActivity.class);
+        intent = new Intent(this, IjkVideoActivity.class);
         mMainUpView.setEffectBridge(new RecyclerViewBridge());
         // 注意这里，需要使用 RecyclerViewBridge 的移动边框 Bridge.
         mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView.getEffectBridge();
@@ -86,13 +94,14 @@ public class VideoListActivity extends BaseActivity implements RecyclerViewTV.On
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                intent.putExtra("mList",(Serializable)mList);
-                intent.putExtra("index",position);
-                intent.putExtra("type",0);//本地视频传0
+                intent.putExtra("mList", (Serializable) mList);
+                intent.putExtra("index", position);
+                intent.putExtra("type", 0);//本地视频传0
                 startActivity(intent);
             }
         });
     }
+
     private void initData() {
         // 扫描功能 获取U盘视频列表
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -102,6 +111,7 @@ public class VideoListActivity extends BaseActivity implements RecyclerViewTV.On
             scanMediaFile();
         }
     }
+
     public float getDimension(int id) {
         return getResources().getDimension(id);
     }
@@ -110,7 +120,7 @@ public class VideoListActivity extends BaseActivity implements RecyclerViewTV.On
      * 测试GridLayout.
      */
     private void testRecyclerViewGridLayout(int orientation) {
-        GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(this,6); // 解决快速长按焦点丢失问题.
+        GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(this, 6); // 解决快速长按焦点丢失问题.
         gridlayoutManager.setOrientation(orientation);
         mRecyclerView.setLayoutManager(gridlayoutManager);
         mRecyclerView.setFocusable(false);
@@ -145,5 +155,28 @@ public class VideoListActivity extends BaseActivity implements RecyclerViewTV.On
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
         mRecyclerViewBridge.setFocusView(itemView, mOldView, 1.2f);
         mOldView = itemView;
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        if (KEY.FLAG_USB_SCAN.equals(eventCustom.getTag())) {
+            initUSB();
+        }
+    }
+
+    public void initUSB() {
+        // 扫描功能 获取U盘视频列表
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //申请内存读取权限
+            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_SETTINGS}, 3);
+        } else {
+            scanMediaFile1(VideoListActivity.this);
+        }
+    }
+    //扫描获取U盘内数据
+    private void scanMediaFile1(Context context) {
+        String[] args = {".mp4", ".wmv", ".rmvb", ".mkv", ".avi", ".flv",".3gp",".mov",".mpg",".webm",".wob"};
+        HomeActivity.videoList = FileUtils.getSpecificTypeOfFile(context, args);
+        Log.d("Mr.U", "scanMediaFile1: "+HomeActivity.videoList.size());
     }
 }

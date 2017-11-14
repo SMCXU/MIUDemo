@@ -1,59 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.example.customrecycle.weight.appweight.TvZorderRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_contioner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#2D4A5B"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:focusable="false"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activitys.setting.SettingsActivity">
-
+    android:id="@+id/rl_container"
+    tools:context=".activitys.setting.SoundActivity">
     <TextView
         android:id="@+id/tv_time"
-        android:layout_width="450dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:focusable="false"
         android:gravity="center"
-        android:text="10:30"
+        android:text="声音"
         android:textColor="@color/white"
         android:textSize="40sp" />
-
     <TextView
-        android:id="@+id/tv_storage"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tv_time"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="@dimen/margin_horizontal_std"
         android:background="@drawable/bg_holo_blue_bright"
+        android:layout_below="@+id/tv_time"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_key"
+        android:layout_marginTop="20dp"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
         android:focusable="true"
         android:gravity="center"
-        android:text="移动存储"
+        android:text="按键音:当前开启"
         android:textColor="@color/white"
         android:textSize="40sp" />
-
     <TextView
-        android:id="@+id/tv_settings"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tv_time"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/tv_storage"
         android:background="@drawable/bg_holo_blue_bright"
+        android:layout_below="@+id/tv_key"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_outPut"
+        android:layout_width="580dp"
+        android:layout_height="80dp"
         android:focusable="true"
         android:gravity="center"
-        android:text="设置"
+        android:text="数字音频输出:Auto"
         android:textColor="@color/white"
         android:textSize="40sp" />
-
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:upImageRes="@drawable/test_rectangle" />
-</RelativeLayout>
+</com.example.customrecycle.weight.appweight.TvZorderRelativeLayout>

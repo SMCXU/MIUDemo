@@ -3,21 +3,27 @@ package com.example.customrecycle.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.customrecycle.activitys.IjkVideoActivity;
+import com.example.customrecycle.activitys.HomeActivity;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
-import com.example.customrecycle.activitys.VideoGridViewActivity;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.List;
@@ -75,17 +81,33 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
 
     //初始化view
     private void initView() {
-        intent = new Intent(getActivity(),IjkVideoActivity.class);
+        intent = new Intent(getActivity(), IjkVideoActivity.class);
         intent1 = new Intent(getActivity(), VideoGridViewActivity.class);
-        mList = (List<VideoEntity>) getArguments().getSerializable("mList");
-        if (mList.size()>8){
-            mt1.setText(mList.get(5).getName());
-            mt2.setText(mList.get(6).getName());
-            mt3.setText(mList.get(7).getName());
-        }
+        refreshUI();
         rf1.setOnFocusChangeListener(this);
         rf2.setOnFocusChangeListener(this);
         rf3.setOnFocusChangeListener(this);
+    }
+
+    private void refreshUI() {
+        mList = HomeActivity.videoList;
+        if (mList != null && mList.size() > 8) {
+            setClickEnable(true);
+            mt1.setText(mList.get(5).getName());
+            mt2.setText(mList.get(6).getName());
+            mt3.setText(mList.get(7).getName());
+        } else if (mList.size() == 0) {
+            mt1.setText("暂无数据");
+            mt2.setText("暂无数据");
+            mt3.setText("暂无数据");
+            setClickEnable(false);
+        }
+    }
+
+    private void setClickEnable(boolean isTrue) {
+        rf1.setClickable(isTrue);
+        rf2.setClickable(isTrue);
+        rf3.setClickable(isTrue);
     }
 
     // 滚动动画实例
@@ -102,7 +124,7 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
     @OnClick({R.id.rf_1, R.id.rf_2, R.id.rf_3, R.id.tv_hot, R.id.tv_new,
             R.id.tv_first, R.id.tv_all})
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rf_1:
                 playVideo(5);
                 break;
@@ -116,18 +138,17 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
             case R.id.tv_new:
             case R.id.tv_first:
             case R.id.tv_all:
-                intent1.putExtra("mList",(Serializable)mList);
                 startActivity(intent1);
                 break;
         }
     }
+
     private void playVideo(int index) {
-        if (mList.size()>8){
-            intent.putExtra("mList",(Serializable)mList);
-            intent.putExtra("index",index);
-            intent.putExtra("type",0);//本地视频传0
+        if (mList.size() > 8) {
+            intent.putExtra("index", index);
+            intent.putExtra("type", 0);//本地视频传0
             startActivity(intent);
-        }else {
+        } else {
             MyToast.showToast("请检查U盘设备是否插入");
         }
     }
@@ -141,16 +162,29 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rf_1:
-                scrollAnimation(hasFocus,mt1);
+                scrollAnimation(hasFocus, mt1);
                 break;
             case R.id.rf_2:
-                scrollAnimation(hasFocus,mt2);
+                scrollAnimation(hasFocus, mt2);
                 break;
             case R.id.rf_3:
-                scrollAnimation(hasFocus,mt3);
+                scrollAnimation(hasFocus, mt3);
                 break;
+        }
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        //拔出移动存储设备
+        if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
+            refreshUI();
+            Log.d("Mr.U", "onEventThread:FLAG_USB_OUT ");
+            //插入移动存储设备
+        } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            refreshUI();
+            Log.d("Mr.U", "onEventThread:FLAG_USB_IN ");
         }
     }
 }

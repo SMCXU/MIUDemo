@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <!-- 圆角矩形 -->
     <solid android:color="@color/dialog_update_blue"/>
-    <stroke android:color="@color/transparent"
-        android:width="2dp"/>
+    <!--<stroke android:color="@color/transparent"-->
+        <!--android:width="2dp"/>-->
 
 </shape>

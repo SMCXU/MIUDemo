@@ -10,9 +10,7 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
-import com.example.customrecycle.activitys.MovieDetailActivity;
-import com.example.customrecycle.activitys.SettingsActivity;
-import com.example.customrecycle.activitys.TabTestActivity;
+import com.example.customrecycle.activitys.setting.SettingsActivity;
 
 import java.util.HashMap;
 

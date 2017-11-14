@@ -10,15 +10,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.customrecycle.activitys.IjkVideoActivity;
+import com.example.customrecycle.activitys.HomeActivity;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
-import com.example.customrecycle.activitys.VideoGridViewActivity;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.List;
@@ -64,7 +69,7 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
     RelativeLayout content11;
     Unbinder unbinder;
     private List<VideoEntity> mList;
-    private Intent intent,intent1;
+    private Intent intent, intent1;
 
     //mt 是滚动字幕控件  rf 是流光特效控件
     @Override
@@ -79,15 +84,19 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
 
     //初始化view
     private void initView() {
-        intent = new Intent(getActivity(),IjkVideoActivity.class);
+        intent = new Intent(getActivity(), IjkVideoActivity.class);
         intent1 = new Intent(getActivity(), VideoGridViewActivity.class);
-        mList = (List<VideoEntity>) getArguments().getSerializable("mList");
-        if (mList.size()>9){
+        refreshUI();
+        rf1.setOnFocusChangeListener(this);
+        rf2.setOnFocusChangeListener(this);
+    }
+
+    private void refreshUI() {
+        mList = HomeActivity.videoList;
+        if (mList != null && mList.size() > 9) {
             mt1.setText(mList.get(7).getName());
             mt2.setText(mList.get(8).getName());
         }
-        rf1.setOnFocusChangeListener(this);
-        rf2.setOnFocusChangeListener(this);
     }
 
     // 滚动动画实例
@@ -126,7 +135,7 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
             case R.id.tv_whodunit:
             case R.id.tv_adventure:
             case R.id.tv_comedy:
-                intent1.putExtra("mList",(Serializable)mList);
+                intent1.putExtra("mList", (Serializable) mList);
                 startActivity(intent1);
                 break;
         }
@@ -134,15 +143,16 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
 
 
     private void playVideo(int index) {
-        if (mList.size()>17){
-            intent.putExtra("mList",(Serializable)mList);
-            intent.putExtra("index",index);
-            intent.putExtra("type",0);//本地视频传0
+        if (mList.size() > 17) {
+            intent.putExtra("mList", (Serializable) mList);
+            intent.putExtra("index", index);
+            intent.putExtra("type", 0);//本地视频传0
             startActivity(intent);
-        }else {
+        } else {
             MyToast.showToast("请检查U盘设备是否插入");
         }
     }
+
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
         switch (view.getId()) {
@@ -152,6 +162,17 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
             case R.id.rf_2:
                 scrollAnimation(hasFocus, mt2);
                 break;
+        }
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        //拔出移动存储设备
+        if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
+            refreshUI();
+            //插入移动存储设备
+        } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            refreshUI();
         }
     }
 }

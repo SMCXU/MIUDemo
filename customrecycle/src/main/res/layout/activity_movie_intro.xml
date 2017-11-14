@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_background"
-    tools:context="com.example.customrecycle.activitys.MovieIntroActivity">
+    tools:context=".activitys.movie.MovieIntroActivity">
     <com.example.customrecycle.weight.appweight.TvZorderLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

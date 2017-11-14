@@ -5,13 +5,13 @@
     android:background="@color/transparent"
     android:focusable="false"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.example.customrecycle.fragment.SortFragment">
 
     <TextView
         android:id="@+id/tv_hotSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_horizontal"
         android:background="@color/transparent"
         android:focusable="false"
@@ -22,7 +22,6 @@
 
     <TextView
         android:nextFocusUp="@id/title_bar2"
-        android:layout_marginLeft="@dimen/margin_horizontal"
         android:id="@+id/tv_1"
         android:layout_width="@dimen/x280"
         android:layout_height="@dimen/x160"
@@ -106,7 +105,6 @@
         android:textSize="@dimen/x50"/>
 
     <TextView
-        android:layout_marginLeft="@dimen/margin_horizontal"
         android:id="@+id/tv_11"
         android:layout_width="@dimen/x280"
         android:layout_height="@dimen/x160"
@@ -190,7 +188,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_55"
-        android:layout_marginLeft="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_horizontal"
         android:background="@color/transparent"
         android:focusable="false"
@@ -200,7 +197,6 @@
         android:textSize="@dimen/x64" />
 
     <TextView
-        android:layout_marginLeft="@dimen/margin_horizontal"
         android:id="@+id/tv_a"
         android:layout_width="@dimen/x280"
         android:layout_height="@dimen/x160"
