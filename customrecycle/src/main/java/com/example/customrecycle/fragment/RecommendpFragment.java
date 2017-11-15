@@ -1,25 +1,25 @@
 package com.example.customrecycle.fragment;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
-import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
@@ -31,8 +31,6 @@ import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class RecommendpFragment extends Fragment implements View.OnFocusChangeListener, View.OnClickListener {
+public class RecommendpFragment extends BaseFragment implements View.OnFocusChangeListener, View.OnClickListener {
 
     @BindView(R.id.mt_1)
     MarqueeText mt1;
@@ -67,9 +65,17 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
     @BindView(R.id.content11)
     RelativeLayout content11;
     Unbinder unbinder;
+    @BindView(R.id.tv_1)
+    TextView tv1;
+    @BindView(R.id.tv_2)
+    TextView tv2;
+    @BindView(R.id.tv_3)
+    TextView tv3;
+    @BindView(R.id.tv_4)
+    TextView tv4;
     //    Video列表
     private List<VideoEntity> mList;
-    private Intent intent;
+    private Intent intent, intent1;
 
     //mt 是滚动字幕控件  rf 是流光特效控件
     @Override
@@ -95,7 +101,12 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
         rf3.setOnClickListener(this);
         rf4.setOnClickListener(this);
         rf5.setOnClickListener(this);
+        tv1.setOnClickListener(this);
+        tv2.setOnClickListener(this);
+        tv3.setOnClickListener(this);
+        tv4.setOnClickListener(this);
         intent = new Intent(getActivity(), IjkVideoActivity.class);
+        intent1 = new Intent(getActivity(), VideoGridViewActivity.class);
         setData();
     }
 
@@ -173,6 +184,7 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
     @Override
     public void onClick(View view) {
         int index = 0;
+        String title = "";
         switch (view.getId()) {
             case R.id.rf_1:
                 index = 0;
@@ -189,26 +201,44 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
             case R.id.rf_5:
                 index = 4;
                 break;
+            case R.id.tv_1:
+                title = "经典二战电影";
+                break;
+            case R.id.tv_2:
+                title = "经典谍战剧";
+                break;
+            case R.id.tv_3:
+                title = "香港恐怖喜剧";
+                break;
+            case R.id.tv_4:
+                title = "更多精选分类";
+                break;
         }
-        intent.putExtra("index", index);
-        intent.putExtra("type", 0);//本地视频传0
-        if (mList.size() > 5) {
-            startActivity(intent);
+        if (view.getTag() != null && "sort".equals(view.getTag())) {
+            intent1.putExtra("title", title);
+            startActivity(intent1);
         } else {
-            MyToast.showToast("请检查U盘设备是否插入");
+            intent.putExtra("index", index);
+            intent.putExtra("type", 0);//本地视频传0
+            if (mList.size() > 5) {
+                startActivity(intent);
+            } else {
+                MyToast.showToast("请检查U盘设备是否插入");
+            }
         }
-
 
     }
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
+        Log.d("Mr.U", "onEventThread: Recommend=======");
         //拔出移动存储设备
         if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             setData();
             //插入移动存储设备
         } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
             setData();
+            Log.d("Mr.U", "onEventThread: Recommend---------------------------");
         }
     }
 
@@ -217,4 +247,20 @@ public class RecommendpFragment extends Fragment implements View.OnFocusChangeLi
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.test_page1, container, false);
+    }
+
+    @Override
+    protected void initialize(View root, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
 }

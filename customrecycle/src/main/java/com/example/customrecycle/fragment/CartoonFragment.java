@@ -2,6 +2,7 @@ package com.example.customrecycle.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
@@ -34,7 +36,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class CartoonFragment extends Fragment implements View.OnFocusChangeListener {
+public class CartoonFragment extends BaseFragment implements View.OnFocusChangeListener {
 
 
     @BindView(R.id.mt_1)
@@ -114,6 +116,21 @@ public class CartoonFragment extends Fragment implements View.OnFocusChangeListe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.test_page4, container, false);
+    }
+
+    @Override
+    protected void initialize(View root, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void loadData() {
+
     }
 
     @OnClick({R.id.rf_1, R.id.rf_2, R.id.iv_sort, R.id.iv_searchsong, R.id.tv_ardent,

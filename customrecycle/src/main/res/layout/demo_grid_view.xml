@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_background"
     android:clipChildren="false"
-    android:padding="@dimen/x50"
-    android:orientation="vertical" >
+    android:clipToPadding="false"
+    >
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_title"
+        android:layout_centerHorizontal="true"
+        android:text="古装"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:layout_width="450dp"
+        android:layout_height="80dp"
+        android:focusable="false"
+        android:gravity="center"/>
     <com.example.customrecycle.view.GridViewTV
+        android:layout_below="@+id/tv_title"
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,4 +38,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

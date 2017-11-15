@@ -102,6 +102,7 @@
                 </com.example.customrecycle.weight.appweight.RoundedFrameLayout>
 
                 <TextView
+                    android:tag="sort"
                     android:id="@+id/tv_hot"
                     android:layout_width="@dimen/x360"
                     android:layout_height="@dimen/x140"
@@ -116,6 +117,7 @@
                     android:textSize="@dimen/x64"></TextView>
 
                 <TextView
+                    android:tag="sort"
                     android:id="@+id/tv_new"
                     android:layout_width="@dimen/x360"
                     android:layout_height="@dimen/x140"
@@ -135,6 +137,7 @@
                 </TextView>
 
                 <TextView
+                    android:tag="sort"
                     android:id="@+id/tv_first"
                     android:layout_width="@dimen/x360"
                     android:layout_height="@dimen/x140"
@@ -153,6 +156,7 @@
                 </TextView>
 
                 <TextView
+                    android:tag="sort"
                     android:id="@+id/tv_all"
                     android:layout_width="@dimen/x360"
                     android:layout_height="@dimen/x140"

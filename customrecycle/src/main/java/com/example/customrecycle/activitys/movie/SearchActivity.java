@@ -80,16 +80,16 @@ public class SearchActivity extends BaseActivity {
         //
         mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
         mainUpView1.setDrawUpRectPadding(new Rect(25, 25, 23, 23)); // 边框图片设置间距.
-//        rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
-//            @Override
-//            public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
-//                if (newFocus != null)
-//                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-//                float scale = 1.1f;
-//                mainUpView1.setFocusView(newFocus, mOldView, scale);
-//                mOldView = newFocus; // 4.3以下需要自己保存.
-//            }
-//        });
+        rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+            @Override
+            public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
+                if (newFocus != null)
+                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
+                float scale = 1.1f;
+                mainUpView1.setFocusView(newFocus, mOldView, scale);
+                mOldView = newFocus; // 4.3以下需要自己保存.
+            }
+        });
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

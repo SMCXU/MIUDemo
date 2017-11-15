@@ -2,6 +2,7 @@ package com.example.customrecycle.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,17 @@ import android.widget.RelativeLayout;
 import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseFragment;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +33,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class TVFragment extends Fragment implements View.OnFocusChangeListener {
+public class TVFragment extends BaseFragment implements View.OnFocusChangeListener {
 
 
     @BindView(R.id.mt_1)
@@ -201,6 +207,22 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
     }
 
     @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_sort, container, false);
+    }
+
+    @Override
+    protected void initialize(View root, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
+
+    @Override
     public void onFocusChange(View view, boolean hasFocus) {
         switch (view.getId()) {
             case R.id.rf_1:
@@ -231,6 +253,16 @@ public class TVFragment extends Fragment implements View.OnFocusChangeListener {
                 scrollAnimation(hasFocus, mt9);
                 break;
 
+        }
+    }
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        //拔出移动存储设备
+        if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
+            initView();
+            //插入移动存储设备
+        } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            initView();
         }
     }
 }

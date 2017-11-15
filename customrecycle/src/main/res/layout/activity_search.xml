@@ -38,13 +38,13 @@
                 android:background="@color/white" />
 
             <TextView
+                android:maxLength="15"
                 android:textColor="@color/white"
                 android:id="@+id/search_display_text"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/searchHr"
-                android:layout_marginBottom="2dp"
                 android:layout_marginLeft="52dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="100dp"
@@ -52,14 +52,23 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:textSize="20sp" />
-
+                <TextView
+                    android:focusable="false"
+                    android:id="@+id/tv_line"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="52dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_below="@+id/search_display_text"
+                    android:background="@color/white"
+                    android:layout_width="300dp"
+                    android:layout_height="2dp" />
             <TextView
                 android:focusable="false"
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/search_display_text"
-                android:layout_below="@+id/search_display_text"
+                android:layout_below="@+id/tv_line"
                 android:text="请输入标题首字母"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -658,8 +667,10 @@
                 android:textSize="30sp" />
 
             <com.example.customrecycle.view.ListViewTV
+                android:focusable="false"
                 android:listSelector="@android:color/transparent"
                 android:clipChildren="false"
+                android:clipToPadding="false"
                 android:divider="@null"
                 android:id="@+id/mListView"
                 android:layout_marginLeft="39dp"
@@ -683,6 +694,8 @@
             <com.example.customrecycle.view.GridViewTV
                 android:listSelector="@android:color/transparent"
                 android:clipChildren="false"
+                android:clipToPadding="false"
+                android:focusable="false"
                 android:divider="@null"
                 android:id="@+id/mGridView"
                 android:layout_marginLeft="39dp"

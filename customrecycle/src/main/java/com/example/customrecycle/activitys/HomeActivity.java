@@ -11,19 +11,17 @@ import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.storage.StorageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
+import android.text.format.DateFormat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
@@ -45,26 +43,24 @@ import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
-import com.example.customrecycle.interfac.UsbInterface;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.view.OpenTabHost;
-import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.view.TextViewWithTTF;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -77,6 +73,8 @@ import java.util.List;
 public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelectListener {
 
     public static List<VideoEntity> videoList;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     private List<Fragment> fragmentList;//
     ViewPager viewpager;
     OpenTabHost mOpenTabHost;
@@ -88,18 +86,38 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     View mOldView;
     private ZBXAlertDialog dialog;
 
+    //在主线程里面处理消息并更新UI界面
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    long sysTime = System.currentTimeMillis();//获取系统时间
+                    CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
+                    tvTime.setText(sysTimeStr); //更新时间
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
         // 初始化标题栏.
         initAllTitleBar();
         videoList = new ArrayList<VideoEntity>();
         //从usb获取数据
-//        initUSB();
+        initUSB();
         initAllViewPager();
         // 初始化移动边框.
         initMoveBridge();
+        new TimeThread().start(); //启动新的线程
     }
 
     private void initUSB() {
@@ -112,7 +130,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         }
     }
 
-//扫描文件
+    //扫描文件
     private void ScanFile(Context context) {
         String[] result = null;
         StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
@@ -133,6 +151,14 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             e.printStackTrace();
         }
     }
+
+    //    //扫描获取U盘内数据
+//    private void scanMediaFile(Context context) {
+//        String[] args = {".mp4", ".wmv", ".rmvb", ".mkv", ".avi", ".flv", ".3gp", ".mov", ".mpg", ".webm", ".wob"};
+//        HomeActivity.videoList.clear();
+//        HomeActivity.videoList = FileUtils.getSpecificTypeOfFile(context, args);
+//
+//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -318,9 +344,28 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             if (ActivityUtils.isForeground(HomeActivity.this, "com.example.customrecycle.activitys.HomeActivity")) {
                 dialog.show();
             }
-        }else if (KEY.FLAG_USB_SCAN.equals(eventCustom.getTag())){
+        } else if (KEY.FLAG_USB_SCAN.equals(eventCustom.getTag())) {
             initUSB();
         }
     }
 
+    //时间线程
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    Message msg = new Message();
+                    msg.what = 1;  //消息(一个整型值)
+                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
+    }
+
 }
+
+

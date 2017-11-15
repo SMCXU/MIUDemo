@@ -1,6 +1,8 @@
 package com.example.customrecycle.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +10,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.base.BaseFragment;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SortFragment extends Fragment implements View.OnClickListener {
+public class SortFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.tv_hotSearch)
     TextView tvHotSearch;
@@ -87,7 +95,84 @@ public class SortFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_sort, container, false);
+    }
+
+    @Override
+    protected void initialize(View root, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
+
+    @Override
     public void onClick(View view) {
-        MyToast.showToast("跳转到分类列表");
+        String title = "";
+        switch (view.getId()) {
+            case R.id.tv_1:
+                title = "古装";
+                break;
+            case R.id.tv_2:
+                title = "都市";
+                break;
+            case R.id.tv_3:
+                title = "喜剧";
+                break;
+            case R.id.tv_4:
+                title = "谍战";
+                break;
+            case R.id.tv_5:
+                title = "武侠";
+                break;
+            case R.id.tv_11:
+                title = "警匪";
+                break;
+            case R.id.tv_22:
+                title = "爱情";
+                break;
+            case R.id.tv_33:
+                title = "美剧";
+                break;
+            case R.id.tv_44:
+                title = "港剧";
+                break;
+            case R.id.tv_55:
+                title = "韩剧";
+                break;
+            case R.id.tv_a:
+                title = "院线首播";
+                break;
+            case R.id.tv_b:
+                title = "最新上线";
+                break;
+            case R.id.tv_c:
+                title = "排行榜";
+                break;
+            case R.id.tv_d:
+                title = "好莱坞";
+                break;
+            case R.id.tv_e:
+                title = "佳片剧场";
+                break;
+        }
+        Intent intent = new Intent(getActivity(), VideoGridViewActivity.class);
+        intent.putExtra("title",title);
+        startActivity(intent);
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+        //拔出移动存储设备
+        if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
+
+            //插入移动存储设备
+        } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+
+        }
     }
 }

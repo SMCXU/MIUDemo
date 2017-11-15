@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
@@ -51,15 +52,19 @@ import com.example.customrecycle.weight.appweight.MarqueeText;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * GridView Demo测试.
  */
 public class VideoGridViewActivity extends BaseActivity {
 
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private List<String> data;
     private MainUpView mainUpView1;
     private View mOldView;
@@ -73,6 +78,7 @@ public class VideoGridViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_grid_view);
+        ButterKnife.bind(this);
 
         initView();
         initBridge();
@@ -82,8 +88,14 @@ public class VideoGridViewActivity extends BaseActivity {
     private void initView() {
         gridView = (GridViewTV) findViewById(R.id.gridView);
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
+        String title = getIntent().getStringExtra("title");
+        if (title != null&&!"".equals(title.trim())) {
+            tvTitle.setVisibility(View.VISIBLE);
+            tvTitle.setText(title);
+        }
     }
-//    载入边框
+
+    //    载入边框
     private void initBridge() {
         // 建议使用 NoDraw.
         mainUpView1.setEffectBridge(new EffectNoDrawBridge());
@@ -101,7 +113,7 @@ public class VideoGridViewActivity extends BaseActivity {
 //        mainUpView1.setDrawUpRectPadding(new Rect(10, 10, 10, -55));
         // 加载数据.
         getData();
-        intent = new Intent(this,IjkVideoActivity.class);
+        intent = new Intent(this, IjkVideoActivity.class);
         //
         updateGridViewAdapter();
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -117,7 +129,7 @@ public class VideoGridViewActivity extends BaseActivity {
                     mainUpView1.setFocusView(view, mOldView, 1.2f);
                 }
                 //跑马灯开始和停止
-                if (mOldView!=null){
+                if (mOldView != null) {
                     GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) mOldView.getTag();
                     holder.titleTv.stopScroll();
                 }
@@ -134,8 +146,8 @@ public class VideoGridViewActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                mFindhandler.removeCallbacksAndMessages(null);
-                intent.putExtra("index",position);
-                intent.putExtra("type",0);//本地视频传0
+                intent.putExtra("index", position);
+                intent.putExtra("type", 0);//本地视频传0
                 startActivity(intent);
             }
         });
@@ -156,10 +168,10 @@ public class VideoGridViewActivity extends BaseActivity {
         gridView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
+
     public float getDimension(int id) {
         return getResources().getDimension(id);
     }
-
 
 
     @Subscribe

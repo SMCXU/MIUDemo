@@ -182,7 +182,6 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -208,6 +207,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
+        Log.d("Mr.U", "onEventThread: search=========");
         //拔出移动存储设备
         if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             initData();

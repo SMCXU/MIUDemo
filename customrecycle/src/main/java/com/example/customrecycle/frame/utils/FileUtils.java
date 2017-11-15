@@ -118,7 +118,7 @@ public class FileUtils {
             for (File f : files) {
                 if (f.isDirectory()) {
                     getAllFiles(f);
-                } else {
+                } else if (f.length()/1048576>0){//文件大于1M
                     String s = f.toString().toLowerCase();
                     if (s.endsWith(".mp4")||s.endsWith(".wmv")||s.endsWith(".rmvb")||s.endsWith(".mkv")||s.endsWith(".avi")
                             ||s.endsWith(".flv")||s.endsWith(".flv")||s.endsWith(".3gp")||s.endsWith(".mov")||s.endsWith(".mpg")
@@ -126,6 +126,7 @@ public class FileUtils {
                         DaoTools.insertLove(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
                         HomeActivity.videoList.add(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
                         Log.d("Mr.U", "getAllFiles: "+s);
+                        Log.d("Mr.U", "getAllFiles: length        "+f.length()/1048576+"Mb");
                     }
                 }
             }

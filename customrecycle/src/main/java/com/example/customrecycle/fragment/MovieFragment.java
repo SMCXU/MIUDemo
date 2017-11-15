@@ -2,6 +2,7 @@ package com.example.customrecycle.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
+import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
@@ -34,7 +36,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class MovieFragment extends Fragment implements View.OnFocusChangeListener {
+public class MovieFragment extends BaseFragment implements View.OnFocusChangeListener {
 
     @BindView(R.id.mt_1)
     MarqueeText mt1;
@@ -124,41 +126,66 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
     @OnClick({R.id.rf_1, R.id.rf_2, R.id.rf_3, R.id.tv_hot, R.id.tv_new,
             R.id.tv_first, R.id.tv_all})
     public void onClick(View v) {
+        int index = 0;
+        String title = "";
         switch (v.getId()) {
             case R.id.rf_1:
-                playVideo(5);
+                index = 11;
                 break;
             case R.id.rf_2:
-                playVideo(6);
+                index = 12;
                 break;
             case R.id.rf_3:
-                playVideo(7);
+                index = 13;
                 break;
             case R.id.tv_hot:
+                title = "本周热榜";
+                break;
             case R.id.tv_new:
+                title = "最新免费";
+                break;
             case R.id.tv_first:
+                title = "院线首播";
+                break;
             case R.id.tv_all:
-                startActivity(intent1);
+                title = "全部";
                 break;
         }
-    }
-
-    private void playVideo(int index) {
-        if (mList.size() > 8) {
+        if (v.getTag() != null && "sort".equals(v.getTag())) {
+            intent1.putExtra("title", title);
+            startActivity(intent1);
+        } else {
             intent.putExtra("index", index);
             intent.putExtra("type", 0);//本地视频传0
-            startActivity(intent);
-        } else {
-            MyToast.showToast("请检查U盘设备是否插入");
+            if (mList.size() > 13) {
+                startActivity(intent);
+            } else {
+                MyToast.showToast("请检查U盘设备是否插入");
+            }
         }
     }
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.test_page2, container, false);
+    }
+
+    @Override
+    protected void initialize(View root, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
@@ -177,14 +204,13 @@ public class MovieFragment extends Fragment implements View.OnFocusChangeListene
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
+        Log.d("Mr.U", "onEventThread: movie=========");
         //拔出移动存储设备
         if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             refreshUI();
-            Log.d("Mr.U", "onEventThread:FLAG_USB_OUT ");
             //插入移动存储设备
         } else if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
             refreshUI();
-            Log.d("Mr.U", "onEventThread:FLAG_USB_IN ");
         }
     }
 }
