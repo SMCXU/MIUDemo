@@ -23,7 +23,6 @@
         android:textSize="40sp" />
     <TextView
         android:focusedByDefault="true"
-        android:layout_marginBottom="@dimen/margin_horizontal_std"
         android:background="@drawable/bg_holo_blue_bright"
         android:layout_below="@+id/tv_time"
         android:layout_centerHorizontal="true"
@@ -37,7 +36,8 @@
         android:textColor="@color/white"
         android:textSize="40sp" />
     <TextView
-        android:layout_marginBottom="@dimen/margin_horizontal_std"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_holo_blue_bright"
         android:layout_below="@+id/tv_service"
         android:layout_centerHorizontal="true"

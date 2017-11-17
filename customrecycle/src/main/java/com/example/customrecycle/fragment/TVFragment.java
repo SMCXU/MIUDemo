@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.MovieDetailActivity;
 import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.KEY;
@@ -95,7 +96,7 @@ public class TVFragment extends BaseFragment implements View.OnFocusChangeListen
 
     //初始化view
     private void initView() {
-        intent = new Intent(getActivity(), IjkVideoActivity.class);
+        intent = new Intent(getActivity(), MovieDetailActivity.class);
         mList = HomeActivity.videoList;
         if (mList != null && mList.size() > 17) {
             mt1.setText(mList.get(9).getName());

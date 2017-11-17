@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.IjkVideoActivity;
+import com.example.customrecycle.activitys.movie.MovieDetailActivity;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
@@ -87,7 +88,7 @@ public class VIPFragment extends BaseFragment {
 
     private void initView() {
         mList = new ArrayList<>();
-        intent = new Intent(getActivity(), IjkVideoActivity.class);
+        intent = new Intent(getActivity(), MovieDetailActivity.class);
         intent1 = new Intent(getActivity(), VideoGridViewActivity.class);
         initData();
     }

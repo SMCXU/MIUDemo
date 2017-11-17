@@ -113,7 +113,7 @@ public class VideoGridViewActivity extends BaseActivity {
 //        mainUpView1.setDrawUpRectPadding(new Rect(10, 10, 10, -55));
         // 加载数据.
         getData();
-        intent = new Intent(this, IjkVideoActivity.class);
+        intent = new Intent(this, MovieDetailActivity.class);
         //
         updateGridViewAdapter();
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -149,6 +149,7 @@ public class VideoGridViewActivity extends BaseActivity {
                 intent.putExtra("index", position);
                 intent.putExtra("type", 0);//本地视频传0
                 startActivity(intent);
+
             }
         });
     }
@@ -177,6 +178,8 @@ public class VideoGridViewActivity extends BaseActivity {
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
         if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            initBridge();
+            updateGridViewAdapter();
             dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
                 @Override
                 public void onDialogOk(Dialog dlg) {
@@ -193,6 +196,9 @@ public class VideoGridViewActivity extends BaseActivity {
             if (ActivityUtils.isForeground(VideoGridViewActivity.this, "com.example.customrecycle.activitys.movie.VideoGridViewActivity")) {
                 dialog.show();
             }
+        }else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())){
+            initBridge();
+            updateGridViewAdapter();
         }
     }
     ///// Adapter 类 start start //////////

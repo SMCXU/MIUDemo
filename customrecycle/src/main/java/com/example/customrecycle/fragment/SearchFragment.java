@@ -99,6 +99,8 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     RoundedFrameLayout rf16;
     private List<VideoEntity> mList;
     private ZBXAlertDialog dialog;
+    private Intent intent;
+    private int position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,7 +116,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     //刷新数据
     private void initData() {
         mList = HomeActivity.videoList;
-        Log.d("Mr.U", "initData: "+HomeActivity.videoList.size());
+        Log.d("Mr.U", "initData: " + HomeActivity.videoList.size());
         if (mList != null && mList.size() > 6) {
             mList = mList.subList(0, 6);
             mt1.setText(mList.get(0).getName());
@@ -129,7 +131,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
             mt14.setText(mList.get(4).getName());
             mt15.setText(mList.get(5).getName());
             mt16.setText(mList.get(0).getName());
-        }else if (mList.size()==0){
+        } else if (mList.size() == 0) {
             mt1.setText("暂无数据");
             mt2.setText("暂无数据");
             mt3.setText("暂无数据");
@@ -146,6 +148,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void initView() {
+        intent = new Intent(getContext(), MovieDetailActivity.class);
         tvSearch.setOnClickListener(this);
         rf1.setOnClickListener(this);
         rf2.setOnClickListener(this);
@@ -189,18 +192,34 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), SearchActivity.class));
                 break;
             case R.id.rf_1:
+                position = 0;
             case R.id.rf_2:
+                position = 1;
             case R.id.rf_3:
+                position = 2;
             case R.id.rf_4:
+                position = 3;
             case R.id.rf_5:
+                position = 4;
             case R.id.rf_6:
+                position = 5;
             case R.id.rf_11:
+                position = 1;
             case R.id.rf_12:
+                position = 2;
             case R.id.rf_13:
+                position = 3;
             case R.id.rf_14:
+                position = 4;
             case R.id.rf_15:
+                position = 5;
             case R.id.rf_16:
-                startActivity(new Intent(getContext(), MovieDetailActivity.class));
+                position = 0;
+                intent.putExtra("index", position);
+                intent.putExtra("type", 0);//本地视频传0
+                startActivity(intent);
+
+                startActivity(intent);
                 break;
         }
     }

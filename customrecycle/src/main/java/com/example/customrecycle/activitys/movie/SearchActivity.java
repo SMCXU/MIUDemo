@@ -25,6 +25,7 @@ import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -59,7 +60,7 @@ public class SearchActivity extends BaseActivity {
     GridViewTV mGridView;
     private List<VideoEntity> videoEntities;
     private LayoutInflater mInflater;
-    private View mOldView,mOldView2;
+    private View mOldView;
     private ZBXAlertDialog dialog;
 
 
@@ -79,53 +80,29 @@ public class SearchActivity extends BaseActivity {
         bridget.setTranDurAnimTime(200);
         //
         mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
-        mainUpView1.setDrawUpRectPadding(new Rect(25, 25, 23, 23)); // 边框图片设置间距.
-        rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+        mainUpView1.setDrawUpRectPadding(new Rect(15, 15, 15, 15)); // 边框图片设置间距.
+        mGridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onGlobalFocusChanged(final View oldFocus, final View newFocus) {
-                if (newFocus != null)
-                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout)
-                float scale = 1.1f;
-                mainUpView1.setFocusView(newFocus, mOldView, scale);
-                mOldView = newFocus; // 4.3以下需要自己保存.
-            }
-        });
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                view.bringToFront();
-                mainUpView1.setUnFocusView(mOldView);
-                mainUpView1.setFocusView(view, mOldView, 1.1f);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                /**
+                 * 这里注意要加判断是否为NULL.
+                 * 因为在重新加载数据以后会出问题.
+                 */
+                if (view != null) {
+                    mainUpView1.setFocusView(view, mOldView, 1.2f);
+                }
+                //跑马灯开始和停止
+                if (mOldView != null) {
+                    GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) mOldView.getTag();
+                    holder.titleTv.stopScroll();
+                }
+                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
+                holder.titleTv.startScroll();
                 mOldView = view;
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        mGridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                view.bringToFront();
-                if (view != null) {
-                    mainUpView1.setFocusView(view, mOldView, 1.1f);
-                }
-                //跑马灯开始和停止
-                if (mOldView2!=null){
-                    mainUpView1.setUnFocusView(mOldView2);
-                    GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) mOldView2.getTag();
-                    if (holder.titleTv!=null){
-                        holder.titleTv.stopScroll();
-                    }
-                }
-                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
-                holder.titleTv.startScroll();
-                mOldView2 = view;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });

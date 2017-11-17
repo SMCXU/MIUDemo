@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:focusable="false"
+    android:id="@+id/ll_contioner"
+    android:gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+    <ImageView
+        android:focusable="false"
+        android:id="@+id/iv_fee1"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fee"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
+    <TextView
+        android:focusable="false"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:hint="按任意键退出"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColorHint="@color/white"/>
+    <com.example.customrecycle.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/test_rectangle" />
+</LinearLayout>

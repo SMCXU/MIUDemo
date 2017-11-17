@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.format.DateFormat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -11,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.activitys.setting.SettingInfoActivity;
 import com.example.customrecycle.base.BaseActivity;
@@ -45,18 +49,40 @@ public class SettingsActivity extends BaseActivity {
     private View mOldFocus;
     private ZBXAlertDialog dialog;
 
+    //在主线程里面处理消息并更新UI界面
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    setTime();
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+        new TimeThread().start(); //启动新的线程
         initView();
         initMoveBridge();
-
     }
 
     private void initView() {
-
+        setTime();
+        if (HomeActivity.videoList.size()>0){
+            tvStorage.setVisibility(View.VISIBLE);
+        }else {
+            tvStorage.setVisibility(View.INVISIBLE);
+        }
     }
 
     @OnClick({R.id.tv_storage, R.id.tv_settings})
@@ -134,6 +160,27 @@ public class SettingsActivity extends BaseActivity {
             tvStorage.setVisibility(View.VISIBLE);
         } else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             tvStorage.setVisibility(View.INVISIBLE);
+        }
+    }
+    private void setTime() {
+        long sysTime = System.currentTimeMillis();//获取系统时间
+        CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
+        tvTime.setText(sysTimeStr); //更新时间
+    }
+    //时间线程
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    Message msg = new Message();
+                    msg.what = 1;  //消息(一个整型值)
+                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
         }
     }
 }

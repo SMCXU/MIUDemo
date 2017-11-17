@@ -12,18 +12,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.MyToast;
+import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.frame.weightt.ImageDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +67,7 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
     RelativeLayout rlContainer;
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
-    private Intent intent;
+    private Intent intent,intent1;
     private ZBXAlertDialog dialog;
 
     @Override
@@ -75,12 +81,23 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
-        intent = new Intent(this,MovieIntroActivity.class);
+        intent = new Intent(this, MovieIntroActivity.class);
+        intent1 = new Intent(this, IjkVideoActivity.class);
         tvPlay.requestFocus();
         tvPlay.setOnClickListener(this);
         tvPilot.setOnClickListener(this);
         tvFee.setOnClickListener(this);
         tvDec.setOnClickListener(this);
+        int index = getIntent().getIntExtra("index", 0);
+        int type = getIntent().getIntExtra("type", 0);
+        if (index<=HomeActivity.videoList.size()){
+            tvName.setText(HomeActivity.videoList.get(index).getName());
+        }
+        intent1.putExtra("index", index);
+        intent1.putExtra("type", type);
+
+        intent.putExtra("index", index);
+        intent.putExtra("type", type);
     }
 
     private void initMoveBridge() {
@@ -112,18 +129,20 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_play:
-                break;
             case R.id.tv_pilot:
+                startActivity(intent1);
                 break;
             case R.id.tv_fee:
+                new ImageDialog(MovieDetailActivity.this).show();
                 break;
             case R.id.tv_dec:
                 startActivity(intent);
                 break;
         }
     }
+
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
         if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
@@ -136,7 +155,6 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
 
                 @Override
                 public void onDialogCancel(Dialog dlg) {
-
                     dialog.dismiss();
                 }
             }, "提示", "外部存储设备已连接");
