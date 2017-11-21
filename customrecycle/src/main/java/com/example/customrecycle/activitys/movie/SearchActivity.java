@@ -1,12 +1,10 @@
 package com.example.customrecycle.activitys.movie;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.telecom.VideoProfile;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +23,6 @@ import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -58,10 +55,15 @@ public class SearchActivity extends BaseActivity {
     RelativeLayout rlContainer;
     @BindView(R.id.mGridView)
     GridViewTV mGridView;
+    @BindView(R.id.rl_left)
+    RelativeLayout rlLeft;
     private List<VideoEntity> videoEntities;
     private LayoutInflater mInflater;
     private View mOldView;
     private ZBXAlertDialog dialog;
+    private List<VideoEntity> nameList;
+    private DemoAdapter adapter;
+    private GridViewAdapter adapter1;
 
 
     @Override
@@ -106,14 +108,40 @@ public class SearchActivity extends BaseActivity {
 
             }
         });
+
+        /**
+         * view.getvisibility的值
+         * （1）0    --------   VISIBLE    可见
+         * （1）4    --------   INVISIBLE    不可见但是占用布局空间
+         * （1）8    --------   GONE    不可见也不占用布局空间
+         * */
+        rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
+            @Override
+            public void onGlobalFocusChanged(View oldView, View newView) {
+                if (mListView.getFocusedChild()==newView){
+                    rlLeft.setVisibility(View.GONE);
+                    mListView.setVisibility(View.VISIBLE);
+                    textViewHotvideoTitle.setVisibility(View.VISIBLE);
+                }else if (rlLeft.getFocusedChild()==newView){
+                    rlLeft.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.VISIBLE);
+                    textViewHotvideoTitle.setVisibility(View.VISIBLE);
+                }else if (mGridView==newView){
+                    mListView.setVisibility(View.GONE);
+                    textViewHotvideoTitle.setVisibility(View.GONE);
+                    rlLeft.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
 
     private void initView() {
+        nameList = new ArrayList<>();
         this.mInflater = LayoutInflater.from(getApplicationContext());
         videoEntities = new ArrayList<>();
-        DemoAdapter adapter = new DemoAdapter();
-        GridViewAdapter adapter1 = new GridViewAdapter(this, videoEntities);
+        adapter = new DemoAdapter();
+        adapter1 = new GridViewAdapter(this, nameList);
         mListView.setAdapter(adapter);
         mGridView.setAdapter(adapter1);
         getData();
@@ -132,12 +160,11 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
+
     }
 
     private void getData() {
-        if (HomeActivity.videoList.size() > 6) {
-            videoEntities = HomeActivity.videoList.subList(0, 6);
-        }
+        videoEntities = HomeActivity.videoList;
     }
 
     //输入按键的点击事件
@@ -145,7 +172,7 @@ public class SearchActivity extends BaseActivity {
         CharSequence oldText = searchDisplayText.getText();
         String newText = oldText.toString() + view.getTag();
         searchDisplayText.setText(newText);
-        //本地搜索稍后添加
+        upDateUI(newText);
     }
 
     //删除按键的点击事件
@@ -157,24 +184,41 @@ public class SearchActivity extends BaseActivity {
                     oldText = oldText.substring(0, oldText.length() - 1);
                 }
                 searchDisplayText.setText(oldText);
+                upDateUI(oldText);
                 break;
             case R.id.iv_clear:
                 searchDisplayText.setText("");
+                upDateUI("");
                 break;
         }
     }
+
+    //更改输入，刷新UI
+    private void upDateUI(String newText) {
+        nameList.clear();
+        //本地搜索====>以后要替换成网络搜索
+        for (int i = 0; i < videoEntities.size(); i++) {
+            if (videoEntities.get(i).getName().contains(newText.trim().toLowerCase())) {
+                nameList.add(videoEntities.get(i));
+                Log.d("Mr.U", "searchVideo: " + videoEntities.get(i).getName());
+            }
+        }
+        adapter.notifyDataSetChanged();
+        adapter1.notifyDataSetChanged();
+    }
+
 
     //======================listadapter start==================================
     public class DemoAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return videoEntities.size();
+            return nameList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return videoEntities.get(position);
+            return nameList.get(position);
         }
 
         @Override
@@ -194,8 +238,8 @@ public class SearchActivity extends BaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.name.setText(videoEntities.get(position).getName());
-            holder.type.setText("2017 内地");
+            holder.name.setText(nameList.get(position).getName());
+//            holder.type.setText("2017 内地");
             return convertView;
         }
 
@@ -269,7 +313,7 @@ public class SearchActivity extends BaseActivity {
         }
 
         private void bindViewData(int position, ViewHolder viewHolder) {
-            if (mDatas.size()>position){
+            if (mDatas.size() > position) {
                 String title = mDatas.get(position).getName();
                 viewHolder.titleTv.setText(title);
             }

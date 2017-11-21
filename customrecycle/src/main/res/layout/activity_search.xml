@@ -4,40 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_container"
+    android:gravity="center"
     android:background="@drawable/img_background"
     tools:context=".activitys.movie.SearchActivity">
 
-    <com.example.customrecycle.view.SmoothHorizontalScrollView
-        android:id="@+id/test_hscroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:scrollbars="none">
         <RelativeLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <View
-                android:focusable="false"
-                android:id="@+id/searchHr"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="420dp"
-                android:background="@color/white" />
-            <View
-                android:focusable="false"
-                android:id="@+id/searchHr2"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="799dp"
-                android:background="@color/white" />
+
             <RelativeLayout
                 android:id="@+id/rl_left"
+                android:layout_marginLeft="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -656,7 +637,15 @@
                     android:textSize="30sp" />
 
             </RelativeLayout>
-
+            <View
+                android:focusable="false"
+                android:id="@+id/searchHr"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/rl_left"
+                android:background="@color/white" />
             <TextView
                 android:focusable="false"
                 android:id="@+id/textView_hotvideo_title"
@@ -671,7 +660,8 @@
                 android:textSize="30sp" />
 
             <com.example.customrecycle.view.ListViewTV
-                android:focusable="false"
+                android:scrollbars="none"
+                android:focusable="true"
                 android:listSelector="@android:color/transparent"
                 android:clipChildren="false"
                 android:clipToPadding="false"
@@ -683,16 +673,25 @@
                 android:layout_toRightOf="@+id/searchHr"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"/>
+            <View
+                android:focusable="false"
+                android:id="@+id/searchHr2"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/mListView"
+                android:background="@color/white" />
             <TextView
                 android:focusable="false"
                 android:id="@+id/textView_video_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="125dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="55dp"
                 android:layout_toRightOf="@+id/searchHr2"
-                android:text="相关搜索"
+                android:text="正片"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
             <com.example.customrecycle.view.GridViewTV
@@ -707,7 +706,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="30dp"
                 android:columnWidth="200dp"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:horizontalSpacing="12dp"
                 android:numColumns="auto_fit"
                 android:scrollbars="none"
@@ -717,7 +716,6 @@
                 android:layout_width="1000dp"
                 android:layout_height="match_parent"/>
         </RelativeLayout>
-    </com.example.customrecycle.view.SmoothHorizontalScrollView>
 
 
     <com.example.customrecycle.view.MainUpView

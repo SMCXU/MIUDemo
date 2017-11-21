@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:focusable="true"
+    android:focusable="false"
     android:background="@drawable/selector_keyboard_key"
-    android:focusableInTouchMode="true"
-    android:orientation="horizontal">
+    android:focusableInTouchMode="true">
 
     <TextView
+        android:layout_gravity="center"
         android:focusable="false"
-        android:maxLength="8"
+        android:maxLength="30"
         android:ellipsize="end"
         android:id="@+id/tv_name"
         android:layout_weight="1"
         android:gravity="center|left"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
@@ -26,6 +25,7 @@
         android:textSize="20sp"
         android:text="王牌特工" />
     <TextView
+        android:visibility="gone"
         android:focusable="false"
         android:maxLength="8"
         android:ellipsize="end"
@@ -43,4 +43,4 @@
         android:textSize="20sp"
         android:text="王牌特工" />
 
-</LinearLayout>
+</FrameLayout>

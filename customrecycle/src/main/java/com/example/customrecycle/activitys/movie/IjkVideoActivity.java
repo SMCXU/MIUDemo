@@ -93,9 +93,6 @@ public class IjkVideoActivity extends BaseActivity {
                 SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simple.format(calendar.getTime());
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
-//                Log.d("Mr.U", uri + "-----" + time);
-//                Log.d("Mr.U", "--------" + (++sum) + "------------");
-//                Log.d("Mr.U", "-------分分分-------");
                 initVideo();
             }
         });
@@ -114,9 +111,6 @@ public class IjkVideoActivity extends BaseActivity {
         } else {
             initVideo();
         }
-//        Log.d("Mr.U", "是否是低内存状态: " + DeviceUtils.getInstance(IjkVideoActivity.this).isLowMemory());
-//        Log.d("Mr.U", "最大内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getTotalMemory());
-//        Log.d("Mr.U", "可用内存: " + DeviceUtils.getInstance(IjkVideoActivity.this).getAvailMemory());
     }
 
     @Override
