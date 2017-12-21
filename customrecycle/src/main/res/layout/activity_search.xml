@@ -660,9 +660,10 @@
                 android:textSize="30sp" />
 
             <com.example.customrecycle.view.ListViewTV
+                android:descendantFocusability="blocksDescendants"
                 android:scrollbars="none"
                 android:focusable="true"
-                android:listSelector="@android:color/transparent"
+                android:clickable="true"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:divider="@null"

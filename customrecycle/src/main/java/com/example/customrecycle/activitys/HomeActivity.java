@@ -170,8 +170,8 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         mEffectNoDrawBridge = new EffectNoDrawBridge();
         mainUpView1.setEffectBridge(mEffectNoDrawBridge);
         mEffectNoDrawBridge.setUpRectResource(R.drawable.white_light_10); // 设置移动边框图片.
-        RectF rectF = new RectF(getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density,
-                getDimension(R.dimen.x10) * density, getDimension(R.dimen.x10) * density);
+        RectF rectF = new RectF(getDimension(R.dimen.x12) * density, getDimension(R.dimen.x12) * density,
+                getDimension(R.dimen.x12) * density, getDimension(R.dimen.x12) * density);
         mEffectNoDrawBridge.setDrawUpRectPadding(rectF);
     }
 

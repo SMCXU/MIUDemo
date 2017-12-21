@@ -15,9 +15,15 @@
             <corners android:radius="10dp"/>
         </shape>
     </item>
+    <item android:state_selected="true">
+        <shape>
+            <!-- 填充 -->
+            <solid android:color="@color/royalblue" />
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
     <item android:state_enabled="false">
         <shape>
-
             <!-- 填充 -->
             <solid android:color="@color/transparent" />
             <corners android:radius="10dp"/>

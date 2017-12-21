@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -57,6 +60,8 @@ public class SearchActivity extends BaseActivity {
     GridViewTV mGridView;
     @BindView(R.id.rl_left)
     RelativeLayout rlLeft;
+    @BindView(R.id.button_r)
+    Button buttonR;
     private List<VideoEntity> videoEntities;
     private LayoutInflater mInflater;
     private View mOldView;
@@ -64,6 +69,7 @@ public class SearchActivity extends BaseActivity {
     private List<VideoEntity> nameList;
     private DemoAdapter adapter;
     private GridViewAdapter adapter1;
+    private Intent intent;
 
 
     @Override
@@ -118,15 +124,12 @@ public class SearchActivity extends BaseActivity {
         rlContainer.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
             public void onGlobalFocusChanged(View oldView, View newView) {
-                if (mListView.getFocusedChild()==newView){
+                if (mListView.getFocusedChild() == newView) {
                     rlLeft.setVisibility(View.GONE);
                     mListView.setVisibility(View.VISIBLE);
                     textViewHotvideoTitle.setVisibility(View.VISIBLE);
-                }else if (rlLeft.getFocusedChild()==newView){
-                    rlLeft.setVisibility(View.VISIBLE);
-                    mListView.setVisibility(View.VISIBLE);
-                    textViewHotvideoTitle.setVisibility(View.VISIBLE);
-                }else if (mGridView==newView){
+                } else if (mGridView == newView) {
+                    mainUpView1.setVisibility(View.VISIBLE);
                     mListView.setVisibility(View.GONE);
                     textViewHotvideoTitle.setVisibility(View.GONE);
                     rlLeft.setVisibility(View.GONE);
@@ -137,6 +140,7 @@ public class SearchActivity extends BaseActivity {
 
 
     private void initView() {
+        intent = new Intent(this, MovieDetailActivity.class);
         nameList = new ArrayList<>();
         this.mInflater = LayoutInflater.from(getApplicationContext());
         videoEntities = new ArrayList<>();
@@ -144,6 +148,23 @@ public class SearchActivity extends BaseActivity {
         adapter1 = new GridViewAdapter(this, nameList);
         mListView.setAdapter(adapter);
         mGridView.setAdapter(adapter1);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                intent.putExtra("type", 2);
+                intent.putExtra("index", position);
+                startActivity(intent);
+                MyToast.showToast(position+"--------");
+            }
+        });
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                intent.putExtra("type", 2);
+                intent.putExtra("index", position);
+                startActivity(intent);
+            }
+        });
         getData();
         adapter.notifyDataSetChanged();
         adapter1.notifyDataSetChanged();
@@ -332,4 +353,31 @@ public class SearchActivity extends BaseActivity {
     }
 
     ///// Adapter 类 end end //////////
+
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+        final boolean uniqueDown = event.getRepeatCount() == 0 && event.getAction() == KeyEvent.ACTION_DOWN;
+        //rlLIFT和mListView不可见说明这次点击事件在gridview上，再次点击左键时显示mlistview即可
+        if (uniqueDown && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && rlLeft.getVisibility() == View.GONE
+                && mListView.getVisibility() == View.GONE) {
+            mListView.setVisibility(View.VISIBLE);
+            textViewHotvideoTitle.setVisibility(View.VISIBLE);
+            mListView.getChildAt(0).requestFocus();
+            mainUpView1.setUnFocusView(mOldView);
+            mainUpView1.setVisibility(View.GONE);
+            Log.d("Mr.U", "dispatchKeyEvent: 1111111111111");
+            return true;
+        } else if (uniqueDown && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && rlLeft.getVisibility() == View.GONE
+                && mListView.getVisibility() == View.VISIBLE) {
+            rlLeft.setVisibility(View.VISIBLE);
+            buttonR.requestFocus();
+            mainUpView1.setUnFocusView(mOldView);
+            mainUpView1.setVisibility(View.GONE);
+            Log.d("Mr.U", "dispatchKeyEvent: 22222222222222");
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }
