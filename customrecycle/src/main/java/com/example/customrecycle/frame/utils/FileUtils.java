@@ -125,25 +125,31 @@ public class FileUtils {
 
     //扫描移动存储设备
     //String[] args = {".mp4", ".wmv", ".rmvb", ".mkv", ".avi", ".flv", ".3gp", ".mov", ".mpg", ".webm", ".wob"};
-    public static void getAllFiles(File path) {
-        File files[] = path.listFiles();
-        if (files != null) {
-            for (File f : files) {
-                if (f.isDirectory()) {
-                    getAllFiles(f);
-                } else if (f.length()/1048576>0){//文件大于1M
-                    String s = f.toString().toLowerCase();
-                    if (s.endsWith(".mp4")||s.endsWith(".wmv")||s.endsWith(".rmvb")||s.endsWith(".mkv")||s.endsWith(".avi")
-                            ||s.endsWith(".flv")||s.endsWith(".flv")||s.endsWith(".3gp")||s.endsWith(".mov")||s.endsWith(".mpg")
-                            ||s.endsWith(".webm")||s.endsWith(".wob")){
-                        DaoTools.insertLove(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
-                        String fileName = getFileName(f.toString());
-                        HomeActivity.videoList.add(new VideoEntity(f.toString(), getFileNameNoEx(fileName),(long)0));
-                        Log.d("Mr.U", "getAllFiles: "+s);
-                        Log.d("Mr.U", "getAllFiles: length        "+f.length()/1048576+"Mb");
+    public static void getAllFiles(final File path) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+                File files[] = path.listFiles();
+                if (files != null) {
+                    for (File f : files) {
+                        if (f.isDirectory()) {
+                            getAllFiles(f);
+                        } else if (f.length()/1048576>0){//文件大于1M
+                            String s = f.toString().toLowerCase();
+                            if (s.endsWith(".mp4")||s.endsWith(".wmv")||s.endsWith(".rmvb")||s.endsWith(".mkv")||s.endsWith(".avi")
+                                    ||s.endsWith(".flv")||s.endsWith(".flv")||s.endsWith(".3gp")||s.endsWith(".mov")||s.endsWith(".mpg")
+                                    ||s.endsWith(".webm")||s.endsWith(".wob")){
+                                DaoTools.insertLove(new VideoEntity(f.toString(),getFileName(f.toString()),(long)0));
+                                String fileName = getFileName(f.toString());
+                                HomeActivity.videoList.add(new VideoEntity(f.toString(), getFileNameNoEx(fileName),(long)0));
+                                Log.d("Mr.U", "getAllFiles: "+s);
+                                Log.d("Mr.U", "getAllFiles: length        "+f.length()/1048576+"Mb");
+                            }
+                        }
                     }
                 }
-            }
-        }
+//            }
+//        }).start();
+
     }
 }

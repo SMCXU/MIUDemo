@@ -520,6 +520,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
         final boolean uniqueDown = event.getAction() == KeyEvent.ACTION_DOWN;
         if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
                 || keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+            //确定键，耳机建，space键，暂停键==》暂停
             if (uniqueDown) {
                 doPauseResume();
                 show(sDefaultTimeout);
@@ -529,12 +530,14 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
+            //播放键
             if (uniqueDown && !mPlayer.isPlaying()) {
                 mPlayer.start();
                 show(sDefaultTimeout);
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
+            //暂停或者停止
             if (uniqueDown && mPlayer.isPlaying()) {
                 mPlayer.pause();
                 show(sDefaultTimeout);
@@ -542,30 +545,34 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP
                 || keyCode == KeyEvent.KEYCODE_VOLUME_MUTE || keyCode == KeyEvent.KEYCODE_CAMERA) {
+            //声音键
             // don't show the controls for volume adjustment
             return super.dispatchKeyEvent(event);
         } else if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU) {
+            //菜单或者后退键
             if (uniqueDown) {
                 hide();
             }
             return true;
         }
         else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_UP) {
-            if (event.getRepeatCount() == 0) {
-                if (mPlayer.getCurrentPosition() - 8000 > 0) {
-                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
-                } else {
-                    mPlayer.seekTo(0);
-                }
-            }
+//            //左键
+//            if (event.getRepeatCount() == 0) {
+//                if (mPlayer.getCurrentPosition() - 8000 > 0) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
+//                } else {
+//                    mPlayer.seekTo(0);
+//                }
+//            }
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_UP) {
-            if (event.getRepeatCount() == 0) {
-                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
-                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
-                } else {
-                    mPlayer.seekTo(mPlayer.getDuration());
-                }
-            }
+//            //右键
+//            if (event.getRepeatCount() == 0) {
+//                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
+//                } else {
+//                    mPlayer.seekTo(mPlayer.getDuration());
+//                }
+//            }
         }
 
         show(sDefaultTimeout);

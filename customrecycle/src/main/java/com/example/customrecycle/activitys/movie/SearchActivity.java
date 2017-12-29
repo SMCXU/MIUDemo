@@ -151,16 +151,16 @@ public class SearchActivity extends BaseActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                intent.putExtra("type", 2);
+                intent.putExtra("type", 0);
                 intent.putExtra("index", position);
                 startActivity(intent);
-                MyToast.showToast(position+"--------");
+                Log.d("Mr.U", "onItemClick: list------------------");
             }
         });
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                intent.putExtra("type", 2);
+                intent.putExtra("type", 0);
                 intent.putExtra("index", position);
                 startActivity(intent);
             }
@@ -364,7 +364,10 @@ public class SearchActivity extends BaseActivity {
                 && mListView.getVisibility() == View.GONE) {
             mListView.setVisibility(View.VISIBLE);
             textViewHotvideoTitle.setVisibility(View.VISIBLE);
-            mListView.getChildAt(0).requestFocus();
+            if(mListView.getChildAt(0)!=null){
+                mListView.getChildAt(0).requestFocus();
+                mListView.getChildAt(0).setSelected(true);
+            }
             mainUpView1.setUnFocusView(mOldView);
             mainUpView1.setVisibility(View.GONE);
             Log.d("Mr.U", "dispatchKeyEvent: 1111111111111");

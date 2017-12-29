@@ -39,6 +39,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class IjkVideoActivity extends BaseActivity {
 
     private IjkVideoView mVideoView;
+
     private CustomMediaController mController;
 
     private int currentPosition;//视频当前播放位置
