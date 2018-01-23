@@ -19,6 +19,8 @@ public class KEY {
 
     public static final String FLAG_Sound = "Sound";
 
+    //是否是游客模式
+    public static final String FLAG_ISVISITOR = "isVisitor";
 
 
 

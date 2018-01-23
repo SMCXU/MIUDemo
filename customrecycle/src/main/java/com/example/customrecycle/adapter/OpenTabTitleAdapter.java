@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.view.TextViewWithTTF;
 
 import java.util.ArrayList;
@@ -23,6 +26,9 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			titleList.add("VIP");
 			titleList.add("电影");
 			titleList.add("电视剧");
+			if (!PreferencesUtils.getBoolean(BaseApp.getContext(), KEY.FLAG_ISVISITOR)){
+				titleList.add("设置");
+			}
 //			titleList.add("动漫");
 	}
 
@@ -46,7 +52,9 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			add(R.id.title_bar4);
 			add(R.id.title_bar5);
 			add(R.id.title_bar6);
-//			add(R.id.title_bar7);
+			if (!PreferencesUtils.getBoolean(BaseApp.getContext(),KEY.FLAG_ISVISITOR)){
+                add(R.id.title_bar7);
+            }
 		}
 	};
 

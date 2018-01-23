@@ -60,10 +60,11 @@ public class IjkVideoActivity extends BaseActivity {
     }
 
     private void initVideo() {
-        if (type == 0 && mList != null) {
+        if (type == 0 && mList != null&&mList.size()>0) {
             uri = mList.get(index).getUri();
+            Log.d("Mr.U", "播放的视频: "+uri);
         } else {
-            //网络获取uri
+            MyToast.showToast("请检查是否插入移动存储设备");
         }
         if ("".equals(uri.trim())) {
             return;

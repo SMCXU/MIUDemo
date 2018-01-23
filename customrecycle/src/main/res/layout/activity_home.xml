@@ -12,6 +12,9 @@
         android:id="@+id/ll_top"
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_height="@dimen/x60">
         <ImageView
             android:layout_marginTop="@dimen/x10"

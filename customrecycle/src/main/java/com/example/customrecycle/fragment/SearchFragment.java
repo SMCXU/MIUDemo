@@ -23,6 +23,7 @@ import com.example.customrecycle.base.DaoTools;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -131,7 +132,8 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
             mt14.setText(mList.get(4).getName());
             mt15.setText(mList.get(5).getName());
             mt16.setText(mList.get(0).getName());
-        } else if (mList.size() == 0) {
+            setClickable(true);
+        } else  {
             mt1.setText("暂无数据");
             mt2.setText("暂无数据");
             mt3.setText("暂无数据");
@@ -144,7 +146,25 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
             mt14.setText("暂无数据");
             mt15.setText("暂无数据");
             mt16.setText("暂无数据");
+            MyToast.showToast("请检查U盘设备是否插入");
+            setClickable(false);
+
         }
+    }
+
+    private void setClickable(boolean isClick) {
+        rf1.setClickable(isClick);
+        rf2.setClickable(isClick);
+        rf3.setClickable(isClick);
+        rf4.setClickable(isClick);
+        rf5.setClickable(isClick);
+        rf6.setClickable(isClick);
+        rf11.setClickable(isClick);
+        rf12.setClickable(isClick);
+        rf13.setClickable(isClick);
+        rf14.setClickable(isClick);
+        rf15.setClickable(isClick);
+        rf16.setClickable(isClick);
     }
 
     private void initView() {
@@ -192,36 +212,49 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getContext(), SearchActivity.class));
                 break;
             case R.id.rf_1:
-                position = 0;
-            case R.id.rf_2:
-                position = 1;
-            case R.id.rf_3:
-                position = 2;
-            case R.id.rf_4:
-                position = 3;
-            case R.id.rf_5:
-                position = 4;
-            case R.id.rf_6:
-                position = 5;
-            case R.id.rf_11:
-                position = 1;
-            case R.id.rf_12:
-                position = 2;
-            case R.id.rf_13:
-                position = 3;
-            case R.id.rf_14:
-                position = 4;
-            case R.id.rf_15:
-                position = 5;
-            case R.id.rf_16:
-                position = 0;
-                intent.putExtra("index", position);
-                intent.putExtra("type", 0);//本地视频传0
-                startActivity(intent);
-
-                startActivity(intent);
+                setIntents(0);
                 break;
+            case R.id.rf_2:
+                setIntents(1);
+                break;
+            case R.id.rf_3:
+                setIntents(2);
+                break;
+            case R.id.rf_4:
+                setIntents(3);
+                break;
+            case R.id.rf_5:
+                setIntents(4);
+                break;
+            case R.id.rf_6:
+                setIntents(5);
+                break;
+            case R.id.rf_11:
+                setIntents(1);
+                break;
+            case R.id.rf_12:
+                setIntents(2);
+                break;
+            case R.id.rf_13:
+                setIntents(3);
+                break;
+            case R.id.rf_14:
+                setIntents(4);
+                break;
+            case R.id.rf_15:
+                setIntents(5);
+                break;
+            case R.id.rf_16:
+                setIntents(0);
+                break;
+
         }
+    }
+
+    private void setIntents(int index) {
+        intent.putExtra("index", index);
+        intent.putExtra("type", 0);//本地视频传0
+        startActivity(intent);
     }
 
     @Subscribe

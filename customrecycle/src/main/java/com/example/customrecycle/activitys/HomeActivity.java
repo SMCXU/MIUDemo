@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.example.customrecycle.fragment.CartoonFragment;
 import com.example.customrecycle.fragment.MovieFragment;
 import com.example.customrecycle.fragment.RecommendpFragment;
 import com.example.customrecycle.fragment.SearchFragment;
+import com.example.customrecycle.fragment.SettingFragment;
 import com.example.customrecycle.fragment.SortFragment;
 import com.example.customrecycle.fragment.TVFragment;
 import com.example.customrecycle.fragment.VIPFragment;
@@ -43,6 +45,7 @@ import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
+import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -57,6 +60,8 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -84,6 +89,9 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     EffectNoDrawBridge mEffectNoDrawBridge;
     View mNewFocus;
     View mOldView;
+    long loginTime = 0;//登陆计时
+    long remainTime = 60;//倒计时时长
+    long startTime = 10;//开始计时时长
     private ZBXAlertDialog dialog;
 
     //在主线程里面处理消息并更新UI界面
@@ -96,6 +104,16 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                     long sysTime = System.currentTimeMillis();//获取系统时间
                     CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
                     tvTime.setText(sysTimeStr); //更新时间
+                    loginTime++;
+                    //设置10s之后提示
+                    if (loginTime >= startTime && loginTime <60+startTime) {
+                        remainTime--;
+                        CharSequence remainTimes = DateFormat.format("mm:ss", remainTime * 1000);
+                        Log.d("Mr.U", "handleMessage: " + remainTimes);
+                        if (remainTime == 0) {
+                            Log.d("Mr.U", "handleMessage111: 需要关闭了");
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -109,6 +127,12 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        initView();
+
+    }
+
+    private void initView() {
+
         // 初始化标题栏.
         initAllTitleBar();
         videoList = new ArrayList<VideoEntity>();
@@ -152,13 +176,6 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         }
     }
 
-    //    //扫描获取U盘内数据
-//    private void scanMediaFile(Context context) {
-//        String[] args = {".mp4", ".wmv", ".rmvb", ".mkv", ".avi", ".flv", ".3gp", ".mov", ".mpg", ".webm", ".wob"};
-//        HomeActivity.videoList.clear();
-//        HomeActivity.videoList = FileUtils.getSpecificTypeOfFile(context, args);
-//
-//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -207,8 +224,6 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                         mainUpView1.setUnFocusView(oldFocus);
                         mEffectNoDrawBridge.setVisibleWidget(true);
                     }
-
-
             }
         });
         viewpager.setOffscreenPageLimit(1);
@@ -266,6 +281,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         RecommendpFragment recomFragment = new RecommendpFragment();
         TVFragment tvFragment = new TVFragment();
         CartoonFragment cartoonFragment = new CartoonFragment();
+        SettingFragment settingFragment = new SettingFragment();
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(searchFragment);
         fragmentList.add(sortFragment);
@@ -273,6 +289,10 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         fragmentList.add(vipFragment);
         fragmentList.add(movieFragment);
         fragmentList.add(tvFragment);
+        boolean isVisitor = getIntent().getBooleanExtra("isVisitor", true);
+        if (!isVisitor) {
+            fragmentList.add(settingFragment);
+        }
 //        fragmentList.add(cartoonFragment);
     }
 

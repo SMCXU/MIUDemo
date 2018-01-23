@@ -36,17 +36,17 @@ public class TextViewWithTTF extends TextView {
         array.recycle();
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        final boolean uniqueDown = event.getAction() == KeyEvent.ACTION_DOWN;
-        int keyCode = event.getKeyCode();
-        //点击tabHost的上建，跳转到设置界面
-        if (uniqueDown&&keyCode==KeyEvent.KEYCODE_DPAD_UP){
-            getContext().startActivity(new Intent(getContext(), SettingsActivity.class));
-        }
-
-        return super.dispatchKeyEvent(event);
-    }
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        final boolean uniqueDown = event.getAction() == KeyEvent.ACTION_DOWN;
+//        int keyCode = event.getKeyCode();
+//        //点击tabHost的上建，跳转到设置界面
+//        if (uniqueDown&&keyCode==KeyEvent.KEYCODE_DPAD_UP){
+//            getContext().startActivity(new Intent(getContext(), SettingsActivity.class));
+//        }
+//
+//        return super.dispatchKeyEvent(event);
+//    }
 
     public TextViewWithTTF(Context context, String aTTFName)
     {

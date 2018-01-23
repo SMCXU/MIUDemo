@@ -119,6 +119,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
     // Extends
     // ----------
     private ArrayList<View> mShowOnceArray = new ArrayList<View>();
+    private int lastRepeatCount = 0;
 
     public CustomMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -554,51 +555,43 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
                 hide();
             }
             return true;
-        }
-        else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_UP) {
-//            //左键
-//            if (event.getRepeatCount() == 0) {
-//                if (mPlayer.getCurrentPosition() - 8000 > 0) {
-//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
+        } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && event.getAction() == KeyEvent.ACTION_UP) {
+            //左键
+//            if (event.getRepeatCount() == 0 && lastRepeatCount == 0) {
+//                if (mPlayer.getCurrentPosition() - 10000 > 0) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 10000);
+//                } else {
+//                    mPlayer.seekTo(0);
+//                }
+//            } else if (event.getRepeatCount() == 0 && lastRepeatCount != 0) {
+//                if (mPlayer.getCurrentPosition() - lastRepeatCount * 10000 > 0) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - lastRepeatCount * 10000);
 //                } else {
 //                    mPlayer.seekTo(0);
 //                }
 //            }
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_UP) {
 //            //右键
-//            if (event.getRepeatCount() == 0) {
-//                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
-//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
+//            if (event.getRepeatCount() == 0 && lastRepeatCount == 0) {
+//                if (mPlayer.getCurrentPosition() + 10000 < mPlayer.getDuration()) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 10000);
+//                } else {
+//                    mPlayer.seekTo(mPlayer.getDuration());
+//                }
+//            }else if (event.getRepeatCount() == 0 && lastRepeatCount != 0){
+//                if (mPlayer.getCurrentPosition() + lastRepeatCount*10000 < mPlayer.getDuration()) {
+//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + lastRepeatCount*10000);
 //                } else {
 //                    mPlayer.seekTo(mPlayer.getDuration());
 //                }
 //            }
         }
-
+        Log.d("Mr.U",event.getRepeatCount()+"dispatchKeyEvent: "+lastRepeatCount);
+        lastRepeatCount = event.getRepeatCount();
         show(sDefaultTimeout);
         return super.dispatchKeyEvent(event);
     }
 
-//    @Override
-//    public boolean onKeyUp(int keyCode, KeyEvent event) {
-//        Log.d("Mr.U", "onKeyUp: ----------");
-//        if (event.getRepeatCount() == 0) {
-//            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-//                if (mPlayer.getCurrentPosition() - 8000 > 0) {
-//                    mPlayer.seekTo(mPlayer.getCurrentPosition() - 8000);
-//                } else {
-//                    mPlayer.seekTo(0);
-//                }
-//            } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-//                if (mPlayer.getCurrentPosition() + 8000 < mPlayer.getDuration()) {
-//                    mPlayer.seekTo(mPlayer.getCurrentPosition() + 8000);
-//                } else {
-//                    mPlayer.seekTo(mPlayer.getDuration());
-//                }
-//            }
-//        }
-//        return super.onKeyUp(keyCode, event);
-//    }
 
     private OnClickListener mPauseListener = new OnClickListener() {
         public void onClick(View v) {
@@ -723,7 +716,7 @@ public class CustomMediaController extends FrameLayout implements IMediaControll
     private OnClickListener mRewListener = new OnClickListener() {
         public void onClick(View v) {
             int pos = mPlayer.getCurrentPosition();
-            pos -= 5000; // milliseconds
+            pos -= 10000; // milliseconds
             mPlayer.seekTo(pos);
             setProgress();
 

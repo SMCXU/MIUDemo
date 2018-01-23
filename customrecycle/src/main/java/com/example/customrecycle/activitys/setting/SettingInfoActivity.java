@@ -86,6 +86,7 @@ public class SettingInfoActivity extends BaseActivity {
                 startActivity(new Intent(SettingInfoActivity.this,AboutActivity.class));
                 break;
             case R.id.tv_net:
+                MyToast.showToast("敬请期待");
                 break;
         }
     }

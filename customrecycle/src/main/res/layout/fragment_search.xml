@@ -44,11 +44,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
+                    android:layout_marginTop="25dp"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/tv_hotSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:background="@color/transparent"
                     android:focusable="false"
                     android:gravity="center"
@@ -65,7 +65,8 @@
                     android:layout_below="@id/tv_hotSearch"
                     android:layout_marginTop="@dimen/margin_ver"
                     android:background="@mipmap/mainview_cloudlist"
-                    android:focusable="true">
+                    android:focusable="true"
+                    tools:ignore="OnClick">
 
                     <com.example.customrecycle.weight.appweight.MarqueeText
                         android:id="@+id/mt_1"
@@ -83,7 +84,6 @@
 
                 <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_2"
-                    android:onClick="onClicks"
                     android:layout_width="140dp"
                     android:layout_height="200dp"
                     android:layout_below="@id/tv_hotSearch"
@@ -109,7 +109,6 @@
 
                 <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_3"
-                    android:onClick="onClicks"
                     android:layout_width="140dp"
                     android:layout_height="200dp"
                     android:layout_below="@id/tv_hotSearch"
@@ -135,7 +134,6 @@
 
                 <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_4"
-                    android:onClick="onClicks"
                     android:layout_width="140dp"
                     android:layout_height="200dp"
                     android:layout_below="@id/tv_hotSearch"
@@ -161,7 +159,6 @@
 
                 <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_5"
-                    android:onClick="onClicks"
                     android:layout_width="140dp"
                     android:layout_height="200dp"
                     android:layout_below="@id/tv_hotSearch"
@@ -187,7 +184,6 @@
 
                 <com.example.customrecycle.weight.appweight.RoundedFrameLayout
                     android:id="@+id/rf_6"
-                    android:onClick="onClicks"
                     android:layout_width="140dp"
                     android:layout_height="200dp"
                     android:layout_below="@id/tv_hotSearch"
@@ -217,7 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rf_1"
-                    android:layout_marginTop="@dimen/x200"
+                    android:layout_marginTop="130dp"
                     android:background="@color/transparent"
                     android:focusable="false"
                     android:gravity="center"

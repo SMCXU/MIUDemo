@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="false"
+    android:gravity="center"
+    tools:context="com.example.customrecycle.fragment.SettingFragment">
+    <TextView
+        android:visibility="gone"
+        android:nextFocusUp="@+id/title_bar7"
+        android:id="@+id/tv_time"
+        android:layout_width="450dp"
+        android:layout_height="100dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:text="10:30"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tv_storage"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_time"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_holo_blue_bright"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="移动存储"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:nextFocusUp="@+id/title_bar7"/>
+
+    <TextView
+        android:id="@+id/tv_settings"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_time"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/tv_storage"
+        android:background="@drawable/bg_holo_blue_bright"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="设置"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:nextFocusUp="@+id/title_bar7"/>
+
+    <!--<com.example.customrecycle.view.MainUpView-->
+        <!--android:id="@+id/mainUpView1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:upImageRes="@drawable/test_rectangle" />-->
+
+</RelativeLayout>

@@ -186,11 +186,12 @@
                 android:background="@drawable/selector_movie_play"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="试播"
+                android:text="预告片"
                 android:textColor="@color/white"
                 android:textSize="@dimen/x50" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_fee"
                 android:layout_width="@dimen/x200"
                 android:layout_height="@dimen/x200"
