@@ -100,13 +100,14 @@ public class AboutActivity extends BaseActivity {
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
-        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())){
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
             dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
                 @Override
                 public void onDialogOk(Dialog dlg) {
                     startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
                     dialog.dismiss();
                 }
+
                 @Override
                 public void onDialogCancel(Dialog dlg) {
 

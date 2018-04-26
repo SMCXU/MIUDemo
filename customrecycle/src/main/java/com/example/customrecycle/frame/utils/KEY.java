@@ -22,6 +22,11 @@ public class KEY {
     //是否是游客模式
     public static final String FLAG_ISVISITOR = "isVisitor";
 
+    //计时开始
+    public static final String FLAG_TIMING_START = "TIMINGSTART";
+    //计时结束
+    public static final String FLAG_TIMING_END = "TIMINGEND";
+
 
 
 }

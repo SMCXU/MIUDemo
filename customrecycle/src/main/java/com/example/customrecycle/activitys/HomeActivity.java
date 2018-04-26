@@ -45,7 +45,6 @@ import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -54,14 +53,13 @@ import com.example.customrecycle.view.OpenTabHost;
 import com.example.customrecycle.view.TextViewWithTTF;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,6 +78,8 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     public static List<VideoEntity> videoList;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private List<Fragment> fragmentList;//
     ViewPager viewpager;
     OpenTabHost mOpenTabHost;
@@ -90,10 +90,11 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     View mNewFocus;
     View mOldView;
     long loginTime = 0;//登陆计时
-    long remainTime = 60;//倒计时时长
+    long remainTime = 180;//倒计时时长
     long startTime = 10;//开始计时时长
     private ZBXAlertDialog dialog;
-
+    private EventCustom eventCustom;
+    public static final int HOMEACTIVITY_REQUEST = 10000;
     //在主线程里面处理消息并更新UI界面
     private Handler mHandler = new Handler() {
         @Override
@@ -105,16 +106,26 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                     CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
                     tvTime.setText(sysTimeStr); //更新时间
                     loginTime++;
-                    //设置10s之后提示
-                    if (loginTime >= startTime && loginTime <60+startTime) {
-                        remainTime--;
-                        CharSequence remainTimes = DateFormat.format("mm:ss", remainTime * 1000);
-                        Log.d("Mr.U", "handleMessage: " + remainTimes);
-                        if (remainTime == 0) {
-                            Log.d("Mr.U", "handleMessage111: 需要关闭了");
-                        }
-                    }
-                    break;
+//                    //设置10s之后提示
+//                    if (loginTime >= startTime && loginTime < 180 + startTime) {
+//                        if (tvRemain.getVisibility() == View.GONE) {
+//                            tvRemain.setVisibility(View.VISIBLE);
+//                        }
+//                        remainTime--;
+//                        CharSequence remainTimes = DateFormat.format("mm:ss", remainTime * 1000);
+//                        eventCustom.setTag(KEY.FLAG_TIMING_START);
+//                        eventCustom.setObj(remainTimes);
+//                        EventBus.getDefault().post(eventCustom);
+//                        tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ remainTimes);
+//                        if (remainTime == 0) {
+//                            tvRemain.setVisibility(View.GONE);
+//                            eventCustom.setTag(KEY.FLAG_TIMING_END);
+//                            EventBus.getDefault().post(eventCustom);
+//                            startActivityForResult(new Intent(HomeActivity.this, LockedActivity.class),HOMEACTIVITY_REQUEST );
+//                            Log.d("Mr.U", "handleMessage111: 需要关闭了");
+//                        }
+//                    }
+//                    break;
                 default:
                     break;
 
@@ -132,8 +143,8 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     }
 
     private void initView() {
-
-        // 初始化标题栏.
+        eventCustom = new EventCustom();
+        // 初始化标题栏
         initAllTitleBar();
         videoList = new ArrayList<VideoEntity>();
         //从usb获取数据

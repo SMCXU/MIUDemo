@@ -19,8 +19,6 @@ import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.MyToast;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ImageDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -28,8 +26,6 @@ import com.example.customrecycle.view.MainUpView;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,9 +61,11 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
     MainUpView mainUpView1;
     @BindView(R.id.rl_container)
     RelativeLayout rlContainer;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
-    private Intent intent,intent1;
+    private Intent intent, intent1;
     private ZBXAlertDialog dialog;
 
     @Override
@@ -90,7 +88,7 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
         tvDec.setOnClickListener(this);
         int index = getIntent().getIntExtra("index", 0);
         int type = getIntent().getIntExtra("type", 0);
-        if (index<=HomeActivity.videoList.size()){
+        if (index <= HomeActivity.videoList.size()) {
             tvName.setText(HomeActivity.videoList.get(index).getName());
         }
         intent1.putExtra("index", index);
@@ -161,6 +159,15 @@ public class MovieDetailActivity extends BaseActivity implements View.OnClickLis
             if (ActivityUtils.isForeground(MovieDetailActivity.this, "com.example.customrecycle.activitys.movie.MovieDetailActivity")) {
                 dialog.show();
             }
+        }else if (KEY.FLAG_TIMING_START.equals(eventCustom.getTag())) {
+            //计费倒计时开始
+            if (tvRemain.getVisibility()==View.GONE){
+                tvRemain.setVisibility(View.VISIBLE);
+            }
+            tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ (CharSequence)eventCustom.getObj());
+        } else if (KEY.FLAG_TIMING_END.equals(eventCustom.getTag())) {
+            //计费倒计时结束
+            tvRemain.setVisibility(View.GONE);
         }
     }
 }

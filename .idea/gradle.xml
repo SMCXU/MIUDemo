@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/customrecycle" />
             <option value="$PROJECT_DIR$/ijkplayer-exo" />
             <option value="$PROJECT_DIR$/ijkplayer-java" />
+            <option value="$PROJECT_DIR$/testtelecontroller" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

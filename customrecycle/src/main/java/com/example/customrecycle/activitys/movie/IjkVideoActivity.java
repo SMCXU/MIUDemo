@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
@@ -17,7 +19,6 @@ import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
-import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
@@ -33,11 +34,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IjkVideoActivity extends BaseActivity {
 
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private IjkVideoView mVideoView;
 
     private CustomMediaController mController;
@@ -56,13 +61,14 @@ public class IjkVideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ijk_video_demo);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initVideo() {
-        if (type == 0 && mList != null&&mList.size()>0) {
+        if (type == 0 && mList != null && mList.size() > 0) {
             uri = mList.get(index).getUri();
-            Log.d("Mr.U", "播放的视频: "+uri);
+            Log.d("Mr.U", "播放的视频: " + uri);
         } else {
             MyToast.showToast("请检查是否插入移动存储设备");
         }
@@ -77,8 +83,7 @@ public class IjkVideoActivity extends BaseActivity {
         mVideoView.setMediaController(mController);
         mVideoView.setVideoURI(Uri.parse(uri));
 
-
-        //跳转至上次播放的进度,如果未播放,进度默认为0
+//        //跳转至上次播放的进度,如果未播放,进度默认为0
         currentPosition = PreferencesUtils.getInt(getApplicationContext(), uri);
         mVideoView.seekTo(currentPosition);
         mVideoView.start();
@@ -95,9 +100,13 @@ public class IjkVideoActivity extends BaseActivity {
                 SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simple.format(calendar.getTime());
                 PreferencesUtils.putInt(getApplicationContext(), uri, 0);
+                Log.d("Mr.U", uri + "-----" + time);
+                Log.d("Mr.U", "--------" + (++sum) + "------------");
+                Log.d("Mr.U", "-------分分分-------");
                 initVideo();
             }
         });
+
     }
 
     private void initView() {
@@ -161,26 +170,39 @@ public class IjkVideoActivity extends BaseActivity {
             }
         }
     }
+
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
-        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())){
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
+            //USB插拔
             dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
                 @Override
                 public void onDialogOk(Dialog dlg) {
                     startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
                     dialog.dismiss();
                 }
+
                 @Override
                 public void onDialogCancel(Dialog dlg) {
 
                     dialog.dismiss();
                 }
             }, "提示", "外部存储设备已连接");
-            Log.d("Mr.U", "HomeActivity_______onEventThread: "+ ActivityUtils.isForeground(IjkVideoActivity.this, ActivityUtils.getCurrentActivityName(IjkVideoActivity.this))+ActivityUtils.getCurrentActivityName(this));
+            Log.d("Mr.U", "HomeActivity_______onEventThread: " + ActivityUtils.isForeground(IjkVideoActivity.this, ActivityUtils.getCurrentActivityName(IjkVideoActivity.this)) + ActivityUtils.getCurrentActivityName(this));
             if (ActivityUtils.isForeground(IjkVideoActivity.this, "com.example.customrecycle.activitys.movie.IjkVideoActivity")) {
                 dialog.show();
             }
 
+        } else if (KEY.FLAG_TIMING_START.equals(eventCustom.getTag())) {
+            //计费倒计时开始
+            if (tvRemain.getVisibility()==View.GONE){
+                tvRemain.setVisibility(View.VISIBLE);
+            }
+            tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ (CharSequence)eventCustom.getObj());
+        } else if (KEY.FLAG_TIMING_END.equals(eventCustom.getTag())) {
+            mVideoView.pause();
+            //计费倒计时结束
+            tvRemain.setVisibility(View.GONE);
         }
     }
 }

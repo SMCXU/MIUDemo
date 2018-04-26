@@ -65,6 +65,8 @@ public class VideoGridViewActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private List<String> data;
     private MainUpView mainUpView1;
     private View mOldView;
@@ -89,7 +91,7 @@ public class VideoGridViewActivity extends BaseActivity {
         gridView = (GridViewTV) findViewById(R.id.gridView);
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
         String title = getIntent().getStringExtra("title");
-        if (title != null&&!"".equals(title.trim())) {
+        if (title != null && !"".equals(title.trim())) {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
@@ -196,9 +198,18 @@ public class VideoGridViewActivity extends BaseActivity {
             if (ActivityUtils.isForeground(VideoGridViewActivity.this, "com.example.customrecycle.activitys.movie.VideoGridViewActivity")) {
                 dialog.show();
             }
-        }else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())){
+        } else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             initBridge();
             updateGridViewAdapter();
+        }else if (KEY.FLAG_TIMING_START.equals(eventCustom.getTag())) {
+            //计费倒计时开始
+            if (tvRemain.getVisibility()== View.GONE){
+                tvRemain.setVisibility(View.VISIBLE);
+            }
+            tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ (CharSequence)eventCustom.getObj());
+        } else if (KEY.FLAG_TIMING_END.equals(eventCustom.getTag())) {
+            //计费倒计时结束
+            tvRemain.setVisibility(View.GONE);
         }
     }
     ///// Adapter 类 start start //////////

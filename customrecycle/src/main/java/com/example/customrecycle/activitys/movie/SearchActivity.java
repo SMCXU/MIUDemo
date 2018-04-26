@@ -25,7 +25,6 @@ import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
@@ -62,6 +61,8 @@ public class SearchActivity extends BaseActivity {
     RelativeLayout rlLeft;
     @BindView(R.id.button_r)
     Button buttonR;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private List<VideoEntity> videoEntities;
     private LayoutInflater mInflater;
     private View mOldView;
@@ -291,6 +292,16 @@ public class SearchActivity extends BaseActivity {
             if (ActivityUtils.isForeground(SearchActivity.this, "com.example.customrecycle.activitys.movie.SearchActivity")) {
                 dialog.show();
             }
+        }else if (KEY.FLAG_TIMING_START.equals(eventCustom.getTag())) {
+            //计费倒计时开始
+            if (tvRemain.getVisibility()== View.GONE){
+                tvRemain.setVisibility(View.VISIBLE);
+            }
+            tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ (CharSequence)eventCustom.getObj());
+
+        } else if (KEY.FLAG_TIMING_END.equals(eventCustom.getTag())) {
+            //计费倒计时结束
+            tvRemain.setVisibility(View.GONE);
         }
     }
 
@@ -364,7 +375,7 @@ public class SearchActivity extends BaseActivity {
                 && mListView.getVisibility() == View.GONE) {
             mListView.setVisibility(View.VISIBLE);
             textViewHotvideoTitle.setVisibility(View.VISIBLE);
-            if(mListView.getChildAt(0)!=null){
+            if (mListView.getChildAt(0) != null) {
                 mListView.getChildAt(0).requestFocus();
                 mListView.getChildAt(0).setSelected(true);
             }

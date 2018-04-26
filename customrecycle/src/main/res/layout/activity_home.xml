@@ -52,7 +52,19 @@
         android:layout_gravity="center"
         android:visibility="visible" />
     <!-- 最顶层边框 -->
-
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_remain"
+        android:layout_below="@+id/ll_top"
+        android:text="10:30"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:layout_alignEnd="@+id/ll_top"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/ll_top" />
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"

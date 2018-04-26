@@ -51,6 +51,20 @@
         android:textColor="@color/white"
         android:textSize="40sp" />
 
+    <TextView
+        android:id="@+id/tv_remain"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/mVideoView"
+        android:layout_alignRight="@+id/mVideoView"
+        android:layout_above="@+id/tv_time"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="10:30"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:visibility="gone" />
+
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"

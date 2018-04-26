@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
  * Created by Jorstin on 2015/3/18.
  */
 public class DemoUtils {
-    public static final String TAG = "ECDemo.DemoUtils";
+    public static final String TAG = "Mr.U";
     private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
     public static boolean inNativeAllocAccessError = false;
     /**当前SDK版本号*/

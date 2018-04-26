@@ -1,9 +1,9 @@
 package com.example.customrecycle.activitys.movie;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +44,8 @@ public class MovieIntroActivity extends BaseActivity {
     LinearLayout llDetail;
     @BindView(R.id.tv_dec)
     TextView tvDec;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private ZBXAlertDialog dialog;
     private List<VideoEntity> mList;
     private int index;
@@ -65,7 +67,7 @@ public class MovieIntroActivity extends BaseActivity {
 
     private void initData(int index) {
         mList = HomeActivity.videoList;
-        if (mList.size()>=index){
+        if (mList.size() >= index) {
             tvName.setText(mList.get(index).getName());
         }
     }
@@ -89,8 +91,17 @@ public class MovieIntroActivity extends BaseActivity {
             if (ActivityUtils.isForeground(MovieIntroActivity.this, "com.example.customrecycle.activitys.movie.MovieIntroActivity")) {
                 dialog.show();
             }
-        }else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())){
+        } else if (KEY.FLAG_USB_OUT.equals(eventCustom.getTag())) {
             initData(index);
+        }else if (KEY.FLAG_TIMING_START.equals(eventCustom.getTag())) {
+            //计费倒计时开始
+            if (tvRemain.getVisibility()== View.GONE){
+                tvRemain.setVisibility(View.VISIBLE);
+            }
+            tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ (CharSequence)eventCustom.getObj());
+        } else if (KEY.FLAG_TIMING_END.equals(eventCustom.getTag())) {
+            //计费倒计时结束
+            tvRemain.setVisibility(View.GONE);
         }
     }
 }

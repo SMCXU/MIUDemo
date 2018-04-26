@@ -1,24 +1,12 @@
 package com.example.customrecycle.activitys.setting;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.RectF;
-import android.media.AudioManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,6 +43,8 @@ public class SettingInfoActivity extends BaseActivity {
     MainUpView mainUpView1;
     @BindView(R.id.rl_contioner)
     RelativeLayout rlContioner;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
     private boolean isClose;
@@ -75,15 +65,14 @@ public class SettingInfoActivity extends BaseActivity {
     }
 
 
-
     @OnClick({R.id.tv_sound, R.id.tv_about, R.id.tv_net})
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sound:
-                startActivity(new Intent(SettingInfoActivity.this,SoundActivity.class));
+                startActivity(new Intent(SettingInfoActivity.this, SoundActivity.class));
                 break;
             case R.id.tv_about:
-                startActivity(new Intent(SettingInfoActivity.this,AboutActivity.class));
+                startActivity(new Intent(SettingInfoActivity.this, AboutActivity.class));
                 break;
             case R.id.tv_net:
                 MyToast.showToast("敬请期待");
@@ -133,13 +122,14 @@ public class SettingInfoActivity extends BaseActivity {
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
-        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())){
+        if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
             dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
                 @Override
                 public void onDialogOk(Dialog dlg) {
                     startActivity(new Intent(BaseApp.getContext(), VideoGridViewActivity.class));
                     dialog.dismiss();
                 }
+
                 @Override
                 public void onDialogCancel(Dialog dlg) {
 

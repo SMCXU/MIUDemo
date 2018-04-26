@@ -32,7 +32,20 @@
         android:numColumns="auto_fit"
         android:scrollbars="none"
         android:verticalSpacing="20dp" />
-
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/tv_remain"
+        android:layout_below="@+id/ll_top"
+        android:text="10:30"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:layout_alignEnd="@+id/gridView"
+        android:layout_alignRight="@+id/gridView"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"

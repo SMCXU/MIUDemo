@@ -30,7 +30,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.tv_storage)
     TextView tvStorage;
@@ -54,9 +54,11 @@ public class SettingFragment extends BaseFragment {
         }else {
             tvStorage.setVisibility(View.INVISIBLE);
         }
+        tvSettings.setOnClickListener(this);
+        tvStorage.setOnClickListener(this);
     }
-    @OnClick({R.id.tv_storage, R.id.tv_settings})
-    protected void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             //移动硬盘
             case R.id.tv_storage:

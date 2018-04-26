@@ -65,7 +65,20 @@
         android:text="网络信息"
         android:textColor="@color/white"
         android:textSize="40sp" />
-
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_remain"
+        android:layout_above="@+id/ll_top"
+        android:text="10:30"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:layout_alignEnd="@+id/tv_time"
+        android:layout_alignRight="@+id/tv_time"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <com.example.customrecycle.view.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"

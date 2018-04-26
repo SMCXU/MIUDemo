@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:id="@+id/mTvll"
         android:focusable="false">
 
         <TextView
@@ -126,4 +127,20 @@
             android:textColor="@color/white"
             android:textSize="@dimen/x40" />
     </com.example.customrecycle.weight.appweight.TvZorderLinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_remain"
+        android:layout_below="@+id/ll_top"
+        android:text="10:30"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:layout_alignEnd="@+id/mTvll"
+        android:layout_alignRight="@+id/mTvll"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 </RelativeLayout>

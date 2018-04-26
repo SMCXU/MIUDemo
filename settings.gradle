@@ -1,1 +1,1 @@
-include ':app', ':customrecycle', ':ijkplayer-exo', ':ijkplayer-java'
+include ':app', ':customrecycle', ':ijkplayer-exo', ':ijkplayer-java', ':testtelecontroller'

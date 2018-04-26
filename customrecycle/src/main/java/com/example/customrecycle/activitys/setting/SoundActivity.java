@@ -1,7 +1,6 @@
 package com.example.customrecycle.activitys.setting;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
@@ -28,7 +26,6 @@ import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.StringUtils;
-import com.example.customrecycle.frame.weightt.MyProgressDialog;
 import com.example.customrecycle.frame.weightt.SelectAlertListener;
 import com.example.customrecycle.frame.weightt.SelectDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
@@ -56,6 +53,8 @@ public class SoundActivity extends BaseActivity {
     MainUpView mainUpView1;
     @BindView(R.id.rl_container)
     TvZorderRelativeLayout rlContainer;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
     private SelectDialog mKeyDialog;
@@ -87,7 +86,7 @@ public class SoundActivity extends BaseActivity {
         sounds.add("Raw data");
 
         String keyState = PreferencesUtils.getString(this, KEY.FLAG_Sound);
-        if (!StringUtils.isEmpty(keyState)){
+        if (!StringUtils.isEmpty(keyState)) {
             tvKey.setText(keyState);
         }
         tvKey.setOnClickListener(new View.OnClickListener() {
@@ -221,9 +220,7 @@ public class SoundActivity extends BaseActivity {
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {
-        Log.d("Mr.U", "onEventThread: soundddddddd1");
         if (KEY.FLAG_USB_IN.equals(eventCustom.getTag())) {
-            Log.d("Mr.U", "onEventThread: soundddddddd2");
             dialog = new ZBXAlertDialog(this, new ZBXAlertListener() {
                 @Override
                 public void onDialogOk(Dialog dlg) {

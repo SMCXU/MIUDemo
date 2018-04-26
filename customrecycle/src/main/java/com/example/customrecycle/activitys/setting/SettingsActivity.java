@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
-import com.example.customrecycle.activitys.setting.SettingInfoActivity;
 import com.example.customrecycle.base.BaseActivity;
 import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
@@ -45,6 +44,8 @@ public class SettingsActivity extends BaseActivity {
     MainUpView mainUpView1;
     @BindView(R.id.rl_contioner)
     RelativeLayout rlContioner;
+    @BindView(R.id.tv_remain)
+    TextView tvRemain;
     private EffectNoDrawBridge mEffectNoDrawBridge;
     private View mOldFocus;
     private ZBXAlertDialog dialog;
@@ -78,9 +79,9 @@ public class SettingsActivity extends BaseActivity {
 
     private void initView() {
         setTime();
-        if (HomeActivity.videoList.size()>0){
+        if (HomeActivity.videoList.size() > 0) {
             tvStorage.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             tvStorage.setVisibility(View.INVISIBLE);
         }
     }
@@ -98,6 +99,7 @@ public class SettingsActivity extends BaseActivity {
                 break;
         }
     }
+
     //移动边框
     private void initMoveBridge() {
         float density = getResources().getDisplayMetrics().density;
@@ -162,11 +164,13 @@ public class SettingsActivity extends BaseActivity {
             tvStorage.setVisibility(View.INVISIBLE);
         }
     }
+
     private void setTime() {
         long sysTime = System.currentTimeMillis();//获取系统时间
         CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
         tvTime.setText(sysTimeStr); //更新时间
     }
+
     //时间线程
     class TimeThread extends Thread {
         @Override

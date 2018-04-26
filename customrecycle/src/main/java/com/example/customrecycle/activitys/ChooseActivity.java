@@ -3,6 +3,7 @@ package com.example.customrecycle.activitys;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -11,14 +12,21 @@ import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
+import com.example.customrecycle.frame.utils.SocketUtils.ChatServer;
+import com.example.customrecycle.frame.utils.VirturlKeyPadCtr;
 import com.example.customrecycle.view.MainUpView;
-
+import org.greenrobot.eventbus.Subscribe;
+import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 public class ChooseActivity extends BaseActivity {
 
@@ -32,6 +40,7 @@ public class ChooseActivity extends BaseActivity {
     RelativeLayout rlContioner;
     private View mOldFocus;
     private Intent intent;
+    private String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,17 @@ public class ChooseActivity extends BaseActivity {
     private void initView() {
         intent = new Intent(this, HomeActivity.class);
         initMoveBridge();
+        Log.d("Mr.U", "IP地址是:" + DeviceUtils.getInstance(this).getIPAddress());
+        initSocket();
 
+    }
+
+    private void initSocket() {
+        try {
+            new ChatServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.tv_visitor, R.id.tv_settings})
@@ -56,11 +75,12 @@ public class ChooseActivity extends BaseActivity {
             case R.id.tv_settings:
                 skipTo(false);
                 break;
+
         }
     }
 
     private void skipTo(boolean isVisitor) {
-        PreferencesUtils.putBoolean(this,KEY.FLAG_ISVISITOR,isVisitor);
+        PreferencesUtils.putBoolean(this, KEY.FLAG_ISVISITOR, isVisitor);
         intent.putExtra("isVisitor", isVisitor);
         startActivity(intent);
         finish();
@@ -104,4 +124,9 @@ public class ChooseActivity extends BaseActivity {
     private float getDimension(int id) {
         return getResources().getDimension(id);
     }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
+    }
+
 }
