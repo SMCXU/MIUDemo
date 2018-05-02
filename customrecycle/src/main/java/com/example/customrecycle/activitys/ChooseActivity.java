@@ -74,6 +74,7 @@ public class ChooseActivity extends BaseActivity {
                 break;
             case R.id.tv_settings:
                 skipTo(false);
+
                 break;
 
         }

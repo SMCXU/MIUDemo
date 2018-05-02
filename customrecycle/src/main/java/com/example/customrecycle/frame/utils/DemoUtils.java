@@ -219,7 +219,6 @@ public class DemoUtils {
         if (str.startsWith("+86")) {
             str = str.substring(3, str.length());
         }
-
         // 只允数字
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);

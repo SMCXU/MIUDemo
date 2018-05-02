@@ -25,9 +25,6 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
