@@ -7,22 +7,24 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
-import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
 import com.example.customrecycle.frame.utils.SocketUtils.ChatServer;
-import com.example.customrecycle.frame.utils.VirturlKeyPadCtr;
 import com.example.customrecycle.view.MainUpView;
+
 import org.greenrobot.eventbus.Subscribe;
+
 import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,6 +40,10 @@ public class ChooseActivity extends BaseActivity {
     MainUpView mainUpView1;
     @BindView(R.id.rl_container)
     RelativeLayout rlContioner;
+    @BindView(R.id.iv_qrcode)
+    ImageView ivQrcode;
+    @BindView(R.id.tv_ip)
+    TextView tvIp;
     private View mOldFocus;
     private Intent intent;
     private String value;
@@ -54,6 +60,7 @@ public class ChooseActivity extends BaseActivity {
         intent = new Intent(this, HomeActivity.class);
         initMoveBridge();
         Log.d("Mr.U", "IP地址是:" + DeviceUtils.getInstance(this).getIPAddress());
+        tvIp.setText("微信二维码并输入本机IP:"+DeviceUtils.getInstance(this).getIPAddress());
         initSocket();
 
     }
@@ -74,7 +81,6 @@ public class ChooseActivity extends BaseActivity {
                 break;
             case R.id.tv_settings:
                 skipTo(false);
-
                 break;
 
         }
@@ -113,7 +119,7 @@ public class ChooseActivity extends BaseActivity {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-//						v.performClick();
+						v.performClick();
                         v.requestFocus();
                     }
                     return false;

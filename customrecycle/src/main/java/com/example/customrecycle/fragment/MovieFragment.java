@@ -3,7 +3,6 @@ package com.example.customrecycle.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.customrecycle.activitys.HomeActivity;
-import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.movie.MovieDetailActivity;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
@@ -20,7 +18,7 @@ import com.example.customrecycle.base.BaseFragment;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.view.SmoothHorizontalScrollView;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
@@ -28,7 +26,6 @@ import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;

@@ -2,6 +2,7 @@ package com.example.customrecycle.activitys;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.customrecycle.R;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.retrofit.HttpCallBack;
 import com.example.customrecycle.frame.retrofit.HttpRequest;
 import com.example.customrecycle.frame.retrofit.ResultData;
 import com.example.customrecycle.frame.retrofit.UserEntity;
 import com.example.customrecycle.frame.utils.ApkTool;
 import com.example.customrecycle.frame.utils.MyToast;
-import com.example.customrecycle.frame.utils.entity.MyAppInfo;
+import com.example.customrecycle.entity.MyAppInfo;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,12 +116,12 @@ public class RetrofitTestActivity extends BaseActivity {
                 mViewHolder = (ViewHolder) convertView.getTag();
             }
             mViewHolder.iv_app_icon.setImageDrawable(myAppInfo.getImage());
-            mViewHolder.tx_app_name.setText(myAppInfo.getAppName());
+            mViewHolder.tx_app_name.setText(myAppInfo.getLabelName());
+            Log.d("Mr.U", "应用的名字是:"+myAppInfo.getLabelName());
             return convertView;
         }
 
         class ViewHolder {
-
             ImageView iv_app_icon;
             TextView tx_app_name;
         }
@@ -143,5 +147,9 @@ public class RetrofitTestActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
     }
 }

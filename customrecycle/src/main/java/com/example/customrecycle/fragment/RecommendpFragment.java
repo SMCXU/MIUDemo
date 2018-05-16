@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.customrecycle.R;
 import com.example.customrecycle.activitys.HomeActivity;
-import com.example.customrecycle.activitys.movie.IjkVideoActivity;
 import com.example.customrecycle.activitys.movie.MovieDetailActivity;
 import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.base.BaseFragment;
@@ -25,7 +24,7 @@ import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 import com.example.customrecycle.weight.appweight.RoundedFrameLayout;
 import com.example.customrecycle.weight.appweight.TvZorderRelativeLayout;

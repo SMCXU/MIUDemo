@@ -19,7 +19,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.base.DaoTools;
 import com.example.customrecycle.bridge.EffectNoDrawBridge;
 import com.example.customrecycle.bridge.OpenEffectBridge;
-import com.example.customrecycle.fragment.CartoonFragment;
+import com.example.customrecycle.fragment.AppFragment;
 import com.example.customrecycle.fragment.MovieFragment;
 import com.example.customrecycle.fragment.RecommendpFragment;
 import com.example.customrecycle.fragment.SearchFragment;
@@ -45,7 +44,7 @@ import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.view.MainUpView;
@@ -53,7 +52,6 @@ import com.example.customrecycle.view.OpenTabHost;
 import com.example.customrecycle.view.TextViewWithTTF;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
@@ -85,7 +83,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     OpenTabHost mOpenTabHost;
     OpenTabTitleAdapter mOpenTabTitleAdapter;
     // 移动边框.
-    MainUpView mainUpView1;
+    public static  MainUpView mainUpView1;
     EffectNoDrawBridge mEffectNoDrawBridge;
     View mNewFocus;
     View mOldView;
@@ -214,13 +212,13 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         addFragmentLists();
         viewpager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
-        // 全局焦点监听. (这里只是demo，为了方便这样写，你可以不这样写)
+        // 全局焦点监听.
         viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
             @Override
             public void onGlobalFocusChanged(View oldFocus, View newFocus) {
                 if (newFocus != null)
 //                    newFocus.bringToFront(); // 防止放大的view被压在下面. (建议使用MainLayout),如果使用的话tab会错乱
-                    // 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
+                    // 判断 : 避免焦点框跑到标题栏.
                     // 你也可以让标题栏放大，有移动边框.
                     if (newFocus != null && !(newFocus instanceof TextViewWithTTF)) {
                         mEffectNoDrawBridge.setVisibleWidget(false);
@@ -291,7 +289,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         VIPFragment vipFragment = new VIPFragment();
         RecommendpFragment recomFragment = new RecommendpFragment();
         TVFragment tvFragment = new TVFragment();
-        CartoonFragment cartoonFragment = new CartoonFragment();
+        AppFragment appFragment = new AppFragment();
         SettingFragment settingFragment = new SettingFragment();
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(searchFragment);
@@ -304,7 +302,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         if (!isVisitor) {
             fragmentList.add(settingFragment);
         }
-//        fragmentList.add(cartoonFragment);
+        fragmentList.add(appFragment);
     }
 
     @Override
@@ -344,18 +342,6 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         return getResources().getDimension(id);
     }
 
-
-    // 滚动动画实例
-    private void scrollAnimation(boolean hasFocus, MarqueeText view) {
-        if (view != null) {
-            if (hasFocus) {
-                view.startScroll();
-            } else {
-                view.stopScroll();
-            }
-        }
-
-    }
 
     @Subscribe
     public void onEventThread(EventCustom eventCustom) {

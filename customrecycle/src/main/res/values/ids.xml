@@ -8,6 +8,7 @@
     <item type="id"  name="title_bar5" />
     <item type="id"  name="title_bar6" />
     <item type="id"  name="title_bar7" />
+    <item type="id"  name="title_bar8" />
 
     <!-- 菜单ID -->
     <item type="id" name="menu_1_1"></item>

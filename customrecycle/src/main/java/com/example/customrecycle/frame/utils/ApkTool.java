@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.example.customrecycle.frame.utils.entity.MyAppInfo;
+import com.example.customrecycle.entity.MyAppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +35,13 @@ public class ApkTool {
             }
                 MyAppInfo myAppInfo = new MyAppInfo();
                 myAppInfo.setAppName(packageInfo.packageName);
+                myAppInfo.setLabelName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
                 if (packageInfo.applicationInfo.loadIcon(packageManager) == null) {
                     continue;
                 }
                 myAppInfo.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                 myAppInfos.add(myAppInfo);
+                Log.d("Mr.U", "app列表详情: "+packageInfo.toString());
             }
         }catch (Exception e){
             Log.e(TAG,"===============获取应用包信息失败");

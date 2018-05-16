@@ -1,7 +1,6 @@
 package com.example.customrecycle.base;
 
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
-import com.example.customrecycle.frame.utils.entity.VideoEntityDao;
+import com.example.customrecycle.entity.VideoEntity;
 
 import java.util.List;
 

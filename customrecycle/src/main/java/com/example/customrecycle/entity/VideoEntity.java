@@ -1,4 +1,4 @@
-package com.example.customrecycle.frame.utils.entity;
+package com.example.customrecycle.entity;
 
 import com.google.gson.annotations.Expose;
 

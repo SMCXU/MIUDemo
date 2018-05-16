@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.customrecycle.R;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
 import java.util.List;

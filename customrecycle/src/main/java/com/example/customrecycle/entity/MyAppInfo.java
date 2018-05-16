@@ -1,4 +1,4 @@
-package com.example.customrecycle.frame.utils.entity;
+package com.example.customrecycle.entity;
 
 import android.graphics.drawable.Drawable;
 
@@ -14,13 +14,24 @@ import android.graphics.drawable.Drawable;
 public class MyAppInfo {
     private Drawable image;
     private String appName;
+    private  String labelName;
 
-    public MyAppInfo(Drawable image, String appName) {
+    public MyAppInfo(Drawable image, String appName, String labelName) {
         this.image = image;
         this.appName = appName;
+        this.labelName = labelName;
     }
+
     public MyAppInfo() {
 
+    }
+
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
     }
 
     public Drawable getImage() {

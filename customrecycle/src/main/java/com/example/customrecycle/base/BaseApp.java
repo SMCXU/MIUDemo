@@ -8,11 +8,12 @@ import android.os.Environment;
 import android.os.StrictMode;
 
 import com.example.customrecycle.broadcast.SdcardReceiver;
+import com.example.customrecycle.entity.DaoMaster;
+import com.example.customrecycle.entity.DaoSession;
 import com.example.customrecycle.frame.utils.ConfigUtils;
 import com.example.customrecycle.frame.utils.DeviceUtils;
 import com.example.customrecycle.frame.utils.FileAccessor;
-import com.example.customrecycle.frame.utils.entity.DaoMaster;
-import com.example.customrecycle.frame.utils.entity.DaoSession;
+
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.greenrobot.eventbus.EventBus;

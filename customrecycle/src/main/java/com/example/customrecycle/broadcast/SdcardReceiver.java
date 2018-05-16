@@ -2,7 +2,6 @@ package com.example.customrecycle.broadcast;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +10,14 @@ import android.os.storage.StorageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.customrecycle.activitys.HomeActivity;
-import com.example.customrecycle.activitys.movie.VideoListActivity;
-import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.base.DaoTools;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 
 import org.greenrobot.eventbus.EventBus;

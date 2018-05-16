@@ -22,7 +22,7 @@ import com.example.customrecycle.frame.utils.ActivityUtils;
 import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
 import com.example.customrecycle.frame.utils.PreferencesUtils;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
 import com.example.customrecycle.frame.weightt.ZBXAlertListener;
 import com.example.customrecycle.weight.CustomMediaController;

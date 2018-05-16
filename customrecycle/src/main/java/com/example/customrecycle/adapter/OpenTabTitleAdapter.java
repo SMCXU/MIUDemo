@@ -29,7 +29,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			if (!PreferencesUtils.getBoolean(BaseApp.getContext(), KEY.FLAG_ISVISITOR)){
 				titleList.add("设置");
 			}
-//			titleList.add("动漫");
+			titleList.add("应用");
 	}
 
 	@Override
@@ -55,6 +55,7 @@ public class OpenTabTitleAdapter extends BaseTabTitleAdapter {
 			if (!PreferencesUtils.getBoolean(BaseApp.getContext(),KEY.FLAG_ISVISITOR)){
                 add(R.id.title_bar7);
             }
+			add(R.id.title_bar8);
 		}
 	};
 

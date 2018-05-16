@@ -21,7 +21,7 @@ import com.example.customrecycle.bridge.RecyclerViewBridge;
 import com.example.customrecycle.frame.EventCustom;
 import com.example.customrecycle.frame.utils.FileUtils;
 import com.example.customrecycle.frame.utils.KEY;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
+import com.example.customrecycle.entity.VideoEntity;
 import com.example.customrecycle.leanback.GridLayoutManagerTV;
 import com.example.customrecycle.leanback.recycle.RecyclerViewTV;
 import com.example.customrecycle.view.MainUpView;

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         rbSearch.setOnFocusChangeListener(this);
         rbRecommend.setOnFocusChangeListener(this);
         rbApp.setOnFocusChangeListener(this);
+        Log.d("Mr.U", "initView: 123455");
     }
 
     //初始化Fragment

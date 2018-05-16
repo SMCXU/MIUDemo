@@ -1,30 +1,21 @@
 package com.example.customrecycle.frame.utils;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.storage.StorageManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 
 import com.example.customrecycle.activitys.HomeActivity;
-import com.example.customrecycle.base.BaseActivity;
-import com.example.customrecycle.base.BaseApp;
 import com.example.customrecycle.base.DaoTools;
-import com.example.customrecycle.frame.EventCustom;
-import com.example.customrecycle.frame.utils.entity.VideoEntity;
-
-import org.greenrobot.eventbus.EventBus;
+import com.example.customrecycle.entity.VideoEntity;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
