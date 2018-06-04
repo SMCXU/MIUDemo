@@ -31,6 +31,7 @@ import com.example.customrecycle.leanback.GridLayoutManagerTV;
 import com.example.customrecycle.leanback.LinearLayoutManagerTV;
 import com.example.customrecycle.leanback.recycle.RecyclerViewTV;
 import com.example.customrecycle.view.MainUpView;
+import com.example.customrecycle.view.tvrecyelerview.TvRecyclerView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -62,10 +63,27 @@ public class AppFragment extends BaseFragment {
     }
 
     private void initView() {
-//        initRecyclerViewGridLayout(RecyclerView.VERTICAL);
-        initRecyclerViewLinerLayout(RecyclerViewTV.HORIZONTAL);
+        initRecyclerViewGridLayout(RecyclerView.VERTICAL);
+//        initRecyclerViewLinerLayout(RecyclerViewTV.HORIZONTAL);
+//        mRecyclerView.setSpacingWithMargins(20, 20);
+//        myAppInfos = new ArrayList<>();
+//        adapter = new AppsAdapter(myAppInfos, getContext());
+//        mRecyclerView.setAdapter(adapter);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                myAppInfos = ApkTool.scanLocalInstallAppList(BaseApp.getContext().getPackageManager());
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        adapter.setData(myAppInfos);
+//                    }
+//                });
+//
+//            }
+//        }).start();
     }
-
+//
     private void initRecyclerViewGridLayout(int orientation) {
         GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(getContext(), 4); // 解决快速长按焦点丢失问题.
         gridlayoutManager.setOrientation(orientation);

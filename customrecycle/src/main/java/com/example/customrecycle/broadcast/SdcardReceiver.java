@@ -61,7 +61,10 @@ public class SdcardReceiver extends BroadcastReceiver {
         } else if (action.equals(Intent.ACTION_MEDIA_UNMOUNTED)) {
             eventCustom.setTag(KEY.FLAG_USB_OUT);
             DaoTools.deleteAll();
-            HomeActivity.videoList.clear();
+            if (HomeActivity.videoList!=null){
+                HomeActivity.videoList.clear();
+            }
+
             MyToast.showToast("外部存储设备已经拔出！");
         }
         EventBus.getDefault().post(eventCustom);
@@ -79,7 +82,9 @@ public class SdcardReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             }
             DaoTools.deleteAll();
-            HomeActivity.videoList.clear();
+            if (HomeActivity.videoList!=null){
+                HomeActivity.videoList.clear();
+            }
             for (int i = 0; i < result.length; i++) {
                 FileUtils.getAllFiles(new File(result[i]));
             }

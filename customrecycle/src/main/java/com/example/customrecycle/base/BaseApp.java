@@ -22,7 +22,6 @@ import org.greenrobot.eventbus.EventBus;
 public class BaseApp extends Application {
     public static Context CONTEXT = null;
 
-
     public static boolean DEBUG = false;
     //数据库
     public static DaoSession daoSession;

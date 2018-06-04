@@ -3,11 +3,15 @@ package com.example.customrecycle.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.customrecycle.frame.retrofit.HttpCallBack;
+import com.example.customrecycle.view.tvrecyelerview.DisplayAdaptive;
+import com.example.customrecycle.view.tvrecyelerview.SimpleOnItemListener;
+import com.example.customrecycle.view.tvrecyelerview.TvRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,8 +20,12 @@ import java.util.List;
 
 import retrofit2.Call;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
+
 /**
- *使用借鉴:http://www.jianshu.com/p/104be7cd72b6
+ * 使用借鉴:http://www.jianshu.com/p/104be7cd72b6
  */
 public abstract class BaseFragment extends Fragment {
 
@@ -30,9 +38,6 @@ public abstract class BaseFragment extends Fragment {
     protected boolean isVisble;
     // 标志位，标志Fragment已经初始化完成。
     public boolean isPrepared = false;
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +107,7 @@ public abstract class BaseFragment extends Fragment {
         mRootView = null;
     }
 
+
     /**
      * 为该Fragment绑定View<br>
      * 该方法会在{@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}中执行<br>
@@ -140,10 +146,14 @@ public abstract class BaseFragment extends Fragment {
 
     protected void onInVisible() {
     }
+
     protected void onVisible() {
         //加载数据
         loadData();
     }
+
     protected abstract void loadData();
     //懒加载结束
+
+
 }

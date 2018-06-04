@@ -1,13 +1,26 @@
 package com.example.customrecycle.activitys;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.customrecycle.R;
+import com.example.customrecycle.activitys.movie.IjkVideoActivity;
+import com.example.customrecycle.activitys.movie.VideoGridViewActivity;
 import com.example.customrecycle.base.BaseActivity;
+import com.example.customrecycle.base.BaseApp;
+import com.example.customrecycle.frame.EventCustom;
+import com.example.customrecycle.frame.utils.ActivityUtils;
+import com.example.customrecycle.frame.utils.KEY;
 import com.example.customrecycle.frame.utils.MyToast;
+import com.example.customrecycle.frame.weightt.ZBXAlertDialog;
+import com.example.customrecycle.frame.weightt.ZBXAlertListener;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +89,9 @@ public class LockedActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
     }
+    @Subscribe
+    public void onEventThread(EventCustom eventCustom) {
 
+    }
 
 }

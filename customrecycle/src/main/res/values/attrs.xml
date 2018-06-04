@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- 顶层控件属性 -->
     <declare-styleable name="MainUpView">
         <attr name="upImageRes" format="reference" />
@@ -39,5 +39,40 @@
         <attr name="times" format="integer" />
     </declare-styleable>
 
+<!--TvRecyclerView-->
+    <declare-styleable name="TvRecyclerView">
+        <attr name="android:orientation" tools:ignore="ResourceName"/>
+        <attr name="tv_layoutManager" format="string"/>
+        <attr name="tv_numColumns" format="integer"/>
+        <attr name="tv_numRows" format="integer"/>
+        <attr name="tv_laneCountsStr" format="string"/>
+        <attr name="tv_isIntelligentScroll" format="boolean"/>
+        <attr name="tv_selectedItemOffsetStart" format="dimension"/>
+        <attr name="tv_selectedItemOffsetEnd" format="dimension"/>
+        <attr name="tv_selectedItemIsCentered" format="boolean"/>
+        <attr name="tv_isMenu" format="boolean"/>
+        <attr name="tv_isSelectFirstVisiblePosition" format="boolean"/>
+        <attr name="tv_loadMoreBeforehandCount" format="integer"/>
+        <attr name="tv_optimizeLayout" format="boolean"/>
+    </declare-styleable>
 
+    <declare-styleable name="TvRecyclerView_SpacingItemDecoration">
+        <attr name="android:verticalSpacing" tools:ignore="ResourceName"/>
+        <attr name="android:horizontalSpacing" tools:ignore="ResourceName"/>
+    </declare-styleable>
+
+    <declare-styleable name="TvRecyclerView_DividerItemDecoration">
+        <attr name="android:divider" tools:ignore="ResourceName"/>
+        <attr name="tv_verticalDivider" format="reference"/>
+        <attr name="tv_horizontalDivider" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="TvRecyclerView_StaggeredGridViewChild">
+        <attr name="tv_span" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="TvRecyclerView_SpannableGridViewChild">
+        <attr name="tv_colSpan" format="integer"/>
+        <attr name="tv_rowSpan" format="integer"/>
+    </declare-styleable>
 </resources>

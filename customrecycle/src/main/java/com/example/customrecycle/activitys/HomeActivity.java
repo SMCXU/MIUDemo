@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ import com.example.customrecycle.view.OpenTabHost;
 import com.example.customrecycle.view.TextViewWithTTF;
 import com.example.customrecycle.weight.appweight.MarqueeText;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
@@ -83,29 +85,30 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     OpenTabHost mOpenTabHost;
     OpenTabTitleAdapter mOpenTabTitleAdapter;
     // 移动边框.
-    public static  MainUpView mainUpView1;
+    public static MainUpView mainUpView1;
     EffectNoDrawBridge mEffectNoDrawBridge;
     View mNewFocus;
     View mOldView;
     long loginTime = 0;//登陆计时
-    long remainTime = 180;//倒计时时长
-    long startTime = 10;//开始计时时长
+    long totalTime = 20;//用户实际购买时长
+    long remainTime = 10;//倒计时时长,
+    long startTime = totalTime - remainTime;//开始计时时长
     private ZBXAlertDialog dialog;
     private EventCustom eventCustom;
     public static final int HOMEACTIVITY_REQUEST = 10000;
     //在主线程里面处理消息并更新UI界面
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    long sysTime = System.currentTimeMillis();//获取系统时间
-                    CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
-                    tvTime.setText(sysTimeStr); //更新时间
-                    loginTime++;
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what) {
+//                case 1:
+//                    long sysTime = System.currentTimeMillis();//获取系统时间
+//                    CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);//时间显示格式
+//                    tvTime.setText(sysTimeStr); //更新时间
+//                    loginTime++;
 //                    //设置10s之后提示
-//                    if (loginTime >= startTime && loginTime < 180 + startTime) {
+//                    if (loginTime >= startTime && loginTime <= totalTime) {
 //                        if (tvRemain.getVisibility() == View.GONE) {
 //                            tvRemain.setVisibility(View.VISIBLE);
 //                        }
@@ -114,22 +117,28 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 //                        eventCustom.setTag(KEY.FLAG_TIMING_START);
 //                        eventCustom.setObj(remainTimes);
 //                        EventBus.getDefault().post(eventCustom);
-//                        tvRemain.setText(getResources().getString(R.string.Locked_Propt)+ remainTimes);
-//                        if (remainTime == 0) {
-//                            tvRemain.setVisibility(View.GONE);
-//                            eventCustom.setTag(KEY.FLAG_TIMING_END);
-//                            EventBus.getDefault().post(eventCustom);
-//                            startActivityForResult(new Intent(HomeActivity.this, LockedActivity.class),HOMEACTIVITY_REQUEST );
-//                            Log.d("Mr.U", "handleMessage111: 需要关闭了");
+//                        tvRemain.setText(getResources().getString(R.string.Locked_Propt) + remainTimes);
+//                        //上一次消费时间到期
+//                        if (remainTime == 0 && loginTime == totalTime) {
+//                            //到期再次请求接口获取时间
+//                            getData();
+//                            if (loginTime >= startTime && loginTime <= totalTime) {
+//                                tvRemain.setVisibility(View.GONE);
+//                            } else {
+//                                tvRemain.setVisibility(View.GONE);
+//                                eventCustom.setTag(KEY.FLAG_TIMING_END);
+//                                EventBus.getDefault().post(eventCustom);
+////                                startActivityForResult(new Intent(HomeActivity.this, LockedActivity.class), HOMEACTIVITY_REQUEST);
+//                            }
 //                        }
 //                    }
 //                    break;
-                default:
-                    break;
-
-            }
-        }
-    };
+//                default:
+//                    break;
+//
+//            }
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -366,6 +375,12 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         }
     }
 
+    //续费时长查询接口
+    public void getData() {
+//       totalTime=totalTime+新获取时间//
+
+    }
+
     //时间线程
     class TimeThread extends Thread {
         @Override
@@ -375,7 +390,7 @@ public class HomeActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                     Thread.sleep(1000);
                     Message msg = new Message();
                     msg.what = 1;  //消息(一个整型值)
-                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+//                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
